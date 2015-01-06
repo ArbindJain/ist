@@ -60,8 +60,10 @@ Route::filter('standardUser', function()
 {
 	$user = Sentry::getUser();
     $users = Sentry::findGroupByName('Users');
+    $stars = Sentry::findGroupByName('Stars');
+    $audiences = Sentry::findGroupByName('Audiences');
 
-    if (!$user->inGroup($users))
+    if (!$user->inGroup($users) && !$user->inGroup($stars) && !$user->inGroup($audiences))
     {
     	return Redirect::to('login');
     }
@@ -92,9 +94,13 @@ Route::filter('guest', function()
 		$user = Sentry::getUser();
 	    $admin = Sentry::findGroupByName('Admins');
 	    $users = Sentry::findGroupByName('Users');
+	    $stars = Sentry::findGroupByName('Stars');
+	    $audiences = Sentry::findGroupByName('Audiences');
 
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	    elseif ($user->inGroup($users)) return Redirect::intended('/');
+	    elseif ($user->inGroup($stars)) return Redirect::intended('/');
+	    elseif ($user->inGroup($audiences)) return Redirect::intended('/');
 	}
 });
 
