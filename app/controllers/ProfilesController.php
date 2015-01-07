@@ -9,8 +9,12 @@ class ProfilesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
-		return View::make('about.index');
+		// get all the users
+        $abouts = Profile::all();
+
+        // load the view and pass the users
+        return View::make('about.index')
+            ->with('abouts', $abouts);
 	}
 
 
@@ -57,7 +61,14 @@ class ProfilesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$propeep = Profile::where('user_id', '=', $id)->first();
+
+   	
+			$prouser = $propeep->id ;
+		 $about = Profile::find($prouser);
+        // show the edit form and pass the nerd
+        return View::make('about.edit')
+            ->with('about', $about);
 	}
 
 
@@ -69,9 +80,20 @@ class ProfilesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		
-	}
+		 	$propeep = Profile::where('user_id', '=', $id)->first();
 
+   	
+			$prouser = $propeep->id ;
+
+			$nerd = Profile::find($prouser);
+            $nerd->about_us       = Input::get('about_us');
+            $nerd->save();
+
+            return Redirect::route('about.edit', $id)->withFlashMessage('About updated successfully!');
+		
+			//$nerd = Profile::find(1);    
+			//var_dump($nerd->user_id);
+}
 
 	/**
 	 * Remove the specified resource from storage.

@@ -41,6 +41,8 @@
 		      <ul class="nav navbar-nav">
 		        <li class="{{ set_active('/') }}"><a href="/">Home</a></li>
 		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">Registered Users Only</a></li>
+		       <li class="{{ set_active('about') }}"><a href="/about">about</a></li>
+					
 		      </ul>
 
 		      <ul class="nav navbar-nav navbar-right">
