@@ -55,6 +55,9 @@ class RegistrationController extends \BaseController {
 
     	// Assign the group to the user
     	$user->addGroup($usersGroup);
+    	$about = new Profile();
+    	$about->user_id = $user->id ;
+    	$about->save();
 
 		return Redirect::to('login')->withFlashMessage('User Successfully Created!');
 	}

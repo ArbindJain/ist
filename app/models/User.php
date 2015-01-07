@@ -92,6 +92,10 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
         return Sentry::getUser()->id == $this->id;
     }
 
+    public function profile()
+    {
+    	return $this->hasOne('Profile');
+    }
 
 
 }

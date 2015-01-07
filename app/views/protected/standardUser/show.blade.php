@@ -7,8 +7,7 @@
 	<h1>{{ $user->first_name }}'s Profile</h1>
 	<ul>
 		<li>Email Address: {{ $user->email }}</li>
-		<li>First Name: {{ $user->first_name }}</li>
-		<li>Last Name: {{ $user->last_name }}</li>
+		<li>First Name: {{ $user->name }}</li>
 	</ul>
 
 	@if(Sentry::check())
