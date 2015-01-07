@@ -40,8 +40,10 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li class="{{ set_active('/') }}"><a href="/">Home</a></li>
-		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">Registered Users Only</a></li>
-		       <li class="{{ set_active('about') }}"><a href="/about">about</a></li>
+		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">User Signup</a></li>
+		       <li class="{{ set_active('about') }}"><a href="/about">User About</a></li>
+		       <li class="{{ set_active('imagegallery') }}"><a href="/imagegallery">Gallery Image</a></li>
+					
 					
 		      </ul>
 

@@ -7,10 +7,10 @@
 
 	<div class="container">
 	@foreach($abouts as $about)
-	ID:              {{$about->id}}<br>
-	user_iD:         {{$about->user_id}}<br>
-	About:           {{$about->about_us}}
-	<li><a href="/about/{{Sentry::getUser()->id}}/edit">edit</a></li>
+	<h3>ID        </h3>   {{$about->id}} <br>
+	<h3>USER ID    </h3>   {{$about->user_id}}<br>
+	<h3>ABOUT      </h3>    {{$about->about_us}}<br><br>
+	<a href="/about/{{Sentry::getUser()->id}}/edit" class="btn btn-primary">edit Profile</a>
 	@endforeach
 
 	</div>
