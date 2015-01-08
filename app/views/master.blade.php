@@ -42,7 +42,11 @@
 		        <li class="{{ set_active('/') }}"><a href="/">Home</a></li>
 		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">User Signup</a></li>
 		       <li class="{{ set_active('about') }}"><a href="/about">User About</a></li>
-		       <li class="{{ set_active('imagegallery') }}"><a href="/imagegallery">Gallery Image</a></li>
+		       <li class="{{ set_active('imagegallery') }}"><a href="/imagegallery">Image Gallery</a></li>
+			   <li class="{{ set_active('videogallery') }}"><a href="/videogallery">Video Gallery</a></li>
+			   <li class="{{ set_active('audiogallery') }}"><a href="/audiogallery">Audio Gallery</a></li>
+			   <li class="{{ set_active('blog') }}"><a href="/blog">Blog</a></li>
+				
 					
 					
 		      </ul>

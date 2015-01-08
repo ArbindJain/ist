@@ -11,4 +11,3 @@ class PagesController extends \BaseController {
 	
 
 }
-

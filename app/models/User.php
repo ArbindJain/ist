@@ -97,5 +97,10 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
     	return $this->hasOne('Profile');
     }
 
+    public function album()
+    {
+    	return $this->hasMany('Album');
+    }
+
 
 }

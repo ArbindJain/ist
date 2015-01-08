@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration {
+class CreatePicturesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,13 @@ class CreateProfilesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('profiles', function(Blueprint $table)
+		Schema::create('pictures', function(Blueprint $table)
         {
             $table->increments('id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->string('about_us');
+            $table->string('picturename');
+            $table->integer('album_id')->unsigned();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('album_id')->references('id')->on('albums')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
 	}
 
@@ -29,8 +29,7 @@ class CreateProfilesTable extends Migration {
 	 */
 	public function down()
 	{
-		//
-		xSchema::drop('profiles');
+		Schema::drop('images');
 	}
 
 }
