@@ -12,8 +12,13 @@ class PicturesController extends \BaseController {
 		//
 		$pictures = Picture::all();
 
+		//Album Model to convert into list laravel TRICKS awesome!! loved it!!
+		$albums = ['' => ''] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+
+		// Return the values at the end.
 		return View::make('images.index')
-			->with('pictures',$pictures);
+			->with('pictures',$pictures)
+			->with('albums',$albums);
 	}
 
 
