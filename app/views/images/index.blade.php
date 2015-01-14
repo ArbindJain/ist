@@ -20,7 +20,7 @@
 				    	<h3 class="panel-title">UPLOAD IMAGE TO GALLERY</h3>
 				 	</div>
 				  	<div class="panel-body">
-				    	{{ Form::open(['route' => 'imagegallery.store']) }}
+				    	{{ Form::open(['route' => 'imagegallery.store','files' => 'true' ]) }}
 	                    <fieldset>
 
 	                    	@if (Session::has('flash_message'))
@@ -28,15 +28,22 @@
 									<p>{{ Session::get('flash_message') }}</p>
 								</div>
 							@endif
-							Select any Album
-							{{Form::select('album', $albums)}}
 							
+							
+							<!-- First name field -->
+							<div class="form-group">
+								Select any Album
+								{{Form::select('album', $albums)}}
+							</div>
+
+							<div class="form-group">
+							{{ Form::file('picturename') }}
+							</div>
 
 							<!-- Submit field -->
 							<div class="form-group">
-								{{ Form::submit('Upload Image', ['class' => 'btn btn-md btn-danger btn-block']) }}
+								{{ Form::submit('Upload Image', ['class' => 'btn btn-md btn-success btn-block']) }}
 							</div>
-
 
 
 

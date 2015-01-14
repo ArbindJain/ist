@@ -30,6 +30,8 @@ class PicturesController extends \BaseController {
 	public function create()
 	{
 		//
+
+
 	}
 
 
@@ -40,7 +42,37 @@ class PicturesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		//Rules for the validator
+		$rules = array(
+			'picturename' => 'required');
+		// Validating Implemented rules
+		$validator = Validator::make(Input::all(), $rules);
+
+		// check for Final validation
+		if ($validator->fails()) {
+            return Redirect::to('imagegallery')
+                ->withErrors($validator);
+        
+        } 
+        else 
+        {	
+
+        	$galleryimage = Input::file('picturename');
+			$filename = date('Y-m-d-H:i:s')."-".rand(1,100);
+						Image::make($galleryimage->getRealPath())
+						->resize(200,200)
+						->save('public/galleryimages/'. $filename);
+			$product = 'galleryimages/'. $filename;
+				
+            $pictures = new Picture();
+            $pictures->picturename = $product;
+            $pictures->album_id = Input::get('album');
+            $pictures->save();
+
+
+            // redirect To astral...
+            return Redirect::to('imagegallery')->withFlashMessage('image successfully uploaded!');
+        }
 	}
 
 
