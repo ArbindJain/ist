@@ -1,6 +1,6 @@
 <?php
 
-class ProfilesController extends \BaseController {
+class AlbumsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,12 +9,8 @@ class ProfilesController extends \BaseController {
 	 */
 	public function index()
 	{
-		// get all the users
-        $abouts = Profile::all();
+		//
 
-        // load the view and pass the users
-        return View::make('about.index')
-            ->with('abouts', $abouts);
 	}
 
 
@@ -26,7 +22,7 @@ class ProfilesController extends \BaseController {
 	public function create()
 	{
 		//
-
+		return View::make('albums.create');
 	}
 
 
@@ -37,7 +33,29 @@ class ProfilesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array(
+			'albumname' => 'required');
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->fails()) {
+            return Redirect::to('album/create')
+                ->withErrors($validator);
+        
+        } 
+        else 
+        {
+            $albums = new Album();
+            $albums->albumname = Input::get('albumname');
+            $albums->user_id = Sentry::getUser()->id;
+            $albums->save();
+
+
+            // redirect
+            return Redirect::to('album/create')->withFlashMessage('Album successfully created!');
+        }
+
+
 	}
 
 
@@ -61,14 +79,7 @@ class ProfilesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$propeep = Profile::where('user_id', '=', $id)->first();
-
-   	
-			$prouser = $propeep->id ;
-		 $about = Profile::find($prouser);
-        // show the edit form and pass the nerd
-        return View::make('about.edit')
-            ->with('about', $about);
+		//
 	}
 
 
@@ -80,19 +91,9 @@ class ProfilesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		 	$propeep = Profile::where('user_id', '=', $id)->first();
+		//
+	}
 
-   	
-			$prouser = $propeep->id ;
-
-			$nerd = Profile::find($prouser);
-            $nerd->about_us       = Input::get('about_us');
-            $nerd->save();
-
-            return Redirect::route('about.edit', $id)->withFlashMessage('About updated successfully!');
-		
-		
-}
 
 	/**
 	 * Remove the specified resource from storage.

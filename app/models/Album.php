@@ -3,7 +3,7 @@
 
 class Album extends Eloquent
     {
-    		protected $table = 'images';
+    		protected $table = 'albums';
 
     		// relationship between user and album
 		    public function user()

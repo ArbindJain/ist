@@ -40,6 +40,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('profiles', 'UsersController', ['only' => ['show', 'edit', 'update']]);
 	Route::resource('about', 'ProfilesController');
 	Route::resource('imagegallery', 'PicturesController');
+	Route::resource('album', 'AlbumsController');
 
 
 });
