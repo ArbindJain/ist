@@ -9,12 +9,12 @@
 	<div class="col-md-12">
 		<a href="/album/create" class="btn btn-lg btn-success pull-right">CREATE AN ALBUM</a>
 
+
 	</div>
-	
 	<div class="row">
 
 			<div class="col-md-6 col-md-offset-3">
-			<h3>Create a gallery and insert image into it.</h3>
+			<hr>
 	    		<div class="panel panel-default">
 				  	<div class="panel-heading">
 				    	<h3 class="panel-title">UPLOAD IMAGE TO GALLERY</h3>
@@ -53,6 +53,13 @@
 				</div>
 			</div>
 		</div>
+		@foreach($albumss as $album)
+
+
+	{{ link_to_route('imagegallery.show', $album->albumname, $album->id, ['class' => 'btn btn-danger']) }}
+		
+	
+@endforeach
 
 	</div>
 

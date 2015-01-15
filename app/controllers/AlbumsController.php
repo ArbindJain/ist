@@ -52,7 +52,7 @@ class AlbumsController extends \BaseController {
 
 
             // redirect
-            return Redirect::to('album/create')->withFlashMessage('Album successfully created!');
+            return Redirect::to('imagegallery')->withFlashMessage('Album successfully created!');
         }
 
 
