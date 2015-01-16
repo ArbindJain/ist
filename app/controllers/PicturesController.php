@@ -105,8 +105,8 @@ class PicturesController extends \BaseController {
 	{
 		//
 		$pictures =Picture::find($id);
-		return View::make('imagegallery.edit')
-					->with('pictures',$pictures)
+		return View::make('images.edit')
+					->with('pictures',$pictures);
 	}
 
 
@@ -119,13 +119,19 @@ class PicturesController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$picture = Picture::find($id);
+		$picture->picturetitle = Input::get('picturetitle');
+		$picture->picturedescription = Input::get('picturedescription');
+		$picture->save();
+		return Redirect::route('imagegallery.edit', $id)->withFlashMessage('updated successfully!');
+		
 	}
 
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $id It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 	 * @return Response
 	 */
 	public function destroy($id)
@@ -134,7 +140,7 @@ class PicturesController extends \BaseController {
 		$pictures = Picture::find($id);
 		$pictures->delete();
 
-		return Redirect::to('imagegallery');
+		return Redirect::to('imagegallery'.'/'.$id);
 	}
 
 
