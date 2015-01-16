@@ -68,6 +68,8 @@ class PicturesController extends \BaseController {
 				
             $pictures = new Picture();
             $pictures->picturename = $product;
+            $pictures->picturetitle = Input::get('picturetitle');
+            $pictures->picturedescription = Input::get('picturedescription');
             $pictures->album_id = Input::get('album');
             $pictures->save();
 
@@ -102,6 +104,9 @@ class PicturesController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$pictures =Picture::find($id);
+		return View::make('imagegallery.edit')
+					->with('pictures',$pictures)
 	}
 
 
@@ -126,6 +131,10 @@ class PicturesController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$pictures = Picture::find($id);
+		$pictures->delete();
+
+		return Redirect::to('imagegallery');
 	}
 
 

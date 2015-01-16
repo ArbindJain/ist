@@ -16,6 +16,8 @@ class CreatePicturesTable extends Migration {
         {
             $table->increments('id')->unsigned();
             $table->string('picturename');
+            $table->string('picturetitle');
+            $table->string('picturedescription');
             $table->integer('album_id')->unsigned();
             $table->timestamps();
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('CASCADE')->onUpdate('CASCADE');

@@ -30,7 +30,7 @@
 							@endif
 							
 							
-							<!-- First name field -->
+							<!-- Album name field -->
 							<div class="form-group">
 								Select any Album
 								{{Form::select('album', $albums)}}
@@ -39,6 +39,20 @@
 							<div class="form-group">
 							{{ Form::file('picturename') }}
 							</div>
+
+							<!-- Image title field -->
+							<div class="form-group">
+								{{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
+								{{ errors_for('picturetitle', $errors) }}
+							</div>
+
+							<!-- Image Description field -->
+							<div class="form-group">
+								{{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
+								{{ errors_for('picturedescription', $errors) }}
+							</div>
+
+
 
 							<!-- Submit field -->
 							<div class="form-group">

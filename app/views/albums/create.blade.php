@@ -23,7 +23,7 @@
 							@endif
 
 
-							<!-- First name field -->
+							<!-- Album name field -->
 							<div class="form-group">
 								{{ Form::text('albumname', null, ['placeholder' => 'Album Name', 'class' => 'form-control', 'required' => 'required'])}}
 								{{ errors_for('albumname', $errors) }}
