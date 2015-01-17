@@ -13,7 +13,7 @@
 	</div>
 	<div class="row">
 
-			<div class="col-md-6 col-md-offset-6">
+			<div class="col-md-6 col-md-offset-3">
 			<hr>
 	    		<div class="panel panel-default">
 				  	<div class="panel-heading">
@@ -69,8 +69,11 @@
 		</div>
 		@foreach($albumss as $album)
 
-
+<div class="col-md-2">
 	{{ link_to_route('imagegallery.show', $album->albumname, $album->id, ['class' => 'btn btn-danger']) }}
+	{{ Form::model($album, ['method' => 'DELETE', 'files' => true , 'route' => ['album.destroy',$album->id]]) }}
+		{{ Form::submit('Delete', array('class' => 'btn btn-primary pull-left')) }}
+		{{ Form::close() }}</div>
 		
 	
 @endforeach

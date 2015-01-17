@@ -104,6 +104,12 @@ class AlbumsController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$album = Album::find($id);
+		$album->delete();
+
+		return Redirect::to('imagegallery')->withFlashMessage('Album deleted successfully!');
+
+
 	}
 
 
