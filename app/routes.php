@@ -41,6 +41,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('about', 'ProfilesController');
 	Route::resource('imagegallery', 'PicturesController');
 	Route::resource('album', 'AlbumsController');
+	Route::resource('videogallery', 'VideosController');
 
 
 });

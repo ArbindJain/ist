@@ -75,6 +75,7 @@
 		{{ Form::submit('Delete', array('class' => 'btn btn-primary pull-left')) }}
 		{{ Form::close() }}</div>
 		
+		
 	
 @endforeach
 

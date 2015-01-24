@@ -101,6 +101,10 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
     {
     	return $this->hasMany('Album');
     }
+    public function video()
+    {
+    	return $this->hasMany('Video');
+    }
 
 
 }

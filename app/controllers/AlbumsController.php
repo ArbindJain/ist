@@ -80,6 +80,7 @@ class AlbumsController extends \BaseController {
 	public function edit($id)
 	{
 		//
+			
 	}
 
 
