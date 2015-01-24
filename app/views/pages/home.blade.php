@@ -14,6 +14,7 @@
 			<a href="/login" class="btn btn-success btn-lg" role="button">Login</a> or <a href="/register" class="btn btn-primary btn-lg" role="button">Register</a>
 		</p>
 		@endif
+		create url like github in this
 	</div>
 
 @stop

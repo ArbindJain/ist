@@ -42,6 +42,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('imagegallery', 'PicturesController');
 	Route::resource('album', 'AlbumsController');
 	Route::resource('videogallery', 'VideosController');
+	Route::resource('audiogallery', 'AudiosController');
 
 
 });
