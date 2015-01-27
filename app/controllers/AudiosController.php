@@ -35,7 +35,38 @@ class AudiosController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		//add a new audio track to you library
+		//Rules for the validator
+		$rules = array(
+			'audiosrc' => 'required');
+		// Validating Implemented rules
+		$validator = Validator::make(Input::all(), $rules);
+
+		// check for Final validation
+		if ($validator->fails()) {
+            return Redirect::to('audiogallery')
+                ->withErrors($validator);
+        
+        } 
+        else 
+        {	
+        	$audiotrack = new Audio();
+        	$audfile =  Input::file('audiosrc');
+        	$extension = $audfile->getClientOriginalExtension();
+        	// Creating SHA1 version for less possible file conflicts
+            $sha1 = sha1($audfile->getClientOriginalName());
+            $filename=date('Y-m-d-h-i-s').".".$sha1.".".$extension;
+            $audfile->move('public/galleryaudio/', $filename);
+			$audiotrack->audiosrc = 'galleryaudio/'. $filename;
+			$audiotrack->audiotitle = Input::get('audiotitle');
+			$audiotrack->audiodescription = Input::get('audiodescription');
+			$audiotrack->user_id = Sentry::getUser()->id;
+			$audiotrack->save();
+            // redirect To astral for audio...
+            return Redirect::to('audiogallery')
+            ->withFlashMessage('Audio track successfully uploaded!');
+        }
+
 	}
 
 
@@ -48,6 +79,9 @@ class AudiosController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$audtrack = Audio::find($id);
+		return View::make('audio.edit')
+					->with('audtrack',$audtrack);
 	}
 
 
@@ -72,6 +106,12 @@ class AudiosController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$audtrack = Audio::find($id);
+		$audtrack->audiotitle = Input::get('audiotitle');
+		$audtrack->audiodescription = Input::get('audiodescription');
+		$audtrack->save();
+		return Redirect::route('audiogallery.index')
+						->withFlashMessage('Updated successfully!');
 	}
 
 
@@ -84,6 +124,10 @@ class AudiosController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$audtrack = Audio::find($id);
+		$audtrack->delete();
+
+		return Redirect::to('audiogallery');
 	}
 
 
