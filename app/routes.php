@@ -54,5 +54,3 @@ Route::group(['before' => 'auth|admin'], function()
     Route::resource('admin/profiles', 'AdminUsersController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
 });
 
-
-

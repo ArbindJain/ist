@@ -12,7 +12,17 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="https://raw.githubusercontent.com/davzie/laravel-bootstrap/master/public/css/redactor.css">
+	<script src="https://raw.githubusercontent.com/davzie/laravel-bootstrap/master/public/js/redactor.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(
+		function()
+		{
+			$('#mytext').redactor();
+		}
+	);
+	</script>
+	
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -73,8 +83,11 @@
 		@yield('content')
 	</div>
 
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	
 
+	
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </body>
 </html>
