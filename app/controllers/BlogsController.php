@@ -102,7 +102,10 @@ warning: CRLF will be replaced by LF in public/pack
 	 */
 	public function destroy($id)
 	{
-		//
+		$blog = Blog::find($id);
+		$blog->delete();
+
+		return Redirect::to('blog');
 	}
 
 

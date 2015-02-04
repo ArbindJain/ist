@@ -18,8 +18,10 @@
             		<span>
             		{{ link_to_route('blog.show', 'show', $blog->id, ['class' => 'btn btn-default']) }}
 					{{ link_to_route('blog.edit', 'edit', $blog->id, ['class' => 'btn btn-default']) }}
-	
-	{{HTML::link('delete','delete',array('class'=>'btn btn-sm btn-danger'))}}</span>
+					{{ Form::model($blog, ['method' => 'DELETE', 'files' => true , 'route' => ['blog.destroy',$blog->id]]) }}
+					{{ Form::submit('Delete', array('class' => 'btn btn-default pull-left')) }}
+					{{ Form::close() }}
+					</span>
             		
             	</div><br><hr>
             	@endforeach
