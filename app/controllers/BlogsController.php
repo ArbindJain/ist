@@ -53,7 +53,11 @@ class BlogsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		//show the blog
+		$blog = Blog::find($id);
+			return View::make('blog.show')
+					->with('blog',$blog);
+
 	}
 
 
@@ -61,11 +65,14 @@ class BlogsController extends \BaseController {
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return Responseorking directory.
+warning: CRLF will be replaced by LF in public/pack
 	 */
 	public function edit($id)
 	{
-		//
+			$blog = Blog::find($id);
+			return View::make('blog.edit')
+					->with('blog',$blog);
 	}
 
 
@@ -77,7 +84,13 @@ class BlogsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$blog = Blog::find($id);
+		$blog->title = Input::get('title');
+		$blog->body = Input::get('bodydesc');
+		$blog->save();
+		return Redirect::route('blog.index')
+						->withFlashMessage('Updated successfully!');
+
 	}
 
 

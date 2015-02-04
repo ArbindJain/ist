@@ -16,9 +16,10 @@
             		<span><h2>{{$blog->id}}. {{$blog->title}}</h2></span>
             		<!--<span><h4>{{$blog->body}}</h4></span>-->
             		<span>
-            		{{HTML::link('delete','show',array('class'=>'btn btn-sm btn-default'))}}
-            		{{HTML::link('delete','edit',array('class'=>'btn btn-sm btn-default'))}}
-            		{{HTML::link('delete','delete',array('class'=>'btn btn-sm btn-danger'))}}</span>
+            		{{ link_to_route('blog.show', 'show', $blog->id, ['class' => 'btn btn-default']) }}
+					{{ link_to_route('blog.edit', 'edit', $blog->id, ['class' => 'btn btn-default']) }}
+	
+	{{HTML::link('delete','delete',array('class'=>'btn btn-sm btn-danger'))}}</span>
             		
             	</div><br><hr>
             	@endforeach
