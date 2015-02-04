@@ -43,6 +43,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('album', 'AlbumsController');
 	Route::resource('videogallery', 'VideosController');
 	Route::resource('audiogallery', 'AudiosController');
+	Route::resource('blog', 'BlogsController');
 
 
 });
@@ -53,4 +54,5 @@ Route::group(['before' => 'auth|admin'], function()
 	Route::get('/admin', ['as' => 'admin_dashboard', 'uses' => 'AdminController@getHome']);
     Route::resource('admin/profiles', 'AdminUsersController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
 });
+
 

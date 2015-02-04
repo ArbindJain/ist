@@ -1,6 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script> 
 
-<html lang="en">
+
+  <!-- include libraries BS3 -->
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+ 
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.min.css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
+  
+<!-- For summernote we need to keep setting as above with html 5 doctype -->
+
 <head>
 	<meta charset="utf-8">
 	<title>@yield('title') - IST</title>
@@ -9,23 +27,9 @@
 
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" src="summernote.css" >
 
-	<!-- Stylesheets -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://raw.githubusercontent.com/davzie/laravel-bootstrap/master/public/css/redactor.css">
-	<script src="https://raw.githubusercontent.com/davzie/laravel-bootstrap/master/public/js/redactor.min.js"></script>
-	<script type="text/javascript">
-	$(document).ready(
-		function()
-		{
-			$('#mytext').redactor();
-		}
-	);
-	</script>
 	
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 
 
 </head>
@@ -80,14 +84,29 @@
 	</header>
 
 	<div class="container">
+	
+
 		@yield('content')
 	</div>
+	
+	
+	<script src="summernote.min.js"></script>
+
+	<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            height: 500
+        });
+    });
+	</script>
+
+
+		
 
 	
 
+
 	
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 </body>
 </html>
