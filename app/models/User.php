@@ -91,7 +91,7 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 
         return Sentry::getUser()->id == $this->id;
     }
-
+    // Relation From User to All other action is defined here to user the ORM
     public function profile()
     {
     	return $this->hasOne('Profile');
@@ -112,6 +112,10 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
     public function post()
     {
     	return $this->hasMany('Post');
+    }
+    public function blog()
+    {
+    	return $this->hasMany('Blog');
     }
 
 

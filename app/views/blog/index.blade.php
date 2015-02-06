@@ -7,6 +7,7 @@
 
 <div class="row">
 	<div class="col-md-12">
+
 		{{HTML::link('blog/create','CREATE NEW POST' , array('class' => 'btn btn-sm btn-primary'))}}
 	</div>
             </div>
@@ -21,6 +22,7 @@
 					{{ Form::model($blog, ['method' => 'DELETE', 'files' => true , 'route' => ['blog.destroy',$blog->id]]) }}
 					{{ Form::submit('Delete', array('class' => 'btn btn-default pull-left')) }}
 					{{ Form::close() }}
+
 					</span>
             		
             	</div><br><hr>
