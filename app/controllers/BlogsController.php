@@ -54,9 +54,19 @@ class BlogsController extends \BaseController {
 	public function show($id)
 	{
 		//show the blog
+		// show the blogcomments on the basis of which post id or blog id it contains
+		//$blogcomments = Blogcomment::where('blog_id','=',$id)->get();
+		
 		$blog = Blog::find($id);
+		$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
+		
+		
+
 			return View::make('blog.show')
-					->with('blog',$blog);
+					->with('blog',$blog)
+					->with('comments',$comments);
+
+				//	->with('blogcomments',$blogcomments);
 
 	}
 

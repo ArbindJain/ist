@@ -3,18 +3,36 @@
 @section('title', 'Home')
 
 @section('content')
+<style>
+.users-block{
+	display: block;
+	padding: 20px;
+	background-color: #eae8e8;
+	margin:5px;
+}
+	
 
-
-	<div class="jumbotron">
-		<h1>Landing Page</h1>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia perferendis id odit laudantium non blanditiis debitis repellat nulla accusamus cupiditate unde.</p>
-
-		@if (!Sentry::check())
-		<p>
-			<a href="/login" class="btn btn-success btn-lg" role="button">Login</a> or <a href="/register" class="btn btn-primary btn-lg" role="button">Register</a>
-		</p>
-		@endif
-		create url like github in this
+</style>
+<div class="row">
+	<div class="col-md-12">
+	@foreach($users as $user)
+	
+		
+		<div class="pull-left users-block">
+			{{ HTML::image($user->profileimage , 'profile picture', array('class' => 'img-circle pull-right')) }}
+	
+			<p>{{$user->name}}</p>
+			<!--direct route referncing name should be first param of a route...-->
+			{{ link_to_route('user', 'show', array($user->id,$user->name), array('class' => 'btn btn-info')) }}
+		</div>
+			
+		
+			
+		
+	
+		
+	@endforeach
 	</div>
+</div>
 
 @stop

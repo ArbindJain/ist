@@ -7,6 +7,7 @@ Route::when('*', 'csrf', ['POST', 'PUT', 'PATCH', 'DELETE']);
 Route::group(['before' => 'redirectAdmin'], function()
 {
 	Route::get('/', ['as' => 'home', 'uses' => 'PagesController@getHome']);
+	Route::get('user/{name}', array('as'=> 'user','uses'=> 'PagesController@getprofile'));
 	Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@getAbout']);
 	Route::get('/contact', ['as' => 'contact', 'uses' => 'PagesController@getContact']);
 });
@@ -44,6 +45,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('videogallery', 'VideosController');
 	Route::resource('audiogallery', 'AudiosController');
 	Route::resource('blog', 'BlogsController');
+	Route::resource('comments', 'CommentsController');
 
 
 });

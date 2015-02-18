@@ -14,10 +14,13 @@ class Blog extends Eloquent
 		    	return $this->belongsTo('User');
 		    }
 
-		    public function blogcomment()
+		    public function comments()
+
 		    {
-		    	return $this->hasMany('Blogcomment');
-		    }
+    			
+    			return $this->morphMany('Comment','commentable');
+    		
+    		}
 		   
 
 	}

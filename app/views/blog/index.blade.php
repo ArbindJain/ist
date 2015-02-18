@@ -14,7 +14,7 @@
             <div class="row">
             @foreach($blogs as $blog)
             	<div class="col-md-12">
-            		<span><h2>{{$blog->id}}. {{$blog->title}}</h2></span>
+            		<span><h2>{{$blog->id}} . {{$blog->title}}</h2></span>
             		<!--<span><h4>{{$blog->body}}</h4></span>-->
             		<span>
             		{{ link_to_route('blog.show', 'show', $blog->id, ['class' => 'btn btn-default']) }}
@@ -27,6 +27,7 @@
             		
             	</div><br><hr>
             	@endforeach
+
 
             </div>
 		
