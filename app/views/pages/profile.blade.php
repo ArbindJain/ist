@@ -19,6 +19,7 @@
 
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-3">
 			You are Following {{$followingcount}} {{str_plural('user',$followingcount)}} <br />

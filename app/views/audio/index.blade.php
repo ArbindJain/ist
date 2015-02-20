@@ -52,6 +52,7 @@
 
 
 		</div>
+
 		@foreach($audios as $audio)
 		<div class="col-md-4">
 			<audio controls>
@@ -67,6 +68,35 @@
 		{{ Form::submit('Delete', array('class' => 'btn btn-primary pull-left')) }}
 		{{ Form::close() }}
 		</div>
+		
+
+			
+		@if(is_null(Like::where('user_id','=',Sentry::getUser()->id)->where('likeable_id','=',$audio->id)->where('likeable_type','=','Audio')->first()))
+          {{ Form::open(['route' => 'likes.store' ]) }}
+	                		{{Form::hidden('model','Audio')}}
+							
+							{{Form::hidden('current_id',$audio->id)}}
+
+							
+							<!-- Submit field -->
+							<div class="form-group col-md-1">
+								{{ Form::submit('Like', ['class' => 'btn btn-sm btn-success btn-block']) }}
+							</div>
+
+			{{ Form::close() }}
+			@else
+			{{ Form::open(array('action' => 'LikeController@destroy', 'method' => 'delete')) }}
+          	{{ Form::token(); }}
+          	{{Form::hidden('model','Audio')}}
+							
+          	{{Form::hidden('current_id',$audio->id)}}
+          	<div class="form-group col-md-1">
+			{{ Form::submit('Unlike ', ['class' => 'btn btn-sm btn-danger btn-block']) }}
+			</div>
+          {{ Form::close()}}
+			@endif
+			
+	
 		@endforeach
 	</div>
 

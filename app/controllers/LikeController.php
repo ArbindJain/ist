@@ -32,13 +32,19 @@ class LikeController extends \BaseController {
 	public function store()
 	{
 
+			$model = Input::get('model');
+
 		
-		$blogseries = Input::get('blog_id');
-		$users = Blog::find($blogseries);
-		$user = new Like();
-		$user->user_id = Sentry::getUser()->id;
-		$users->likeable()->save($user);
+			$blogseries = Input::get('current_id');
+			$users = $model::find($blogseries);
+			$user = new Like();
+			$user->user_id = Sentry::getUser()->id;
+			$users->likeable()->save($user);
+			
+		
 		return Redirect::back();
+		
+		
 		
 		
 		 
@@ -93,9 +99,10 @@ class LikeController extends \BaseController {
 	public function destroy($id)
 	{
 		//
-		$blogid = Input::get('user_id');
+		$model = Input::get('model');
+		$currentid = Input::get('current_id');
 		
-		$usefoll = (Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $blogid)->where('likeable_type','=','Blog')->delete());
+		$usefoll = (Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $currentid)->where('likeable_type','=',$model)->delete());
 	
 	return Redirect::back();
 	}

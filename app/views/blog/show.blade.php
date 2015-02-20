@@ -25,8 +25,8 @@
 
 			
           {{ Form::open(['route' => 'likes.store' ]) }}
-	                
-							{{Form::hidden('blog_id',$blog->id)}}
+	                		{{Form::hidden('model','Blog')}}
+							{{Form::hidden('current_id',$blog->id)}}
 							
 							<!-- Submit field -->
 							<div class="form-group col-md-1">
@@ -40,7 +40,9 @@
 		@else
 		{{ Form::open(array('action' => 'LikeController@destroy', 'method' => 'delete')) }}
           	{{ Form::token(); }}
-          	{{Form::hidden('user_id',$blog->id)}}
+          	{{Form::hidden('model','Blog')}}
+							
+          	{{Form::hidden('current_id',$blog->id)}}
           	<div class="form-group col-md-1">
 			{{ Form::submit('Unlike ', ['class' => 'btn btn-sm btn-danger btn-block']) }}
 			</div>

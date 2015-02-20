@@ -11,6 +11,13 @@ class Audio extends Eloquent
 
 		    	return $this->belongTo('User');
 		    }
+		     public function likeable()
+
+            {
+                
+                return $this->morphMany('Like','likeable');
+            
+            }
 
 		    
 
