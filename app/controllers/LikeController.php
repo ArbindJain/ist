@@ -1,6 +1,6 @@
 <?php
 
-class CommentsController extends \BaseController {
+class LikeController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,9 +10,6 @@ class CommentsController extends \BaseController {
 	public function index()
 	{
 		//
- 
-	
-
 	}
 
 
@@ -34,22 +31,18 @@ class CommentsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//Storing Data using Polymorphic Relations
-		//Amazing method better than creating PIVOT Table(always use it!!)
-		$currentuser = Sentry::getUser()->id;
+
+		
 		$blogseries = Input::get('blog_id');
 		$users = Blog::find($blogseries);
-		$user = new Comment();
-		$user->comment = Input::get('commentbody');
-		$user->user_id =$currentuser;
-		$users->comments()->save($user);
+		$user = new Like();
+		$user->user_id = Sentry::getUser()->id;
+		$users->likeable()->save($user);
 		return Redirect::back();
 		
-
-
-
-
-
+		
+		 
+		
 	}
 
 
@@ -63,6 +56,7 @@ class CommentsController extends \BaseController {
 	{
 		//
 
+
 	}
 
 
@@ -73,7 +67,7 @@ class CommentsController extends \BaseController {
 	 * @return Response
 	 */
 	public function edit($id)
-	{
+	{ 
 		//
 	}
 
@@ -99,12 +93,12 @@ class CommentsController extends \BaseController {
 	public function destroy($id)
 	{
 		//
-
-		$comment = Comment::find($id);
-		$comment->delete();
-
-		return Redirect::back();
-			}
+		$blogid = Input::get('user_id');
+		
+		$usefoll = (Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $blogid)->where('likeable_type','=','Blog')->delete());
+	
+	return Redirect::back();
+	}
 
 
 }

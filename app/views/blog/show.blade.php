@@ -12,11 +12,46 @@
 		<span> <h4>{{$blog->body}}</h4></span>	
 			<span>{{$blog->user_id}}</span>
 			<span>Posted On: {{$blog->created_at->toFormattedDateString();}}
+			{{$blog->id}}
 	</div>
 	
 		{{HTML::link('blog','back to blogs' , array('class' => 'btn btn-sm btn-default'))}}
-		<hr>
+		<hr />
+		
+		<!-- Form to Like a User -->
+		
+		@if(is_null($liked))
+		<!-- Form to Like a User -->
+
+			
+          {{ Form::open(['route' => 'likes.store' ]) }}
+	                
+							{{Form::hidden('blog_id',$blog->id)}}
+							
+							<!-- Submit field -->
+							<div class="form-group col-md-1">
+								{{ Form::submit('Like', ['class' => 'btn btn-sm btn-success btn-block']) }}
+							</div>
+
+			{{ Form::close() }}
+			
+			
+	
+		@else
+		{{ Form::open(array('action' => 'LikeController@destroy', 'method' => 'delete')) }}
+          	{{ Form::token(); }}
+          	{{Form::hidden('user_id',$blog->id)}}
+          	<div class="form-group col-md-1">
+			{{ Form::submit('Unlike ', ['class' => 'btn btn-sm btn-danger btn-block']) }}
+			</div>
+          {{ Form::close()}}
+
+			
+		
+		@endif
+		{{$likecount}} {{str_plural('user',$likecount)}} Liked it.
 		<div class="col-md-12 text-center">
+		<hr>
 		@foreach($comments as $comment)
 <div>
 	<b>Comment:</b><br>{{ $comment->comment}}<br><br>
@@ -34,15 +69,15 @@
 
 				
 
-</div><br><hr>
-				
-
+</div>
+	<br>	<br>		
+<hr>
 				
 		@endforeach
 	
 		
 	</div>
-		<hr>
+		
 		{{ Form::open(['route' => 'comments.store' ]) }}
 	                    <fieldset>
 

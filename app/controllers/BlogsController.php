@@ -51,7 +51,7 @@ class BlogsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($id) 
 	{
 		//show the blog
 		// show the blogcomments on the basis of which post id or blog id it contains
@@ -59,12 +59,14 @@ class BlogsController extends \BaseController {
 		
 		$blog = Blog::find($id);
 		$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
-		
-		
-
+		//----- Like on blog ------//
+		$liked = (Like::where('user_id','=',Sentry::getUser()->id)->where('likeable_id','=',$blog->id)->where('likeable_type','=','Blog')->first());
+		$likecount = Like::where('likeable_id','=',$blog->id)->count();
 			return View::make('blog.show')
 					->with('blog',$blog)
-					->with('comments',$comments);
+					->with('comments',$comments)
+					->with('liked',$liked)
+					->with('likecount',$likecount);
 
 				//	->with('blogcomments',$blogcomments);
 

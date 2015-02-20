@@ -10,6 +10,9 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::get('user/{name}', array('as'=> 'user','uses'=> 'PagesController@getprofile'));
 	Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@getAbout']);
 	Route::get('/contact', ['as' => 'contact', 'uses' => 'PagesController@getContact']);
+	Route::Post('clear','FollowersController@follow');
+	Route::delete('clearfic','FollowersController@unfollow');
+	Route::resource('likes', 'LikeController');
 });
 
 # Registration

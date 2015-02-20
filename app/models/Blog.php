@@ -21,6 +21,13 @@ class Blog extends Eloquent
     			return $this->morphMany('Comment','commentable');
     		
     		}
+            public function likeable()
+
+            {
+                
+                return $this->morphMany('Like','likeable');
+            
+            }
 		   
 
 	}

@@ -2,9 +2,12 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use basicAuth\Repo\UserRepositoryInterface;
+use basicAuth\formValidation\UsersEditForm;
 
 class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface, RemindableInterface {
 
+	
 	/**
 	 * The database table used by the model.
 	 *
@@ -113,10 +116,15 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
     {
     	return $this->hasMany('Blog');
     }
-    public function comments(){
+    public function comments()
+    {
     	return $this->morphMany('Comment','commentable');
     }
+   public function followers(){
+		return $this -> has_many_and_belongs_to('Follower');
+	}
     
-
+    
+    
 
 }
