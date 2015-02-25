@@ -19,9 +19,8 @@ public function follow(){
 public function unfollow(){
 
 	$userfollow_id =Input::get('userfollow_id');
-	
 	$usefoll = (Follower::where('user_id', '=', $userfollow_id)->where('following_id', '=', Sentry::getUser()->id)->delete());
-	
+	//dd($usefoll);
 	return Redirect::back();
 
 

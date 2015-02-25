@@ -40,6 +40,13 @@ class SentryUserSeeder extends Seeder {
 	        'activated' => 1,
 	    ));
 
+	    Sentry::getUserProvider()->create(array(
+	        'email'    => 'promoter@promoter.com',
+	        'password' => 'promoter',
+	        'name' => 'Promoter Test Profile',
+	        'activated' => 1,
+	    ));
+
 	    
 	}
 

@@ -46,9 +46,9 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('imagegallery', 'PicturesController');
 	Route::resource('album', 'AlbumsController');
 	Route::resource('videogallery', 'VideosController');
-	Route::resource('audiogallery', 'AudiosController');
 	Route::resource('blog', 'BlogsController');
 	Route::resource('comments', 'CommentsController');
+	Route::resource('audiogallery', 'AudiosController');
 
 
 });
@@ -60,4 +60,11 @@ Route::group(['before' => 'auth|admin'], function()
     Route::resource('admin/profiles', 'AdminUsersController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
 });
 
+#Promoter Routes
+Route::group(['before' => 'auth|promoter'], function()
+{
+	Route::resource('promoter','PromotersController');
+	Route::resource('events','PromotereventsController');
+	
+});
 

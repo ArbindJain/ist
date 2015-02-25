@@ -50,10 +50,23 @@ Route::filter('admin', function()
 
     if (!$user->inGroup($admin))
     {
-    	return Redirect::to('login');
+    	return Redirect::to('about');
     }
 });
 
+Route::filter('promoter',function()
+{
+	
+		
+		$user =Sentry::getUSer();
+		$users = Sentry::findGroupByName('Promoters');
+
+			If(!$user->inGroup($users))
+				{
+					return Redirect::intended('promoter');
+				}
+	
+});
 
 
 Route::filter('standardUser', function()
@@ -68,6 +81,8 @@ Route::filter('standardUser', function()
     	return Redirect::to('login');
     }
 });
+
+
 
 
 Route::filter('auth.basic', function()
@@ -96,11 +111,13 @@ Route::filter('guest', function()
 	    $users = Sentry::findGroupByName('Users');
 	    $stars = Sentry::findGroupByName('Stars');
 	    $audiences = Sentry::findGroupByName('Audiences');
+	    $Promoters = Sentry::findGroupByName('Promoters');
 
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	    elseif ($user->inGroup($users)) return Redirect::intended('/');
 	    elseif ($user->inGroup($stars)) return Redirect::intended('/');
 	    elseif ($user->inGroup($audiences)) return Redirect::intended('/');
+	    elseif ($user->inGroup($Promoters)) return Redirect::intended('/');
 	}
 });
 
@@ -118,7 +135,7 @@ Route::filter('redirectAdmin', function()
 
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	}
-});
+}); 
 
 
 
@@ -130,6 +147,7 @@ Route::filter('currentUser', function($route)
     if (Sentry::getUser()->id != $route->parameter('profiles'))
     {
         return Redirect::home();
+
     }
 });
 

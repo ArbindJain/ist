@@ -11,6 +11,7 @@ class AudiosController extends \BaseController {
 	{
 		//
 		$audios = Audio::all();
+		
 		return View::make('audio.index')
 					->with('audios',$audios);
 

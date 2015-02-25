@@ -32,6 +32,7 @@
           {{ Form::open(array('action' => 'FollowersController@follow', 'method' => 'post')) }}
           {{ Form::token(); }}
           {{Form::hidden('follow_id',$userprofile->id)}}
+         
           <div class="form-group">
 			{{ Form::submit('Follow '.$userprofile->name, ['class' => 'btn btn-md btn-success btn-block']) }}
 			</div>
@@ -39,14 +40,15 @@
           @endif
           
           @else
-           @if($userprofile->id = Sentry::getuser()->id)
+           @if($userprofile->id != Sentry::getuser()->id)
           {{ Form::open(array('action' => 'FollowersController@unfollow', 'method' => 'delete')) }}
           {{ Form::token(); }}
+
           {{Form::hidden('userfollow_id',$userprofile->id)}}
           <div class="form-group">
 			{{ Form::submit('unFollow '.$userprofile->name, ['class' => 'btn btn-md btn-danger btn-block']) }}
 			</div>
-          {{ Form::close();}}
+          {{ Form::close();}} 
           @endif
           
         @endif
