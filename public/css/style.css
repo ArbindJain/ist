@@ -1,0 +1,137 @@
+
+/*************-------------Menu Bar Code Only--------------*******************/
+.dropdown-menu-edited {
+  min-width:auto;
+  width:600px;
+}
+
+.dropdown-menu-edited li  {
+  min-width:auto;
+  width:20%;
+  float:left;        
+}
+
+.dropdown-menu-edited li a {
+  
+  }
+
+.avatar {
+  width: 32px;
+  height: 32px;
+}
+
+#size{
+  width: 120px;
+  height: 120px;
+}
+
+.search-container {
+  margin-right: -75px;
+
+}
+.search-box {
+  -webkit-transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+  transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  margin-top:12px;
+}
+
+.search-box + label .search-icon {
+  color: black;
+}
+
+.search-box:hover {
+  color: black;
+/*background: #c8c8c8;
+  box-shadow: 0 0 0 5px #3d4752;
+  box-shadow: 0 0 0 0px #3d4752;*/
+
+}
+
+.search-box:hover + label .search-icon {
+  color: black;
+}
+
+.search-box:focus {
+  -webkit-transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+  transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding-left: 15px;
+  cursor: text;
+  width: 300px;
+  border-radius: auto;
+  background: #ebebeb;
+  color: black;
+}
+
+.search-box:focus + label .search-icon {
+  color: black;
+}
+
+.search-box:not(:focus) {
+  text-indent: -5000px;
+}
+
+#search-submit {
+  position: relative;
+  left: -5000px;
+}
+
+.search-icon {
+  position: relative;
+  left: -30px;
+  color: white;
+  cursor: pointer;
+}
+#menubar-avatar {
+  padding: 14px 15px !important;
+}
+.navbar{
+  border-bottom: 3px solid #eeeeee;
+}
+
+/*************-------------profile Bar Code (next bar after menu)--------------*******************/
+.profile-main-block{
+  padding-left: 70px;
+  margin-bottom: 20px;
+}
+.name-block{
+  display: block;
+  margin-left: 30px;
+  margin-top: 5px;
+}
+.name-space {
+  display: block;
+  margin-bottom: 5px;
+}
+.link-block {
+  display: block;
+  margin-top: 27px;
+  margin-left: 30px;
+}
+
+.centered-pills { text-align:center; }
+.centered-pills ul.nav-pills { display:inline-block; }
+.centered-pills li { display:inline; }
+.centered-pills a { float:left; }
+* html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
+*+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
+
+.sub-nav-block {
+  display: block;
+  border-bottom: 2px solid #ececec;
+}
+.album-block{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+.tab-content {
+  display: block;
+  margin: 10px 50px;
+}

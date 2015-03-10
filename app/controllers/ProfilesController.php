@@ -50,6 +50,12 @@ class ProfilesController extends \BaseController {
 	public function show($id)
 	{
 		//
+		// get all the users
+        $abouts = Profile::all();
+
+        // load the view and pass the users
+        return View::make('about.index')
+            ->with('abouts', $abouts);
 	}
 
 

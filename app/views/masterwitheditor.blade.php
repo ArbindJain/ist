@@ -15,7 +15,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
   
 <!-- include summernote css/js-->
-<link href="/summernote.css" rel="stylesheet">
+<link href="/css/summernote.css" rel="stylesheet">
 <script src="/summernote.min.js"></script>
 <script>
     $(document).ready(function() {

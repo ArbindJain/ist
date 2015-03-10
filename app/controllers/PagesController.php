@@ -16,19 +16,21 @@ class PagesController extends \BaseController {
 		
 		$followings = null;
 		if(Sentry::check()){
-		$followings = (Follower::where('user_id','=', $userprofile->id)->where('following_id', '=',Sentry::getUser()->id)->first()); 
+		$followings = (Follower::where('user_id','=', $userprofile->id)->where('following_id', '=', Sentry::getUser()->id)->first()); 
+		
 		}
 		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
 		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
+		$pics = Album::all();
 		
 
 		return View::make('pages.profile')
 		->with('userprofile',$userprofile)
 		->with('followings',$followings)
 		->with('followingcount',$followingcount)
-		->with('followedbycount',$followedbycount);
-		
-		
+		->with('followedbycount',$followedbycount)
+		->with('pics',$pics);
+		 
 		
 
 	}

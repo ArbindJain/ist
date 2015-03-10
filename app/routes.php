@@ -13,6 +13,7 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::Post('clear','FollowersController@follow');
 	Route::delete('clearfic','FollowersController@unfollow');
 	Route::resource('likes', 'LikeController');
+	Route::resource('connec','ProconnectorController');
 });
 
 # Registration
@@ -49,6 +50,11 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('blog', 'BlogsController');
 	Route::resource('comments', 'CommentsController');
 	Route::resource('audiogallery', 'AudiosController');
+Route::resource('promoter','PromotersController');
+	Route::resource('events','PromotereventsController');
+	
+	
+
 
 
 });
@@ -58,13 +64,7 @@ Route::group(['before' => 'auth|admin'], function()
 {
 	Route::get('/admin', ['as' => 'admin_dashboard', 'uses' => 'AdminController@getHome']);
     Route::resource('admin/profiles', 'AdminUsersController', ['only' => ['index', 'show', 'edit', 'update', 'destroy']]);
+
 });
 
-#Promoter Routes
-Route::group(['before' => 'auth|promoter'], function()
-{
-	Route::resource('promoter','PromotersController');
-	Route::resource('events','PromotereventsController');
-	
-});
 

@@ -12,7 +12,7 @@
 */
 
 App::before(function($request)
-{
+{ 
 	//
 });
 
@@ -54,19 +54,7 @@ Route::filter('admin', function()
     }
 });
 
-Route::filter('promoter',function()
-{
-	
-		
-		$user =Sentry::getUSer();
-		$users = Sentry::findGroupByName('Promoters');
 
-			If(!$user->inGroup($users))
-				{
-					return Redirect::intended('promoter');
-				}
-	
-});
 
 
 Route::filter('standardUser', function()
@@ -75,8 +63,9 @@ Route::filter('standardUser', function()
     $users = Sentry::findGroupByName('Users');
     $stars = Sentry::findGroupByName('Stars');
     $audiences = Sentry::findGroupByName('Audiences');
+    $audiences = Sentry::findGroupByName('Promoters');
 
-    if (!$user->inGroup($users) && !$user->inGroup($stars) && !$user->inGroup($audiences))
+    if (!$user->inGroup($users) && !$user->inGroup($stars) && !$user->inGroup($audiences) && !$user->inGroup($audiences))
     {
     	return Redirect::to('login');
     }

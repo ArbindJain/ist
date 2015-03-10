@@ -10,6 +10,7 @@ class Picture extends Eloquent
 
 		    	return $this->belongsTo('Album');
 		    }
+		    
 		   
 
 	}

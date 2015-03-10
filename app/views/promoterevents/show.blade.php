@@ -18,7 +18,7 @@
 	Event Name : <c class="text-muted">{{$eventdata->eventname}}</c><br><br>
 	{{ HTML::image($eventdata->poster , 'Event Poster', array('class' => 'img-responsive ')) }}<br>
 	Event Location : <c class="text-muted">{{$eventdata->location}}</c><br>
-	Event date : <c class="text-muted">{{Carbon\Carbon::parse($eventdata->eventdatetime)->toDayDateTimeString()}}</c><br>
+	Event Date & Time : <c class="text-muted">{{Carbon\Carbon::parse($eventdata->eventdatetime)->toDayDateTimeString()}}</c><br>
 	Event Duration : <c class="text-muted">{{$eventdata->eventduration}}</c><br>
 	Event Details : <c class="text-muted">{{$eventdata->details}}</c><br>
 	Hosted By :<c class="text-muted"> {{$eventdata->user->name}}</c><br>

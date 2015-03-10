@@ -34,6 +34,7 @@ class BlogsController extends \BaseController {
 	 */
 	public function store()
 	{
+
 		$blogs = new Blog();
 		$blogs->title = Input::get('title');
 		$blogs->body =  Input::get('bodydesc');
@@ -97,12 +98,16 @@ warning: CRLF will be replaced by LF in public/pack
 	public function update($id)
 	{
 		$blog = Blog::find($id);
+		
 		$blog->title = Input::get('title');
 		$blog->body = Input::get('bodydesc');
+		
+		if($blog->user_id == Sentry::getUser()->id){
 		$blog->save();
+		
 		return Redirect::route('blog.index')
 						->withFlashMessage('Updated successfully!');
-
+}
 	}
 
 
@@ -114,8 +119,11 @@ warning: CRLF will be replaced by LF in public/pack
 	 */
 	public function destroy($id)
 	{
+
 		$blog = Blog::find($id);
-		$blog->delete();
+		if($blog->user_id == Sentry::getUser()->id)
+		{$blog->delete();}
+		
 
 		return Redirect::to('blog');
 	}
