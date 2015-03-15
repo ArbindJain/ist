@@ -10,6 +10,13 @@ class Picture extends Eloquent
 
 		    	return $this->belongsTo('Album');
 		    }
+		    public function comments()
+
+		    {
+    			
+    			return $this->morphMany('Comment','commentable');
+    		
+    		}
 		    public function likeable()
 
             {
@@ -17,6 +24,7 @@ class Picture extends Eloquent
                 return $this->morphMany('Like','likeable');
             
             }
+
 
 		   
 

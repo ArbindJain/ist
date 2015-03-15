@@ -16,6 +16,8 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::resource('likes', 'LikeController');
 	Route::Post('diminish',['as'=>'diminish','uses'=> 'LikeController@gotohell']);
 	Route::resource('connec','ProconnectorController');
+	
+	Route::resource('comments', 'CommentsController');
 
 });
 
@@ -51,7 +53,6 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('album', 'AlbumsController');
 	Route::resource('videogallery', 'VideosController');
 	Route::resource('blog', 'BlogsController');
-	Route::resource('comments', 'CommentsController');
 	Route::resource('audiogallery', 'AudiosController');
 Route::resource('promoter','PromotersController');
 	Route::resource('events','PromotereventsController');

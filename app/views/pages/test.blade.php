@@ -37,8 +37,23 @@
               <div class="l-module" data-likemodule = "{{isset($albumimage->liked)?'Unlike':'Like'}}"></div>
               <div class="l-id" data-likeid ="{{$albumimage->id}}"></div> 
               <div class="l-action" data-likeaction ="{{isset($albumimage->liked)?'unlike':'like'}}"></div>
-               </li>
+              {{ Form::open(['data-remote','route' => 'comments.store','class'=>'commentform' ]) }}
+              {{Form::hidden('blog_id',$albumimage->id)}}
+              {{Form::hidden('model','Picture')}}
+              <div class="form-group">
+              <div class="helper-block">Post Title</div>
+                {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                {{ errors_for('commentbody', $errors) }}
+              </div>
+              <!-- Submit field -->
+              <div class="form-group">
+                {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+              </div>
+                {{ Form::close() }}
+              </li>
+              
                 @endforeach
+
           </div> 
         </div>
         <div class="col-md-4">
@@ -56,7 +71,6 @@
 <div class="row">
 	<div class="col-md-12">
 		 
-          
 
 
 
@@ -64,7 +78,40 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").on("keydown",".commentform", function(e){
+      
+      if (e.keyCode == 13)
+        if (!e.shiftKey) $(this).submit();     
 
+    });
+    
+
+  });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("body").on('submit', 'form[data-remote]', function(e){
+    e.preventDefault();
+    var form = $(this);
+        $.ajax({
+          url: '{{url()}}/comments',
+          type: 'POST',
+          cache: false,
+          data: form.serialize(),
+          dataType: 'json',
+          success: function(data) {  
+              $('.text-shift').val('');
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+    });
+});
+</script>
  <script type="text/javascript">
    
    

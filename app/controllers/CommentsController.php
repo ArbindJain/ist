@@ -36,14 +36,16 @@ class CommentsController extends \BaseController {
 	{
 		//Storing Data using Polymorphic Relations
 		//Amazing method better than creating PIVOT Table(always use it!!)
+		$model = Input::get('model');
 		$currentuser = Sentry::getUser()->id;
 		$blogseries = Input::get('blog_id');
-		$users = Blog::find($blogseries);
+		$users = $model::find($blogseries);
+
 		$user = new Comment();
 		$user->comment = Input::get('commentbody');
-		$user->user_id =$currentuser;
+		$user->user_id =Sentry::getUser()->id;
 		$users->comments()->save($user);
-		return Redirect::back();
+		return Response::json();
 		
 
 

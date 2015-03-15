@@ -61,6 +61,8 @@ class PagesController extends \BaseController {
 		$album_images = Picture::where('album_id','=',$id)->get();
 		foreach ($album_images as $key => $image) $album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
 		
+		//$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
+		//foreach ($album_images as $key => $pic_comment) $album_images[$key]->commented =Comment::where('commentable_id','=',$pic_comment->id)->orderBy('id', 'desc')->get();
 		
 		
 		
