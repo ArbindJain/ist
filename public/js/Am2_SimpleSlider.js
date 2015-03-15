@@ -9,7 +9,7 @@
     jQuery.fn.Am2_SimpleSlider = function () {
         //popup div
 
-        $div = $('<div class="product-gallery-popup"> <div class="popup-overlay"></div> <div class="product-popup-content"> <div class="product-image"> <img id="gallery-img" src="" alt="" /> <div class="gallery-nav-btns"> <a id="nav-btn-next" class="nav-btn next" ></a> <a id="nav-btn-prev" class="nav-btn prev" ></a></div> </div><div class="product-information"> <h3 class="product-title"></h3><p class="product-desc"></p></div></div> <div class="clear"></div><a href="#" class="cross">X</a></div></div>').appendTo('body');
+        $div = $('<div class="product-gallery-popup"> <div class="popup-overlay"></div> <div class="product-popup-content"> <div class="product-image"> <img id="gallery-img" src="" alt="" /> <div class="gallery-nav-btns"> <a id="nav-btn-next" class="nav-btn next" ></a> <a id="nav-btn-prev" class="nav-btn prev" ></a></div> </div><div class="product-information"> <h3 class="product-title"></h3><p class="product-desc"></p><div class="like-mode"><a class="likebutton" data-model="Picture" data-id="" data-action=""><i class="fa fa-star-o"></i>&nbsp;<span class="btntext"></span></a></div></div></div> <div class="clear"></div><a href="#" class="cross">X</a></div></div>').appendTo('body');
 
         //on image click   
         $(this).click(function () {
@@ -18,6 +18,10 @@
             $('.product-popup-content .product-image img').attr('src', $(this).find('img').attr('src'));
             $('.product-popup-content .product-information p').text($(this).find('div').attr('data-desc'));
             $('.product-popup-content .product-information h3').text($(this).find('span').attr('data-title'));
+            $('.product-popup-content .product-information .btntext').text($(this).find('.l-module').attr('data-likemodule'));
+            $('.product-popup-content .product-information .likebutton').attr('data-id',($(this).find('.l-id').attr('data-likeid')));
+            $('.product-popup-content .product-information .likebutton').attr('data-action',($(this).find('.l-action').attr('data-likeaction')));
+            
             $Current = $(this);
             $PreviousElm = $(this).prev();
             $nextElm = $(this).next();
@@ -38,6 +42,10 @@
             
             $('.product-popup-content .product-information p').text($NewCurrent.find('div').attr('data-desc'));
             $('.product-popup-content .product-information h3').text($NewCurrent.find('span').attr('data-title'));
+            $('.product-popup-content .product-information .btntext').text($NewCurrent.find('.l-module').attr('data-likemodule'));
+            $('.product-popup-content .product-information .likebutton').attr('data-id',($NewCurrent.find('.l-id').attr('data-likeid')));
+            $('.product-popup-content .product-information .likebutton').attr('data-action',($NewCurrent.find('.l-action').attr('data-likeaction')));
+            
             if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
             else { $('.nav-btn.prev').css({ 'display': 'block' }); }
             if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
@@ -52,6 +60,10 @@
             
             $('.product-popup-content .product-information p').text($NewCurrent.find('div').attr('data-desc'));
             $('.product-popup-content .product-information h3').text($NewCurrent.find('span').attr('data-title'));
+            $('.product-popup-content .product-information .btntext').text($NewCurrent.find('.l-module').attr('data-likemodule'));
+            $('.product-popup-content .product-information .likebutton').attr('data-id',($NewCurrent.find('.l-id').attr('data-likeid')));
+            $('.product-popup-content .product-information .likebutton').attr('data-action',($NewCurrent.find('.l-action').attr('data-likeaction')));
+            
             if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
             else { $('.nav-btn.prev').css({ 'display': 'block' }); }
             if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
@@ -83,6 +95,10 @@
                 
                 $('.product-popup-content .product-information p').text($NewCurrent.find('div').attr('data-desc'));
                 $('.product-popup-content .product-information h3').text($NewCurrent.find('span').attr('data-title'));
+                $('.product-popup-content .product-information .btntext').text($NewCurrent.find('.l-module').attr('data-likemodule'));
+            $('.product-popup-content .product-information .likebutton').attr('data-id',($NewCurrent.find('.l-id').attr('data-likeid')));
+            $('.product-popup-content .product-information .likebutton').attr('data-action',($NewCurrent.find('.l-action').attr('data-likeaction')));
+            
            if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
                 else { $('.nav-btn.prev').css({ 'display': 'block' }); }
                 if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
@@ -100,6 +116,10 @@
         
                 $('.product-popup-content .product-information p').text($NewCurrent.find('div').attr('data-desc'));
                 $('.product-popup-content .product-information h3').text($NewCurrent.find('span').attr('data-title'));
+                $('.product-popup-content .product-information .btntext').text($NewCurrent.find('.l-module').attr('data-likemodule'));
+            $('.product-popup-content .product-information .likebutton').attr('data-id',($NewCurrent.find('.l-id').attr('data-likeid')));
+            $('.product-popup-content .product-information .likebutton').attr('data-action',($NewCurrent.find('.l-action').attr('data-likeaction')));
+            
                 if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
                 else { $('.nav-btn.prev').css({ 'display': 'block' }); }
                 if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }

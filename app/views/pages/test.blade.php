@@ -34,7 +34,9 @@
               <span data-title = "{{$albumimage->picturetitle}}"></span>
               <div data-desc = "{{$albumimage->picturedescription}}"></div>
               <a class="likebutton" data-model="Picture" data-id="{{$albumimage->id}}" data-action="{{isset($albumimage->liked)?'unlike':'like'}}"><i class="fa fa-star-o"></i>&nbsp;<span class="btntext">{{isset($albumimage->liked)?'Unlike':'Like'}}</span></a>
-        
+              <div class="l-module" data-likemodule = "{{isset($albumimage->liked)?'Unlike':'Like'}}"></div>
+              <div class="l-id" data-likeid ="{{$albumimage->id}}"></div> 
+              <div class="l-action" data-likeaction ="{{isset($albumimage->liked)?'unlike':'like'}}"></div>
                </li>
                 @endforeach
           </div> 
