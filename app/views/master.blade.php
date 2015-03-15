@@ -14,7 +14,10 @@
 	    <link rel="stylesheet" href="/css/bootstrap.min.css" />
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>
 	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -149,6 +152,75 @@
 document.addEventListener("click", function(){
     document.getElementById("search-submit")},true);
 	    </script>
+	    <script type="text/javascript">
+         $('.gallery-img').Am2_SimpleSlider();
+       </script>
+       <script type="text/javascript">
+   
+   
+  $(document).ready( function(){
+
+  $('.attach').click(function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+          url: '{{url()}}/followuser',
+          type: 'POST',
+          cache: false,
+          data: $('form.add').serialize(),
+          dataType: 'json',
+          beforeSend: function() { 
+          },
+          success: function(data) {  
+           
+              $("#follow").hide();
+              $("#unfollow-mirror").show();
+              $("#follow-mirror").hide();
+              $("#unfollow").show();
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+    
+      });
+
+   $('.detach').click(function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+          url: '{{url()}}/unfollowuser',
+          type: 'post',
+          cache: false,
+          data: $('form.sub').serialize(),
+          dataType: 'json',
+          beforeSend: function() { 
+          },
+          success: function(data) {   
+          $("#unfollow-mirror").hide(); 
+          $("#follow").show();
+          $("#unfollow").hide();
+          $("#follow-mirror").show();
+
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+    
+      });
+  
+
+
+  });
+  
+
+ 
+</script>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->

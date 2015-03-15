@@ -8,12 +8,15 @@ Route::group(['before' => 'redirectAdmin'], function()
 {
 	Route::get('/', ['as' => 'home', 'uses' => 'PagesController@getHome']);
 	Route::get('user/{name}', array('as'=> 'user','uses'=> 'PagesController@getprofile'));
+	Route::get('real/{id}', array('as'=> 'real','uses'=> 'PagesController@getalbum_pictures'));
 	Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@getAbout']);
 	Route::get('/contact', ['as' => 'contact', 'uses' => 'PagesController@getContact']);
-	Route::Post('clear','FollowersController@follow');
-	Route::delete('clearfic','FollowersController@unfollow');
+	Route::Post('followuser', ['as' => 'followuser', 'uses' => 'FollowersController@follow']);
+	Route::Post('unfollowuser',['as' => 'unfollowuser','uses' =>'FollowersController@unfollow']);
 	Route::resource('likes', 'LikeController');
+	Route::Post('diminish',['as'=>'diminish','uses'=> 'LikeController@gotohell']);
 	Route::resource('connec','ProconnectorController');
+
 });
 
 # Registration

@@ -9,9 +9,11 @@
     </span>
     <span>
       <ul class="list-unstyled pull-left link-block">
-        <li><a href="#"><i class="fa fa-star-o"></i> Follow</a></li>
+        <li>@include('partials._followunfollow')</li>
         <li><a href="#"><i class="fa fa-star-o"></i> Connect</a></li>
         <li><a href="#"><i class="fa fa-star-o"></i> www.link.com</a></li>
       </ul>
     </span>
   </div>
+          
+         

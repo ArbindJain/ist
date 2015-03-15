@@ -4,15 +4,15 @@ class FollowersController extends \BaseController {
 
 	
 public function follow(){
-
+	$folw = Input::get('follow_id');
 	$followers = new Follower();
 	$followers->user_id = Input::get('follow_id');
 	$followers->following_id = Sentry::getUser()->id ;
 	$followers->save();
-
-			
-
-	return Redirect::back();
+	$followings = (Follower::where('user_id','=', $folw)->where('following_id', '=', Sentry::getUser()->id)->first()); 
+	return Response::json();
+ 
+		
 }
 
 
@@ -21,7 +21,7 @@ public function unfollow(){
 	$userfollow_id =Input::get('userfollow_id');
 	$usefoll = (Follower::where('user_id', '=', $userfollow_id)->where('following_id', '=', Sentry::getUser()->id)->delete());
 	//dd($usefoll);
-	return Redirect::back();
+	return Response::json();
 
 
 }

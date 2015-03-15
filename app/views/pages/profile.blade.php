@@ -27,14 +27,20 @@
         </span>
         <div class="col-md-8">
           <div class="row">
-          @foreach($pics as $pic)
+          @foreach($all_albums as $allalbum)
             <div class="col-md-4">
-              {{$pic->albumname}}
+             {{ link_to_route('real',  $allalbum->user_id, array($allalbum->id), array('class' => 'btn btn-info')) }}
+              {{$allalbum->albumname}}
+              @if(isset($allalbum->picture))
+                {{HTML::image($allalbum->picture->picturename)}}
+              @endif
+                      
             </div>
+             
+
           @endforeach
-            
-            
           </div>
+         
           
         </div>
         <div class="col-md-4">

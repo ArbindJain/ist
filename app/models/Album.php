@@ -17,5 +17,6 @@ class Album extends Eloquent
 
 		    	return $this->hasMany('Picture');
 		    }
+		   
 
 	}

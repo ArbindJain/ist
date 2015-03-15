@@ -42,7 +42,7 @@ class LikeController extends \BaseController {
 			$users->likeable()->save($user);
 			
 		
-		return Redirect::back();
+		return Response::json();
 		
 		
 		
@@ -90,21 +90,17 @@ class LikeController extends \BaseController {
 	}
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	
+
+	public function gotohell()
 	{
-		//
-		$model = Input::get('model');
-		$currentid = Input::get('current_id');
-		
+		$model =Input::get('model');
+		$currentid =input::get('current_id');
+
 		$usefoll = (Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $currentid)->where('likeable_type','=',$model)->delete());
 	
-	return Redirect::back();
+		return Response::json();
+
 	}
 
 

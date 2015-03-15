@@ -10,7 +10,14 @@ class Picture extends Eloquent
 
 		    	return $this->belongsTo('Album');
 		    }
-		    
+		    public function likeable()
+
+            {
+                
+                return $this->morphMany('Like','likeable');
+            
+            }
+
 		   
 
 	}
