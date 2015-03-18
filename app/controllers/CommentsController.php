@@ -45,7 +45,20 @@ class CommentsController extends \BaseController {
 		$user->comment = Input::get('commentbody');
 		$user->user_id =Sentry::getUser()->id;
 		$users->comments()->save($user);
-		return Response::json();
+		$postedtime = $user->created_at->diffForHumans();
+		$owner = Sentry::findUserById($user->user_id)->name;
+		$commenttext = $user->comment;
+		$commentid = $user->id;
+
+		$commentdata = array(
+				'created_at' => $postedtime,
+				'user_id' => $owner,
+				'comment' => $commenttext,
+				'comment_id' => $commentid,
+				'view_id' => $blogseries,
+			);
+		
+		return Response::json($commentdata);
 		
 
 

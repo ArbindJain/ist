@@ -27,29 +27,39 @@
         </span>
         <div class="col-md-8">
           <div class="row">
+
           @foreach($album_images as $albumimage)
             <li class="gallery-img col-md-4">
               {{HTML::image($albumimage->picturename)}}
-
               <span data-title = "{{$albumimage->picturetitle}}"></span>
               <div data-desc = "{{$albumimage->picturedescription}}"></div>
               <a class="likebutton" data-model="Picture" data-id="{{$albumimage->id}}" data-action="{{isset($albumimage->liked)?'unlike':'like'}}"><i class="fa fa-star-o"></i>&nbsp;<span class="btntext">{{isset($albumimage->liked)?'Unlike':'Like'}}</span></a>
               <div class="l-module" data-likemodule = "{{isset($albumimage->liked)?'Unlike':'Like'}}"></div>
               <div class="l-id" data-likeid ="{{$albumimage->id}}"></div> 
               <div class="l-action" data-likeaction ="{{isset($albumimage->liked)?'unlike':'like'}}"></div>
+
+              <div class="comment-box" id="comment-{{$albumimage->id}}">
+              <div class="comment-view-{{$albumimage->id}} refresh" >
+
+              @include('partials._comment_photos')
+                
+              </div>
+              
+
               {{ Form::open(['data-remote','route' => 'comments.store','class'=>'commentform' ]) }}
               {{Form::hidden('blog_id',$albumimage->id)}}
               {{Form::hidden('model','Picture')}}
               <div class="form-group">
-              <div class="helper-block">Post Title</div>
                 {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
                 {{ errors_for('commentbody', $errors) }}
               </div>
               <!-- Submit field -->
               <div class="form-group">
                 {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
               </div>
                 {{ Form::close() }}
+                </div>
               </li>
               
                 @endforeach
@@ -91,24 +101,50 @@
   });
 </script>
 <script type="text/javascript">
+
 $(document).ready(function(){
   $("body").on('submit', 'form[data-remote]', function(e){
     e.preventDefault();
+      setInterval(function () {
+       $(".comment-box").each(function() {
+          $(this).load(location.href + " #" + $(this).prop("id"));
+        });
+      
+      }, 5000);
+
+    
     var form = $(this);
+    var target = form.closest('div.comment-box');
         $.ajax({
           url: '{{url()}}/comments',
           type: 'POST',
           cache: false,
           data: form.serialize(),
           dataType: 'json',
-          success: function(data) {  
-              $('.text-shift').val('');
+          beforeSend: function(){
+
+          },
+          success: function(commentdata) { 
+            //$(".comment-block").html(user);
+            //alert(users);
+            console.log(commentdata);
+            var mar= commentdata.comment;
+            var username = commentdata.user_id;
+            var time = commentdata.created_at;
+            var marid = commentdata.comment_id;
+            var viewid = commentdata.view_id;
+            var target_id = ".comment-view-"+viewid;
+            //alert(time);
+            $(target_id).append("<div class= \'comment-box-"+marid+"\'><a href=\'#\'><b>"+username+" </b>&nbsp;&nbsp;&nbsp;</a><span>"+mar+"<br></span><br><div class=\'com-details\'><div class=\'com-time-container\'>"+time+"</div></div></div>");
+            $('.text-shift').val('');
+              
             
           },
           error: function(xhr, textStatus, thrownError) {
               alert('ops Errore');
           }
        });
+        
     });
 });
 </script>
@@ -146,6 +182,7 @@ $(document).ready(function(){
         data: $.param(data),
         dataType: 'json',
         success: function() {
+
           //console.log("success");
           var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
           var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';

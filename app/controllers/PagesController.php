@@ -59,7 +59,19 @@ class PagesController extends \BaseController {
 		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
 		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
 		$album_images = Picture::where('album_id','=',$id)->get();
-		foreach ($album_images as $key => $image) $album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+
+		//foreach ($album_images as $key => $image) $album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+		foreach ($album_images as $key => $image) {
+
+			$album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+			
+			$album_images[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Picture')->orderBy('id','asc')->get();
+			
+			# code...
+
+		}
+		//foreach ($album_images as $key => $commentz) $album_images[$key]->commented = Comment::where('commentable_id','=',$commentz->id)->where('commentable_type','=','Picture')->orderBy('id','desc')->get();
+			
 		
 		//$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
 		//foreach ($album_images as $key => $pic_comment) $album_images[$key]->commented =Comment::where('commentable_id','=',$pic_comment->id)->orderBy('id', 'desc')->get();

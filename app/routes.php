@@ -17,6 +17,7 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::Post('diminish',['as'=>'diminish','uses'=> 'LikeController@gotohell']);
 	Route::resource('connec','ProconnectorController');
 	
+	
 	Route::resource('comments', 'CommentsController');
 
 });

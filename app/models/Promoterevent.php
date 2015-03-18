@@ -5,7 +5,7 @@ class Promoterevent extends Eloquent
     {
     		protected $table = 'promoterevents';
 
-    		// relationship between user and album
+    		
 		    public function user()
 		    {
 

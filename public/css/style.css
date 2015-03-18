@@ -114,11 +114,17 @@
   margin-top: 27px;
   margin-left: 30px;
 }
-
+.com-time-container{
+  text-align: left;
+}
 .centered-pills { text-align:center; }
 .centered-pills ul.nav-pills { display:inline-block; }
 .centered-pills li { display:inline; }
 .centered-pills a { float:left; }
+.centered-pills span { 
+  float: left;
+  text-align:left;
+}
 * html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
 *+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
 
@@ -151,4 +157,9 @@
 }
 #dislike-mirror{
   display: none;
+}
+/*---------------Comment Block style ---------------*/
+.comment-block{
+  display: block;
+  padding: 4px 0px;
 }
