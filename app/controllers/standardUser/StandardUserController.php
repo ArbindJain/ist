@@ -11,13 +11,19 @@ class StandardUserController extends \BaseController {
 	 */
 	public function getHome()
 	{
+		
+
 		return View::make('protected.standardUser.user_dashboard');
 	}
 
 	public function getUserProtected()
 	{
-		return View::make('protected.standardUser.user_page_1');
+		$current_user = Sentry::getUser()->id;
+		$active_user = User::find($current_user);
+		return View::make('protected.standardUser.user_page_1')
+					->with('active_user',$active_user);
 	}
+
 
 
 

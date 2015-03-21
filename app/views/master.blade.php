@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 	    <meta charset="utf-8">
@@ -17,6 +16,13 @@
 	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
+
+		<!-- 1. skin -->
+<link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
+ 
+ 
+<!-- 3. flowplayer -->
+<script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>

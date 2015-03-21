@@ -37,11 +37,25 @@
               <div class="l-module" data-likemodule = "{{isset($albumimage->liked)?'Unlike':'Like'}}"></div>
               <div class="l-id" data-likeid ="{{$albumimage->id}}"></div> 
               <div class="l-action" data-likeaction ="{{isset($albumimage->liked)?'unlike':'like'}}"></div>
+              <div class="com-box" data-boxid = "comment-{{$albumimage->id}}"></div>
+              <div class="com-viewbox" data-viewbox ="comment-view-{{$albumimage->id}} refresh"></div>
 
               <div class="comment-box" id="comment-{{$albumimage->id}}">
-              <div class="comment-view-{{$albumimage->id}} refresh" >
-
-              @include('partials._comment_photos')
+              <div class="comment-view-{{$albumimage->id}} refresh" id ="iamgoing" >
+                {{-- */ $i = 0; /* --}}
+              @foreach($albumimage->commented as $comments)
+              
+              <div data-coblock{{$i++;}}="comment-block-{{$comments->id}}" id="com-block-{{$i++;}}"></div>
+                <div class="comment-block-{{$comments->id}}">
+                  <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  <span>{{$comments->comment}}<br></span><br>
+                  <div class="com-details">
+                  <div class="com-time-container">
+                  {{ $comments->created_at->diffForHumans() }} ·
+                  </div>
+                  </div>
+                </div>
+              @endforeach
                 
               </div>
               
@@ -70,7 +84,12 @@
           User review block ----------------------
         </div>       
       </div>
-      <div role="tabpanel" class="tab-pane" id="video">2...</div>
+      <div role="tabpanel" class="tab-pane" id="video">
+          <!-- video uploaded by the user display -->
+          
+
+
+      </div>
       <div role="tabpanel" class="tab-pane" id="audio">3...</div>
       <div role="tabpanel" class="tab-pane" id="recent">4...</div>
       <div role="tabpanel" class="tab-pane" id="blog">2...</div>
@@ -105,12 +124,13 @@
 $(document).ready(function(){
   $("body").on('submit', 'form[data-remote]', function(e){
     e.preventDefault();
-      setInterval(function () {
-       $(".comment-box").each(function() {
-          $(this).load(location.href + " #" + $(this).prop("id"));
-        });
+    //  setInterval(function () {
+     //  $(".comment-box").each(function() {
+     //     $(this).load(location.href + " #" + $(this).prop("id"));
+
+       // });
       
-      }, 5000);
+     // }, 5000);
 
     
     var form = $(this);

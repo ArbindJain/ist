@@ -17,6 +17,9 @@ class PagesController extends \BaseController {
 		
 		$all_albums = Album::where('user_id','=',$id)->with('image')->get();
 
+		$user_videos = Video::where('user_id','=',$id)->get();
+		$user_audios = Audio::where('user_id','=',$id)->get();
+
 		//$album_art = array();
 
 		//foreach ($all_albums as $album) $album_art[$album->id] = Picture::where('album_id', '=', $album->id)->first();
@@ -39,7 +42,9 @@ class PagesController extends \BaseController {
 			->with('followings',$followings)
 			->with('followingcount',$followingcount)
 			->with('followedbycount',$followedbycount)
-			->with('all_albums',$all_albums);
+			->with('all_albums',$all_albums)
+			->with('user_videos',$user_videos)
+			->with('user_audios',$user_audios);
 		 
 		
 
@@ -65,6 +70,7 @@ class PagesController extends \BaseController {
 
 			$album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
 			
+
 			$album_images[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Picture')->orderBy('id','asc')->get();
 			
 			# code...

@@ -46,13 +46,56 @@
         <div class="col-md-4">
           User review block ----------------------
         </div>
-        <div class="pull-left" >
         
-        </div>
                
       </div>
-      <div role="tabpanel" class="tab-pane" id="video">2...</div>
-      <div role="tabpanel" class="tab-pane" id="audio">3...</div>
+      <div role="tabpanel" class="tab-pane" id="video">
+         <!-- video uploaded by the user display -->
+        <span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-video-o"></i> Videos</h3>
+        </span>
+        <div class="col-md-8">
+          <div class="row">
+            @foreach($user_videos as $uservid)
+            <div class="col-md-6">
+             <div class="flowplayer ">
+   <video>
+      <source type="video/webm" src="http://stream.flowplayer.org/playful.webm">
+      <source type="video/mp4"  src="http://stream.flowplayer.org/playful.mp4">
+
+   </video>
+</div>
+</div>
+            
+            @endforeach   
+
+          </div>
+        </div>
+        <div class="com-md-4">
+          User review block -----------------------
+        </div>
+
+      </div>
+      <div role="tabpanel" class="tab-pane" id="audio">
+       <!-- video uploaded by the user display -->
+        <span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-audio-o"></i> Audios</h3>
+        </span>
+        <div class="col-md-8">
+          <div class="row">
+            <div id="player" class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+            <video preload="none">
+            <source type="video/mpeg" src="http://localhost:8000/galleryaudio/Uppermost - Flow.mp3">
+            </video>
+            </div>
+          </div>
+        </div>
+        <div class="com-md-4">
+          User review block -----------------------
+        </div>
+
+
+      </div>
       <div role="tabpanel" class="tab-pane" id="recent">4...</div>
       <div role="tabpanel" class="tab-pane" id="blog">2...</div>
       <div role="tabpanel" class="tab-pane" id="about">3...</div>
@@ -113,12 +156,5 @@
         @endif
 
 	</div>
-  <div class="col-md-6">
- 
-      {{ Form::open(array('route' => 'connec.store', 'class' => 'form'))}}
-          {{Form::hidden('connect_id',$userprofile->id)}}  
-      {{ Form::submit('Connect '.$userprofile->name, ['class' => 'btn btn-md btn-danger btn-block']) }}
-
-
 
 @stop
