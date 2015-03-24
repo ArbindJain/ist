@@ -12,7 +12,7 @@ class StandardUserController extends \BaseController {
 	public function getHome()
 	{
 		
-
+		
 		return View::make('protected.standardUser.user_dashboard');
 	}
 
@@ -20,8 +20,12 @@ class StandardUserController extends \BaseController {
 	{
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
+		$albums = ['' => ''] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+		
+		
 		return View::make('protected.standardUser.user_page_1')
-					->with('active_user',$active_user);
+					->with('active_user',$active_user)
+					->with('albums',$albums);
 	}
 
 

@@ -14,6 +14,8 @@
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
+	    {{ HTML::script('/js/dropzone.js') }}
+	    {{ HTML::style('/css/dropzone.css') }}
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
 

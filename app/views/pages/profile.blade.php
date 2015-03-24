@@ -60,8 +60,7 @@
             <div class="col-md-6">
              <div class="flowplayer ">
    <video>
-      <source type="video/webm" src="http://stream.flowplayer.org/playful.webm">
-      <source type="video/mp4"  src="http://stream.flowplayer.org/playful.mp4">
+      <source type="video/mp4" src="{{url()}}/{{$uservid->videosrc}}">
 
    </video>
 </div>

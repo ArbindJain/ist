@@ -27,9 +27,67 @@
         </span>
         <div class="col-md-8">
           <div class="row">
+            <!-- new -->
+            <div class="gallery">
+              @foreach($album_images as $albumimage)
+              <div class="gallery-image gallery-viewer-image" data-image-id="{{$albumimage->id}}">
+                <div class="gallery-image-overlay"></div>
+                {{HTML::image($albumimage->picturename)}}
+                <div class="gallery-viewer-image-content" style="display: none;">
+                  <!-- inserted as is -->
+                  <div class="img-title">{{$albumimage->picturetitle}}</div>
+                  <div class="img-description">{{$albumimage->picturedescription}}</div>
+                  <div class="img-like"><a class="likebutton" data-model="Picture" data-id="{{$albumimage->id}}" data-action="{{isset($albumimage->liked)?'unlike':'like'}}"><i class="fa fa-star-o"></i>&nbsp;<span class="btntext">{{isset($albumimage->liked)?'Unlike':'Like'}}</span></a></div>
+                  <!-- // -->
+                   <span class="img-comment-wrapper comment-target">
+                    @foreach($albumimage->commented as $comments)
+                    <div class="img-comment comment-block-{{$comments->id}}">
+                      <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                      <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                        </div>
+                      </div>
+                    </div>
+                    @endforeach
+                  </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $albumimage->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$albumimage->id)}}
+                    {{Form::hidden('model','Picture')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+              </div>
+              @endforeach
+            </div>
+            <!-- /new -->
+
+
+            {{ HTML::script('/js/gallery-viewer.js')}}
+            <script>
+              window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
+            </script>
+            {{ HTML::script('/js/remote-comment.js')}}
+            <script>
+              window.RemoteComment.settings.comment_url = "{{url('comments')}}";
+            </script>
+
 
           @foreach($album_images as $albumimage)
-            <li class="gallery-img col-md-4">
+            <li id="gallery-img-{{$albumimage->id}}" class="gallery-img col-md-4">
               {{HTML::image($albumimage->picturename)}}
               <span data-title = "{{$albumimage->picturetitle}}"></span>
               <div data-desc = "{{$albumimage->picturedescription}}"></div>
@@ -108,6 +166,7 @@
 </div>
 
 <script type="text/javascript">
+/*
   $(document).ready(function(){
     $("body").on("keydown",".commentform", function(e){
       
@@ -117,10 +176,10 @@
     });
     
 
-  });
+  }); */
 </script>
 <script type="text/javascript">
-
+/*
 $(document).ready(function(){
   $("body").on('submit', 'form[data-remote]', function(e){
     e.preventDefault();
@@ -166,7 +225,7 @@ $(document).ready(function(){
        });
         
     });
-});
+}); */
 </script>
  <script type="text/javascript">
    

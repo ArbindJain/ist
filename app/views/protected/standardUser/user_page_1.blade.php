@@ -30,6 +30,7 @@
     width: 70%;
     margin-left: 60px;
   }
+  
 </style>
 <div class="row">
   <div class="col-md-9 profile-main-block col-md-offset-3">
@@ -49,7 +50,8 @@
   <div class="col-md-12 centered-pills">
     <div class="sub-nav-block">
     <ul class="nav nav-pills">
-      <li role="navigation" class="active"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Photos</a></li>
       <li role="navigation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a></li>
       <li role="navigation"><a href="#audio" aria-controls="audio" role="tab" data-toggle="tab">Audio</a></li>
       <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
@@ -58,97 +60,180 @@
     </ul>
     </div>
     <div class="tab-content">
-    <div class="clearfix"></div>
-      <div role="tabpanel" class="tab-pane active" id="photo">
-      <div class="col-md-8">
-      <div class="status-block">
-        <br><br>
-          <li role="presentation" class="active"><a href="#" class="text-muted">Feed&nbsp;&nbsp;</a></li>
-          <li role="presentation"><a href="#" class="text-muted">Tutorial&nbsp;&nbsp;</a></li>
-          <li role="presentation"><a href="#" class="text-muted">Transaction&nbsp;&nbsp;</a></li>
-          <li role="presentation"><a href="#" class="text-muted">Find talent&nbsp;&nbsp;</a></li>
-       
-      {{ Form::textarea('commentbody', null, ['placeholder' => 'Whats on your mind?? ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
-          
+      <div class="clearfix"></div>
+      <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
+        <div class="col-md-8">
+          <ul class="nav nav-pills pull-left">
+            <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
+            <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
+            <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
+          </ul> 
+          <div class="tab-content">
+            <div class="clearfix"></div>
+            <div role="tabpanel" class="tab-pane active" id="performance">
+            Performance
+            </div>
+            <div role="tabpanel" class="tab-pane " id="tutorial">
+            tutorial
+            </div>
+            <div role="tabpanel" class="tab-pane " id="findtalent">
+            Find-talent
+            </div>
+          </div>          
       </div>
-      <br>
-      <div class="page-block">
-        <span class="img-block pull-left">
-           {{ HTML::image($active_user->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'size1')) }}
+    </div>
+      <div role="tabpanel" class="tab-pane " id="photo">
+        <span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
         </span>
-        <span class="user-details">
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-        </span>
-        <div class="clearfix"></div>
-        <span class="article-image ">
-        <img src ="https://fbexternal-a.akamaihd.net/safe_image.php?d=AQBJOp5UVD75HuNT&w=470&h=246&url=http%3A%2F%2Ftimesofindia.indiatimes.com%2Fphoto%2F46619814.cms&cfs=1&upscale=1" width="470" height="250">
-        </span>
-        <span class="comment-method">
 
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-          
-          <p >My first Trail comment under Testingt Version: 1.0.75666abe5665fghsfdtY</p>
-        </span>
-        <span class="comment-method">
+        <!-- create album Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        upload an image
+      </button>
 
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-          
-          <p >Trait id: 1.0.75666abe5665fghsfdtY</p>
-        </span>
-        <div class="clearfix"></div>
-         {{ Form::textarea('commentbody', null, ['placeholder' => 'Whats on your mind?? ','rows' => '1', 'class' => 'form-control text-width', 'required' => 'required'])}}
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                  <div id='drop_zone'>
+   <!-- <form action="#" class='dropzone' id='mydropzone'>
+      
        
+      <input type="text" name="title">
+      <input type="text" name ="description">
+      <button type="submit">Submit data and files!</button>
+    </form>-->
+    {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                      <fieldset>
 
-      </div>
-      <br>
-      <div class="page-block">
-        <span class="img-block pull-left">
-           {{ HTML::image($active_user->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'size1')) }}
-        </span>
-        <span class="user-details">
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-        </span>
-        <div class="clearfix"></div>
-        <span class="article-image ">
-        <img src ="https://scontent-cdg.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/s720x720/11009926_891226790934828_1630206283306281996_n.jpg?oh=9ec983d738a717255d7ebf2871c0b248&oe=55745F06" width="470" height="250">
-        </span>
-        <span class="comment-method">
-
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-          
-          <p >My first Trail comment under Testing Version: 1.0.75666abe5665fghsfdtY</p>
-        </span>
-        <span class="comment-method">
-
-          <a href="#"><b>{{$active_user->name}}</b></a><br>
-          <p class="text-muted">Posted on {{$active_user->created_at->toFormattedDateString()}}</p>
-          
-          <p >Trait id: 1.0.75666abe5665fghsfdtY</p>
-        </span>
-        <div class="clearfix"></div>
-         {{ Form::textarea('commentbody', null, ['placeholder' => 'Whats on your mind?? ','rows' => '1', 'class' => 'form-control text-width', 'required' => 'required'])}}
-       
-
-      </div>
+                        @if (Session::has('flash_message'))
+                <div class="form-group">
+                  <p>{{ Session::get('flash_message') }}</p>
+                </div>
+              @endif
+              <div class="dropzone-previews">
+              </div>
               
-      </div>
-      <div class="col-md-4"><br><br>
-        ----------------User Block Review --------------
-      </div>
-            
+              
+              <!-- Album name field -->
+              <div class="form-group">
+                Select any Album
+                {{Form::select('album', $albums)}}
+              </div>
+
+              
+
+              <!-- Image title field -->
+              <div class="form-group">
+                {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturetitle', $errors) }}
+              </div>
+
+              <!-- Image Description field -->
+              <div class="form-group">
+                {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturedescription', $errors) }}
+              </div>
+
+
+
+              <!-- Submit field -->
+              <div class="form-group">
+                
+      <button type="submit" class="btn btn-md btn-success btn-block">Upload Image</button>
+              </div>
+
+
+
+              </fieldset>
+                {{ Form::close() }}
+</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- video modal end !-->
+      
         
         
                
-      </div>
+      </div><!-- photo tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="video">
-         
+        <span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
+        </span>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalvideo">
+          upload Video
+        </button>
+<!-- Modal -->
+      <div class="modal fade" id="myModalvideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                 {{ Form::open(['route' => 'videogallery.store','files' => 'true' ,'class'=>'vid_form']) }}
+                      <fieldset>
 
-      </div>
+                        @if (Session::has('flash_message'))
+                <div class="form-group">
+                  <p>{{ Session::get('flash_message') }}</p>
+                </div>
+              @endif
+              
+              
+              
+
+              
+
+              <!-- Image title field -->
+              <div class="form-group">
+                {{ Form::text('videotitle', null, ['placeholder' => 'Video Title', 'class' => 'form-control','id'=>'vidtitle', 'required' => 'required'])}}
+                {{ errors_for('videotitle', $errors) }}
+              </div>
+              <div class="form-group">
+              {{ Form::file('videosrc') }}
+              </div>
+
+              <!-- Image Description field -->
+              <div class="form-group">
+                {{ Form::text('videodescription', null, ['placeholder' => 'Video Description', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('videodescription', $errors) }}
+              </div>
+
+
+
+              <!-- Submit field -->
+              <div class="form-group">
+                {{ Form::submit('Upload Video', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+              </div>
+
+
+
+              </fieldset>
+                {{ Form::close() }}
+
+            </div><!-- modal boxy end !-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- video modal end !-->                
+
+      </div><!-- video tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="audio">
        
 
@@ -162,6 +247,62 @@
 </div>
 
 
+<script>
+// autoload tabs
+$(document).ready(function() {
+  if (window.location.hash) {
+    $("a[href='" + window.location.hash + "']").tab("show");
+  }
+});
+</script>
 
+
+<script type="text/javascript">
+  Dropzone.autoDiscover = true;
+Dropzone.options.mydropzone = {
+  previewsContainer: ".dropzone-previews",
+    paramName: "file",
+    maxFilesize: 5,
+    maxFiles: 1,
+    autoProcessQueue: false,
+
+    init: function () {
+        this.on("addedfile", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    });
+        var myDropzone = this;
+
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+    this.on("success", function(file, responseText) {
+            console.log(responseText);
+            window.location.hash = 'photo';
+            window.location.reload();
+        });
+     
+    },
+    
+
+};
+</script>
+<script type="text/javascript">
+  
+  var form = document.querySelector('.vid_form');
+  var request = new XMLHttpRequest();
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+
+    var formdata = new FormData(form);
+    request.open('post','videogallery');
+    request.send(formdata);
+  });
+</script>
 
 @stop

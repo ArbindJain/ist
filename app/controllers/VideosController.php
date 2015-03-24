@@ -34,36 +34,24 @@ class VideosController extends \BaseController {
 	 */
 	public function store()
 	{
-		//Rules for the validator
-		$rules = array(
-			'videosrc' => 'required');
-		// Validating Implemented rules
-		$validator = Validator::make(Input::all(), $rules);
-
-		// check for Final validation
-		if ($validator->fails()) {
-            return Redirect::to('videogallery')
-                ->withErrors($validator);
-        
-        } 
-        else 
-        {	
-        	$vidsnaps = new Video();
+			
         	$vidfile =  Input::file('videosrc');
         	$extension = $vidfile->getClientOriginalExtension();
         	// Creating SHA1 version for less possible file conflicts
             $sha1 = sha1($vidfile->getClientOriginalName());
             $filename=date('Y-m-d-h-i-s').".".$sha1.".".$extension;
             $vidfile->move('public/galleryvideo/', $filename);
+
+;        	$vidsnaps = new Video();
 			$vidsnaps->videosrc = 'galleryvideo/'. $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');
 			$vidsnaps->user_id = Sentry::getUser()->id;
 			$vidsnaps->save();
             // redirect To astral...
-            return Redirect::to('videogallery')
-            ->withFlashMessage('video successfully uploaded!');
-        }
+            //return Redirect::to('videogallery')
+            //->withFlashMessage('video successfully uploaded!');
+            return Response::json($vidsnaps);
 	}
 
 

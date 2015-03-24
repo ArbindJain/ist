@@ -44,27 +44,32 @@ class PicturesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//Rules for the validator
-		$rules = array(
-			'picturename' => 'required');
-		// Validating Implemented rules
-		$validator = Validator::make(Input::all(), $rules);
+		$types = array('-original.', '-thumbnail.', '-resiged.');
+// Width and height for thumb and resiged
+$sizes = array( array('60', '60'), array('200', '200') );
+$targetPath = 'public/galleryimages/';
 
-		// check for Final validation
-		if ($validator->fails()) {
-            return Redirect::to('imagegallery')
-                ->withErrors($validator);
-        
-        } 
-        else 
-        {	
+$file = Input::file('file');
+$fname = $file->getClientOriginalName();
+$ext = $file->getClientOriginalExtension();
+$encriptedtext =  sha1($file->getClientOriginalName());
 
-        	$galleryimage = Input::file('picturename');
-			$filename = date('Y-m-d-H:i:s')."-".rand(1,100);
-						Image::make($galleryimage->getRealPath())
-						->resize(200,200)
-						->save('public/galleryimages/'. $filename);
-			$product = 'galleryimages/'. $filename;
+$nameWithOutExt = str_replace('.' . $ext, '', $encriptedtext);
+
+$original = $nameWithOutExt . array_shift($types) . $ext;
+$file->move($targetPath, $original); // Move the original one first
+
+foreach ($types as $key => $type) {
+    // Copy and move (thumb, resized)
+    $newName = $nameWithOutExt . $type . $ext;
+    File::copy($targetPath . $original, $targetPath . $newName);
+    Image::make($targetPath . $newName)
+          ->resize($sizes[$key][0], $sizes[$key][1])
+          ->save($targetPath . $newName);
+}
+
+			
+			$product = 'galleryimages/';
 				
             $pictures = new Picture();
             $pictures->picturename = $product;
@@ -75,8 +80,8 @@ class PicturesController extends \BaseController {
 
 
             // redirect To astral...
-            return Redirect::to('imagegallery')->withFlashMessage('image successfully uploaded!');
-        }
+           // return Redirect::to('imagegallery')->withFlashMessage('image successfully uploaded!');
+            return Response::json($pictures);
 	}
 
 

@@ -35,6 +35,7 @@ class PagesController extends \BaseController {
 		}
 		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
 		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
+
 		
 
 		return View::make('pages.profile')
