@@ -126,6 +126,7 @@ return array(
 		'Laracasts\Validation\ValidationServiceProvider',
 		'basicAuth\Repo\BackendServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Closca\Sonus\SonusServiceProvider',
 
 	),
 
@@ -196,6 +197,7 @@ return array(
 		//Additional Aliases
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Image' => 'Intervention\Image\Facades\Image',
+		'Sonus'           => 'Closca\Sonus\Facade',
 
 	),
 

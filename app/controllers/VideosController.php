@@ -34,16 +34,27 @@ class VideosController extends \BaseController {
 	 */
 	public function store()
 	{
-			
-        	$vidfile =  Input::file('videosrc');
-        	$extension = $vidfile->getClientOriginalExtension();
+		$vidfile =  Input::file('videosrc');
         	// Creating SHA1 version for less possible file conflicts
             $sha1 = sha1($vidfile->getClientOriginalName());
-            $filename=date('Y-m-d-h-i-s').".".$sha1.".".$extension;
-            $vidfile->move('public/galleryvideo/', $filename);
+            $filename=date('Y-m-d-h-i-s').".".$sha1;
+		$file_in  = Input::file('videosrc')->getRealPath();
+		$file_out_webm = 'public/galleryvideo/webm/'.$filename.'.webm'; 
+
+		$file_out_mp4 = 'public/galleryvideo/mp4/'.$filename.'.mp4';
+
+		$file_out_flv = 'public/galleryvideo/flv/'.$filename.'.flv'; 
+
+		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_webm)->go();
+
+		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_mp4)->go();
+		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_flv)->go();
+			
+        	
+            //$vidfile->move('public/galleryvideo/', $filename);
 
 ;        	$vidsnaps = new Video();
-			$vidsnaps->videosrc = 'galleryvideo/'. $filename;
+			$vidsnaps->videosrc = $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');
 			$vidsnaps->user_id = Sentry::getUser()->id;

@@ -60,7 +60,9 @@
             <div class="col-md-6">
              <div class="flowplayer ">
    <video>
-      <source type="video/mp4" src="{{url()}}/{{$uservid->videosrc}}">
+      <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$uservid->videosrc}}.webm">
+      <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$uservid->videosrc}}.mp4">
+      <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$uservid->videosrc}}.flv">
 
    </video>
 </div>

@@ -3,7 +3,8 @@
 		"laravel/framework": "4.2.*",
 		"cartalyst/sentry": "2.1.*",
 		"laracasts/validation": "~1.0",
-		"intervention/image": "1.*"
+		"intervention/image": "1.*",
+		"closca/sonus": "dev-master"
 	},
 	"require-dev": {
 		"way/generators": "2.*"
