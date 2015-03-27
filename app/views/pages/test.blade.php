@@ -148,7 +148,10 @@
 
 
       </div>
-      <div role="tabpanel" class="tab-pane" id="audio">3...</div>
+      <div role="tabpanel" class="tab-pane" id="audio">
+        
+        
+      </div>
       <div role="tabpanel" class="tab-pane" id="recent">4...</div>
       <div role="tabpanel" class="tab-pane" id="blog">2...</div>
       <div role="tabpanel" class="tab-pane" id="about">3...</div>
@@ -227,62 +230,7 @@ $(document).ready(function(){
     });
 }); */
 </script>
- <script type="text/javascript">
-   
-   
-  $(document).ready( function(){
-    $("body").on("click", ".likebutton", function() {
-      var handle = $(this);
-      url = '';
-
-      // for picture likes 
-      if (handle.data("model") == 'Picture') {
-        if (handle.data("action") == 'like')
-          url = '/likes';
-        else url= '/diminish';
-      }
-      // for other likes
-
-
-      if (url.length < 1) return;
-      url = '{{url()}}'+url;
-
-      var data = {
-        "_token": {{json_encode(csrf_token())}},
-        "model": handle.data('model'),
-        "current_id": handle.data('id'),
-      };
-      console.log($.param(data));
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        cache: false,
-        data: $.param(data),
-        dataType: 'json',
-        success: function() {
-
-          //console.log("success");
-          var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
-          var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';
-          handle.data("action", new_action).children(".btntext").empty().append(new_text);
-        },
-        error: function(jxhr, status) {
-          alert("error: "+status);
-        },
-      });
-    });
-
-  
-
-   
-
-
-  });
-  
-
  
-</script>
 
 
 

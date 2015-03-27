@@ -55,8 +55,13 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('videogallery', 'VideosController');
 	Route::resource('blog', 'BlogsController');
 	Route::resource('audiogallery', 'AudiosController');
-Route::resource('promoter','PromotersController');
+	Route::resource('promoter','PromotersController');
 	Route::resource('events','PromotereventsController');
+	Route::resource('scout','ScoutController');
+	Route::get('scoutpublished/{id}', array('as'=> 'scoutpublished','uses'=> 'ScoutController@getscout'));
+	
+	Route::resource('scoutpublishedapply','ScoutapplyController');
+
 	
 	
 

@@ -19,6 +19,7 @@
       <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
     </ul>
     </div>
+
     <div class="tab-content">
     <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="photo">
@@ -83,13 +84,24 @@
           <h3 class="pull-left"> <i class="fa fa-file-audio-o"></i> Audios</h3>
         </span>
         <div class="col-md-8">
+
           <div class="row">
-            <div id="player" class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
-            <video preload="none">
-            <source type="video/mpeg" src="http://localhost:8000/galleryaudio/Uppermost - Flow.mp3">
-            </video>
-            </div>
+          @foreach($user_audios as $useraud)
+
+    <div class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+   <video>
+
+    <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$useraud->audiosrc}}.ogg">
+
+    <source type="video/mpeg" src="{{url()}}/galleryaudio/mp3/{{$useraud->audiosrc}}.mp3">
+
+   </video>
+</div>
+@endforeach
+
+   
           </div>
+
         </div>
         <div class="com-md-4">
           User review block -----------------------

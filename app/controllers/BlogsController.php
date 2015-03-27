@@ -1,5 +1,6 @@
 <?php
 
+
 class BlogsController extends \BaseController {
 
 	/**
@@ -34,13 +35,25 @@ class BlogsController extends \BaseController {
 	 */
 	public function store()
 	{
-
+		$sample = e(Input::get('bodydesc'));
+		$sample_text = strip_tags($sample);
 		$blogs = new Blog();
 		$blogs->title = Input::get('title');
 		$blogs->body =  Input::get('bodydesc');
+		$blogs->bodysnap = $sample_text;
 		$blogs->user_id = Sentry::getUser()->id;
+		$blogs->art = Input::get('art');
+		$blogs->collection = Input::get('collection');
+		$blogs->cooking = Input::get('cooking');
+		$blogs->dance = Input::get('dance');
+		$blogs->fashion = Input::get('fashion');
+		$blogs->moviesandtheatre = Input::get('moviesandtheatre');
+		$blogs->music = Input::get('music');
+		$blogs->sports = Input::get('sports');
+		$blogs->unordinary = Input::get('unordinary');
+		$blogs->wanderer = Input::get('wanderer');
 		$blogs->save();
-		 return Redirect::to('blog');
+		 return Redirect::to('userProtected#blog');
 
 
 	}
@@ -59,14 +72,12 @@ class BlogsController extends \BaseController {
 		//$blogcomments = Blogcomment::where('blog_id','=',$id)->get();
 		
 		$blog = Blog::find($id);
-		$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
+		$commented = Comment::where('commentable_id','=',$id)->where('commentable_type','=','Blog')->orderBy('id', 'desc')->get();
 		//----- Like on blog ------//
-		$liked = (Like::where('user_id','=',Sentry::getUser()->id)->where('likeable_id','=',$blog->id)->where('likeable_type','=','Blog')->first());
 		$likecount = Like::where('likeable_id','=',$blog->id)->count();
 			return View::make('blog.show')
 					->with('blog',$blog)
-					->with('comments',$comments)
-					->with('liked',$liked)
+					->with('commented',$commented)
 					->with('likecount',$likecount);
 
 				//	->with('blogcomments',$blogcomments);
@@ -101,12 +112,22 @@ warning: CRLF will be replaced by LF in public/pack
 		
 		$blog->title = Input::get('title');
 		$blog->body = Input::get('bodydesc');
+		$blog->art = Input::get('art');
+		$blog->collection = Input::get('collection');
+		$blog->cooking = Input::get('cooking');
+		$blog->dance = Input::get('dance');
+		$blog->fashion = Input::get('fashion');
+		$blog->moviesandtheatre = Input::get('moviesandtheatre');
+		$blog->music = Input::get('music');
+		$blog->sports = Input::get('sports');
+		$blog->unordinary = Input::get('unordinary');
+		$blog->wanderer = Input::get('wanderer');
 		
 		if($blog->user_id == Sentry::getUser()->id){
 		$blog->save();
 		
-		return Redirect::route('blog.index')
-						->withFlashMessage('Updated successfully!');
+		return Redirect::to('userProtected#blog');
+
 }
 	}
 
@@ -125,7 +146,7 @@ warning: CRLF will be replaced by LF in public/pack
 		{$blog->delete();}
 		
 
-		return Redirect::to('blog');
+		return Redirect::to('userProtected#blog');
 	}
 
 

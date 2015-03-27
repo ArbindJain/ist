@@ -1,5 +1,6 @@
 @extends('masterwitheditor')
 
+
 @section('title', 'Blog')
 
 @section('content')
@@ -7,6 +8,9 @@
 
 <div class="row">
 	<div class="col-md-12">
+	<span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Blog</h3>
+        </span>
 		{{ Form::open(['route' => 'blog.store' ]) }}
 	                    <fieldset>
 
@@ -29,9 +33,34 @@
 								<textarea name ="bodydesc" class="form-control" id="summernote"></textarea>
 								{{ errors_for('bodydesc', $errors) }}
 							</div>
+
+												<!--  Field -->
+							<div class="form-group">
+								{{ Form::label('art', 'Art:') }}
+								{{ Form::checkbox('art', '1') }}
+								{{ Form::label('collection', 'Collection:') }}
+								{{ Form::checkbox('collection', '1') }}
+								{{ Form::label('cooking', 'Cooking:') }}
+								{{ Form::checkbox('cooking', '1') }}
+								{{ Form::label('dance', 'Dance:') }}
+								{{ Form::checkbox('dance', '1') }}
+								{{ Form::label('fashion', 'Fashion:') }}
+								{{ Form::checkbox('fashion', '1') }}
+								{{ Form::label('moviesandtheatre', 'Movies and theatre:') }}
+								{{ Form::checkbox('moviesandtheatre', '1') }}
+								{{ Form::label('music', 'Music:') }}
+								{{ Form::checkbox('music', '1') }}
+								{{ Form::label('sports', 'Sports:') }}
+								{{ Form::checkbox('sports', '1') }}
+								{{ Form::label('unordinary', 'Unordinary:') }}
+								{{ Form::checkbox('unordinary', '1') }}
+								{{ Form::label('wanderer', 'Wanderer:') }}
+								{{ Form::checkbox('wanderer', '1') }}
+
+							</div>
 							<!-- Submit field -->
 							<div class="form-group">
-								{{ Form::submit('SAVE DATA', ['class' => 'btn btn-md btn-default btn-block']) }}
+								{{ Form::submit('PUBLISH', ['class' => 'btn btn-md btn-default btn-block']) }}
 							</div>
 
 

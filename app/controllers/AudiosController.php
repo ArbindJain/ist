@@ -36,37 +36,38 @@ class AudiosController extends \BaseController {
 	 */
 	public function store()
 	{
-		//add a new audio track to you library
-		//Rules for the validator
-		$rules = array(
-			'audiosrc' => 'required');
-		// Validating Implemented rules
-		$validator = Validator::make(Input::all(), $rules);
+		
+        	
+        	//$audiotrack = 'apple';
+            // redirect To astral for audio...
+            //return Redirect::to('audiogallery')
+            //->withFlashMessage('Audio track successfully uploaded!');
+           // return Response::json($audtrack)
 
-		// check for Final validation
-		if ($validator->fails()) {
-            return Redirect::to('audiogallery')
-                ->withErrors($validator);
-        
-        } 
-        else 
-        {	
-        	$audiotrack = new Audio();
+		
         	$audfile =  Input::file('audiosrc');
-        	$extension = $audfile->getClientOriginalExtension();
         	// Creating SHA1 version for less possible file conflicts
             $sha1 = sha1($audfile->getClientOriginalName());
-            $filename=date('Y-m-d-h-i-s').".".$sha1.".".$extension;
-            $audfile->move('public/galleryaudio/', $filename);
-			$audiotrack->audiosrc = 'galleryaudio/'. $filename;
+            $filename=date('Y-m-d-h-i-s').".".$sha1;
+            //$audfile->move('public/galleryaudio/', $filename);
+
+			$file_in  = Input::file('audiosrc')->getRealPath();
+			$file_out_ogg = 'public/galleryaudio/ogg/'.$filename.'.ogg';
+			$file_out_mp3 = 'public/galleryaudio/mp3/'.$filename.'.mp3';
+
+			Sonus::convert()->input($file_in)->output($file_out_ogg)->go();
+
+			Sonus::convert()->input($file_in)->output($file_out_mp3)->go();
+			
+            $audiotrack = new Audio();
+			$audiotrack->audiosrc = $filename;
 			$audiotrack->audiotitle = Input::get('audiotitle');
 			$audiotrack->audiodescription = Input::get('audiodescription');
 			$audiotrack->user_id = Sentry::getUser()->id;
 			$audiotrack->save();
-            // redirect To astral for audio...
-            return Redirect::to('audiogallery')
-            ->withFlashMessage('Audio track successfully uploaded!');
-        }
+            // redirect
+            return Response::json($audiotrack);
+       
 
 	}
 

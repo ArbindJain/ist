@@ -53,7 +53,7 @@ class VideosController extends \BaseController {
         	
             //$vidfile->move('public/galleryvideo/', $filename);
 
-;        	$vidsnaps = new Video();
+        	$vidsnaps = new Video();
 			$vidsnaps->videosrc = $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');

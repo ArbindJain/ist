@@ -6,7 +6,8 @@
 
 
 	<div class="container">
-	@foreach($abouts as $about)
+
+  @foreach($abouts as $about)
 	<h3>ID        </h3>   {{$about->id}} <br>
 	<h3>USER ID    </h3>   {{$about->user_id}}<br>
 	<h3>ABOUT      </h3>    {{$about->about_us}}<br><br>

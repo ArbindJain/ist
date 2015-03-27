@@ -16,15 +16,23 @@
 	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
 	    {{ HTML::script('/js/dropzone.js') }}
 	    {{ HTML::style('/css/dropzone.css') }}
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+		
 		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
+		
+		
 
 		<!-- 1. skin -->
 <link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
+
+<!-- js
+
+<script src="http://releases.flowplayer.org/js/flowplayer-3.2.13.min.js"></script> -->
  
  
 <!-- 3. flowplayer -->
 <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
+{{ HTML::script('/js/audio.js') }}
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>
@@ -71,7 +79,7 @@
 				            <li><a href="#">Movies & Theater</a></li>
 				          </ul>
 				        </li>
-				        <li class="{{ set_active('/') }}"><a href="/">Scout Talent</a></li>
+				        <li class="{{ set_active('/') }}"><a href="/scout">Scout Talent</a></li>
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Talent Hub <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
@@ -155,14 +163,17 @@
 		@yield('content')
  
 		</div>
+		
 <script type="text/javascript">
 
 document.addEventListener("click", function(){
     document.getElementById("search-submit")},true);
+
 	    </script>
 	    <script type="text/javascript">
          $('.gallery-img').Am2_SimpleSlider();
        </script>
+       
        <script type="text/javascript">
    
    
@@ -222,6 +233,67 @@ document.addEventListener("click", function(){
     
       });
   
+
+
+  });
+  
+
+ 
+</script>
+<script type="text/javascript">
+   
+   
+  $(document).ready( function(){
+    $("body").on("click", ".likebutton", function() {
+      var handle = $(this);
+      url = '';
+
+      // for picture likes 
+      if (handle.data("model") == 'Picture') {
+        if (handle.data("action") == 'like')
+          url = '/likes';
+        else url= '/diminish';
+      }
+      // for other likes
+      else(handle.data("model") == 'Blog') {
+        if (handle.data("action") == 'like')
+          url = '/likes';
+        else url= '/diminish';
+      }
+
+
+      if (url.length < 1) return;
+      url = '{{url()}}'+url;
+
+      var data = {
+        "_token": {{json_encode(csrf_token())}},
+        "model": handle.data('model'),
+        "current_id": handle.data('id'),
+      };
+      console.log($.param(data));
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        cache: false,
+        data: $.param(data),
+        dataType: 'json',
+        success: function() {
+
+          //console.log("success");
+          var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
+          var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';
+          handle.data("action", new_action).children(".btntext").empty().append(new_text);
+        },
+        error: function(jxhr, status) {
+          alert("error: "+status);
+        },
+      });
+    });
+
+  
+
+   
 
 
   });

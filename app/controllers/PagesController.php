@@ -8,6 +8,7 @@ class PagesController extends \BaseController {
 		$users = User::all();
 		return View::make('pages.home')
 		->with('users',$users);
+
 	}
 
 	public function getprofile($id)
