@@ -10,16 +10,17 @@
 
 	    <!-- Bootstrap -->
 	    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
+	   
 	    <link rel="stylesheet" href="/css/bootstrap.min.css" />
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
 	    {{ HTML::script('/js/dropzone.js') }}
 	    {{ HTML::style('/css/dropzone.css') }}
+		 <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+		<!-- below script required for flowplayer -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
-		
 		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
-		
 		
 
 		<!-- 1. skin -->
@@ -301,10 +302,19 @@ document.addEventListener("click", function(){
 
  
 </script>
+
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
 	    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	    
-	</body>
+	 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+  <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript">
+            $(function () {
+            $('#datetimepicker1').datetimepicker({
+               
+            });
+        });
+        </script>
+        </body>
 </html>

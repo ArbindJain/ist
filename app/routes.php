@@ -16,8 +16,6 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::resource('likes', 'LikeController');
 	Route::Post('diminish',['as'=>'diminish','uses'=> 'LikeController@gotohell']);
 	Route::resource('connec','ProconnectorController');
-
-	
 	Route::resource('comments', 'CommentsController');
 
 });
@@ -58,10 +56,10 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('promoter','PromotersController');
 	Route::resource('events','PromotereventsController');
 	Route::resource('scout','ScoutController');
-	Route::get('scoutpublished/{id}', array('as'=> 'scoutpublished','uses'=> 'ScoutController@getscout'));
-	
 	Route::resource('scoutpublishedapply','ScoutapplyController');
-
+	Route::get('scoutpublished/{id}', array('as'=> 'scoutpublished','uses'=> 'ScoutController@getscout'));
+	Route::resource('audiencereviews','AudiencereviewsController');
+	Route::resource('userperformances','PerformanceController');
 	
 	
 

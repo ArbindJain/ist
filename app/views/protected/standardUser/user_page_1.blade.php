@@ -48,6 +48,7 @@
 </div>
 
 <div class="row">
+<div class="form-group">
   <div class="col-md-12 centered-pills">
     <div class="sub-nav-block">
     <ul class="nav nav-pills">
@@ -63,7 +64,8 @@
     <div class="tab-content">
       <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
-        <div class="col-md-8">
+
+        <div class="col-md-8">    
             <ul class=" pull-left">
               <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
@@ -74,10 +76,85 @@
           <div class="tab-content">
             <div class="clearfix"></div>
             <div role="tabpanel" class="tab-pane active" id="performance">
-            Performance
+
+            <div class="col-md-8">
+              
+
+
+
+ 
+
+                Performance
+                {{ Form::open(['route' => 'userperformances.store']) }}
+                      <fieldset>
+
+                        @if (Session::has('flash_message'))
+                          <div class="form-group">
+                            <p>{{ Session::get('flash_message') }}</p>
+                          </div>
+
+                        @endif
+
+              <!-- performance text field -->
+              <div class="form-group">
+                {{ Form::text('performancetext', null, ['placeholder' => 'Where are you performing today', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('performancetext', $errors) }}
+              </div>
+
+              <!-- venue Description field -->
+              <div class="form-group">
+                {{ Form::text('venue', null, ['placeholder' => 'venue details', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('venue', $errors) }}
+              </div>
+
+              <!-- date and time Description field -->
+              <div class="form-group">
+                <input type='text' name="performancedatetime" placeholder="performance date and time" class="form-control" id='datetimepicker1' />
+                {{ errors_for('performancedatetime', $errors) }}
+              </div>
+              
+
+              <!-- Submit field -->
+              <div class="form-group">
+                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+                
+              </div>
+
+              </fieldset>
+                {{ Form::close() }}
+                <h2>Performance posted by you.</h2>
+                @foreach($performances as $performance)
+
+                <div class="performance-list">
+                  {{Sentry::getUser($performance->user_id)->name}}
+                  {{$performance->performancetext}}
+                  {{$performance->venue}}
+                  {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
+
+                  <!-- Delete the performance entry -->
+                  {{ Form::model($performance, ['method' => 'DELETE', 'files' => true , 'route' => ['userperformances.destroy',$performance->id]]) }}
+                  {{ Form::submit('Delete', array('class' => 'btn btn-default  pull-right')) }}
+                  {{ Form::close() }}
+                  </div><br><br><br>
+
+                @endforeach
+
+            </div>
+            <div class="col-md-4">
+                Audience review
+                @foreach($aud_review as $reviews)
+                <br>{{$reviews->review}}
+                {{$reviews->created_at->diffForHumans()}}
+                Posted by {{Sentry::getUser($reviews->commenter_id)->name}}
+                <br>
+                
+
+                @endforeach
+                
+              </div> 
             </div>
             <div role="tabpanel" class="tab-pane " id="tutorial">
-            tutorial
+            No tutorial uploaded yet
             </div>
             <!-- button for scout generation -->
             <div role="tabpanel" class="tab-pane " id="findtalent">
@@ -92,7 +169,7 @@
                     {{$scout->scouttitle}}
                   </a>
                   </span>
-                    
+
                   </div>
 
                   @endforeach
@@ -101,13 +178,31 @@
                   <div class="clearfix"></div>
                   <div class="event-applied ">
                   <br><br>
-                    <h4 class="pull-left"> <b>Applied Scout List </b></h4>
+                    <h4 class="pull-left"> <b>Applied Scout List </b></h4><br><br><br><br>
+                  @foreach($scoutadds as $amma)
+
+                    @foreach($amma->scouted as $bhairu)
+                      <div class="col-md-4">
+                  <span class="scoutevent">
+                  <a href="/scout/{{$scout->id}}" class="scoutposterblock">
+                    {{ HTML::image($bhairu->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
+                    {{$bhairu->scouttitle}}
+
+
+                  </a>
+                  </span>
+
+                  </div>
+                    @endforeach
+                  @endforeach
+                 
+
                   </div>
 
 
               </div>     
               <div class="col-md-4">
-                ----User bloxk -----
+                
               </div>      
               
             </div>          
@@ -252,6 +347,7 @@
 
 
 
+
               </fieldset>
                 {{ Form::close() }}
 
@@ -355,6 +451,7 @@
           {{ Form::submit('Delete', array('class' => 'btn btn-default  pull-right')) }}
           {{ Form::close() }}
 
+
               </div>
 
             </div>  
@@ -370,6 +467,51 @@
         <span class="album-block">
           <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> About</h3>
         </span>
+        <div class="col-md-8">
+          <div class="col-md-6">
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Name</span>
+              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->name}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">date of birth</span>
+              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->dob}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Email</span>
+              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->email}}</span>
+            </div>
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">Phone</span>
+              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->phone}}</span>
+            </div>
+            
+          </div>
+
+          <div class="col-md-6">
+            <div class="flowplayer ">
+               <video>
+                  <source type="video/webm" src="{{url()}}/aboutvideo/webm/{{$abouts->video}}.webm">
+                  <source type="video/mp4"   src="{{url()}}/aboutvideo/mp4/{{$abouts->video}}.mp4">
+                  <source type="video/flash" src="{{url()}}/aboutvideo/flv/{{$abouts->video}}.flv">
+
+               </video>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="profile-blocks">
+              <div class="about-details-block" >
+                <span class="profile-title text-capitalize">About me</span>
+                <span class="text-muted">{{$abouts->about_us}}</span>
+              </div>
+              <div class="about-details-block" >
+                <span class="profile-title text-capitalize">Awards or Achievements</span>
+                <span class="text-muted"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
       </div>
     </div>
   </div>
@@ -465,6 +607,7 @@ Dropzone.options.mydropzone = {
      });
   
 </script>
+
 
 
 @stop

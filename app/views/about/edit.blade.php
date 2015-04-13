@@ -17,6 +17,19 @@
         {{ errors_for('about_us', $errors) }}
     </div>
 
+    <div class="form-group">
+        {{ Form::label('education', 'Education:') }}
+        {{ Form::text('education', null, array('class' => 'form-control')) }}
+        {{ errors_for('education', $errors) }}
+    </div>
+
+	<div class="form-group">
+
+        {{ Form::label('video', 'Intro Video') }}
+    	{{ Form::file('video') }}
+    </div>    
+
+
     
 
     {{ Form::submit('update about!', array('class' => 'btn btn-primary')) }}

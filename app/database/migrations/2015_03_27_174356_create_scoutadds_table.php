@@ -21,9 +21,9 @@ class CreateScoutaddsTable extends Migration {
 			$table->string('audio');
 			$table->string('video');
 			$table->string('image');
-			$table->string('applied');
-			$table->string('shortlist');
-			$table->string('selected');
+			$table->string('applied')->nullable();
+			$table->string('shortlist')->nullable();
+			$table->string('selected')->nullable();
 			$table->timestamps();
 			$table->foreign('scout_id')->references('id')->on('scouts')->onDelete('CASCADE')->onUpdate('CASCADE');
         	

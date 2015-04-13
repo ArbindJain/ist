@@ -168,3 +168,23 @@
   width:200px;
   height: 200px;
 }
+/*--------------about page -------------*/
+.about-details-block {
+  overflow: hidden;
+  display: block;
+  min-width: 100%;
+  padding: 5px 0px;
+
+}
+.about-title {
+  width: 120px;
+  font-weight: bold;
+}
+.profile-blocks{
+  display: block;
+  padding: 10px 0px;
+}
+.profile-title {
+  width: 320px;
+  font-weight: bold;
+}

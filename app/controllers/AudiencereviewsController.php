@@ -1,6 +1,6 @@
 <?php
 
-class ScoutapplyController extends \BaseController {
+class AudiencereviewsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -31,17 +31,11 @@ class ScoutapplyController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
-		$scoutapply = new Scoutadd();
-		$scoutapply->scout_id = Input::get('scout_id');
-		$scoutapply->user_id = Sentry::getUser()->id;
-		$scoutapply->audio = Input::get('audio');
-		$scoutapply->video = Input::get('video');
-		$scoutapply->image = Input::get('image');
-		$scoutapply->applied = Input::get('applied');
-		$scoutapply->shortlist = Input::get('shortlist');
-		$scoutapply->selected = Input::get('selected');
-		$scoutapply->save();
+		$reviews = new Audiencereview();
+		$reviews->user_id = Input::get('user_id');
+		$reviews->review = Input::get('review');
+		$reviews->commenter_id = Sentry::getUser()->id;
+		$reviews->save();
 
 		return Redirect::back();
 	}
@@ -79,26 +73,7 @@ class ScoutapplyController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		
-		$commandchecker = Input::get('shortlist');
-		if($commandchecker == '1'){
-
-			$shortlisting = Scoutadd::find($id);
-
-			$shortlisting->shortlist = '1';
-			$shortlisting->selected = 'NULL'; 
-			$shortlisting->save();
-
-		}
-		else
-		{
-			$selectlisting =  Scoutadd::find($id);
-			$selectlisting->selected = '1';
-			$selectlisting->shortlist ='NULL';
-			$selectlisting->save();
-
-		}
-		return Redirect::to('/');
+		//
 	}
 
 
@@ -110,7 +85,11 @@ class ScoutapplyController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$reviews = Audiencereview::find($id);
+	
+	$reviews->delete();
+
+	return Redirect::back();
 	}
 
 

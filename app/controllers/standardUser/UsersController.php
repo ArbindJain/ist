@@ -99,7 +99,7 @@ class UsersController extends \BaseController {
 			$user->save();
 			return Redirect::route('profiles.edit', $user->id)->withFlashMessage('User (and Image) has been updated successfully!');
 			//Reminder text 
-			//laravel 5.0 has update routing problem. it took 5hrs to solve the error!! haha!!
+			//laravel 4.0 has update routing problem. it took 5hrs to solve the error!! haha!!
 
 		}
 			

@@ -90,9 +90,31 @@ class ScoutController extends \BaseController {
 		$scout = Scout::find($id);
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
+		$applicantscout =  Scoutadd::where('scout_id','=',$scout->id)->where('applied','=','1')->get();
+
+		foreach ($applicantscout as $key => $applicant) 
+		{
+			$applicantscout[$key]->applieduser = Scout::where('id','=',$applicant->scout_id)->get();
+		}
+		$shortlistscout =  Scoutadd::where('scout_id','=',$scout->id)->where('shortlist','=','1')->get();
+		foreach ($shortlistscout as $key => $shortlisted) 
+		{
+			$shortlistscout[$key]->shlisted = Scout::where('id','=',$shortlisted->scout_id)->get();	
+
+		}
+		$selectedscout =  Scoutadd::where('scout_id','=',$scout->id)->where('selected','=','1')->get();
+		foreach ($selectedscout as $key => $selectlist) {
+
+			$selectedscout[$key]->selectlist = Scout::where('id','=',$selectlist->scout_id)->get();
+			
+		}
+		
 		return View::make('scout.show')
 			->with('scout',$scout)
-			->with('active_user',$active_user);
+			->with('active_user',$active_user)
+			->with('applicantscout',$applicantscout)
+			->with('shortlistscout',$shortlistscout)
+			->with('selectedscout',$selectedscout);
 	}
 
 
@@ -116,7 +138,15 @@ class ScoutController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+			var_dump($id);
+			$shortlisting = Scoutadd::find('9');
+
+			$shortlisting->shortlist = Input::get('shortlist'); 
+			$shortlisting->save();
+
+			return Redirect::to('/');
+
+		
 	}
 
 

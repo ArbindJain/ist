@@ -69,7 +69,7 @@ foreach ($types as $key => $type) {
 }
 
 			
-			$product = 'galleryimages/';
+			$product = 'galleryimages/'.$nameWithOutExt;
 				
             $pictures = new Picture();
             $pictures->picturename = $product;

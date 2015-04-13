@@ -45,7 +45,39 @@
           
         </div>
         <div class="col-md-4">
-          User review block ----------------------
+          Audience Review
+          {{ Form::open(['route' => 'audiencereviews.store']) }}
+                      <fieldset>
+                  @if (Session::has('flash_message'))
+                    <div class="form-group">
+                      <p>{{ Session::get('flash_message') }}</p>
+                    </div>
+                  @endif
+              {{Form::hidden('user_id',$userprofile->id)}}
+              <!-- Image title field -->
+              <div class="form-group">
+                {{ Form::text('review', null, ['placeholder' => 'review this user!', 'class' => 'form-control','required' => 'required'])}}
+                {{ errors_for('review', $errors) }}
+              </div>
+
+              <!-- Submit field -->
+              <div class="form-group">
+                {{ Form::submit('submit review ', ['class' => 'btn btn-sm btn-success btn-block']) }}
+              </div>
+
+              </fieldset>
+                {{ Form::close() }}
+                @foreach($reviewaudis as $reviewaudi)
+                <br>{{$reviewaudi->review}}
+                {{$reviewaudi->created_at->diffForHumans()}}
+                Posted by {{Sentry::getUser($reviewaudi->commenter_id)->name}}
+                @if($reviewaudi->user_id == Sentry::getUser()->id)
+                {{ Form::model($reviewaudi, ['method' => 'DELETE', 'route' => ['audiencereviews.destroy',$reviewaudi->id]]) }}
+                {{ Form::submit('Delete', array('class' => 'btn btn-default')) }}
+                {{ Form::close() }}
+                 @endif
+                @endforeach
+
         </div>
         
                

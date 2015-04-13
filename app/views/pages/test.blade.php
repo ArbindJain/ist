@@ -39,6 +39,7 @@
                   <div class="img-description">{{$albumimage->picturedescription}}</div>
                   <div class="img-like"><a class="likebutton" data-model="Picture" data-id="{{$albumimage->id}}" data-action="{{isset($albumimage->liked)?'unlike':'like'}}"><i class="fa fa-star-o"></i>&nbsp;<span class="btntext">{{isset($albumimage->liked)?'Unlike':'Like'}}</span></a></div>
                   <!-- // -->
+
                    <span class="img-comment-wrapper comment-target">
                     @foreach($albumimage->commented as $comments)
                     <div class="img-comment comment-block-{{$comments->id}}">
@@ -47,6 +48,7 @@
                       <div class="com-details">
                         <div class="com-time-container">
                           {{ $comments->created_at->diffForHumans() }} ·
+                          
                         </div>
                       </div>
                     </div>

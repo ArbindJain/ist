@@ -36,8 +36,7 @@ class PagesController extends \BaseController {
 		}
 		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
 		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
-
-		
+		$reviewaudis = Audiencereview::where('user_id','=',$userprofile->id)->get();
 
 		return View::make('pages.profile')
 			->with('userprofile',$userprofile)
@@ -46,7 +45,8 @@ class PagesController extends \BaseController {
 			->with('followedbycount',$followedbycount)
 			->with('all_albums',$all_albums)
 			->with('user_videos',$user_videos)
-			->with('user_audios',$user_audios);
+			->with('user_audios',$user_audios)
+			->with('reviewaudis',$reviewaudis);
 		 
 		
 
@@ -76,10 +76,11 @@ class PagesController extends \BaseController {
 			$album_images[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Picture')->orderBy('id','asc')->get();
 			
 			# code...
+			
 
 		}
 		//foreach ($album_images as $key => $commentz) $album_images[$key]->commented = Comment::where('commentable_id','=',$commentz->id)->where('commentable_type','=','Picture')->orderBy('id','desc')->get();
-			
+				
 		
 		//$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
 		//foreach ($album_images as $key => $pic_comment) $album_images[$key]->commented =Comment::where('commentable_id','=',$pic_comment->id)->orderBy('id', 'desc')->get();

@@ -267,7 +267,112 @@
                   <span>scoutdescription : {{$scout->scoutdescription}}</span><br>
                   <span>artistdescription : {{$scout->artistdescription}}</span><br>
                   <span>posted around - {{$scout->created_at->diffForHumans()}}</span><br>
-              </div>                 
+              </div>  
+              <div class="clearfix"></div>
+              <div class="selected-sc">
+                <h3>Selected</h3>
+                @foreach($selectedscout as $selecteduser)
+                  @foreach($selecteduser->selectlist as $selectedmr)
+                    <div class="col-md-4">
+                    <span class="scoutevent">
+                    <a href="#" class="scoutposterblock">
+                      {{ HTML::image($selectedmr->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
+                      {{$selectedmr->scouttitle}}
+                      
+                    </a>
+                    </span>
+
+                    </div>  
+                  @endforeach
+                @endforeach
+              </div>
+              <div class="shortlisted-sc">
+                <h3>Short-listed</h3>
+                @foreach($shortlistscout as $shota)
+                  @foreach($shota->shlisted as $shotalist)
+                    <div class="col-md-4">
+                    <span class="scoutevent">
+                    <a href="#" class="scoutposterblock">
+                      {{ HTML::image($shotalist->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
+                      {{$shotalist->scouttitle}}
+                      
+                    </a>
+                    </span>
+
+                    </div>
+                  @endforeach
+                @endforeach
+              </div>
+              <div class="applicants-sc">
+                <h3>Applicants</h3>
+
+                @foreach($applicantscout as $applicants)
+                  @foreach($applicants->applieduser as $allapplicants)
+                   
+                  <!-- Button trigger modal -->
+<div class="col-md-4">
+                  <span class="scoutevent">
+<a class="" data-toggle="modal" data-target="#myModal">
+  {{ HTML::image($allapplicants->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
+     {{$allapplicants->scouttitle}}               
+</a>
+</span>
+
+                  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Scout Intervention</h4>
+      </div>
+      <div class="modal-body">
+      {{ HTML::image(Sentry::getUser($allapplicants->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left')) }}
+    {{Sentry::getUser($allapplicants->user_id)->title}}
+    {{Sentry::getUser($allapplicants->user_id)->name}}
+    Insert links - audio video and pictures
+
+     {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}
+               
+      {{ Form::hidden('shortlist', '1') }}
+      {{ Form::hidden('selected', 'NULL') }}
+   
+
+
+
+    <!-- Update Profile Field -->
+    <div class="form-group">
+      {{ Form::submit('shortlist', ['class' => 'btn']) }}
+    </div>
+  {{ Form::close() }}
+  {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}
+               
+      {{ Form::hidden('shortlist', 'NULL') }}
+      {{ Form::hidden('selected', '1') }}
+
+
+
+    <!-- Update Profile Field -->
+    <div class="form-group">
+      {{ Form::submit('selected', ['class' => 'btn']) }}
+    </div>
+  {{ Form::close() }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                  @endforeach
+                @endforeach
+              </div>
+                
+              </div>               
               
             </div>          
       </div>

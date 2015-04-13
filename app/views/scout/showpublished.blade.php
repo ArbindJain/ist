@@ -30,10 +30,11 @@
               <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
             <div class="modal-body">
-                 {{ Form::open(['route' => 'scoutpublished','files' => 'true' ,'class'=>'vid_form']) }}
+                 {{ Form::open(['route' => 'scoutpublishedapply.store','files' => 'true' ,'class'=>'sc_apply']) }}
+                 
                       <fieldset>
               {{ Form::hidden('scout_id', $scoutview->id) }}
-              {{ Form::hidden('applied', 'YES') }}
+              {{ Form::hidden('applied', '1') }}
 
             	<div class="form-group">
 					Select any Album
@@ -52,7 +53,7 @@
 
               <!-- Submit field -->
               <div class="form-group">
-                {{ Form::submit('Upload Video', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+                {{ Form::submit('Applynow', ['class' => 'btn btn-md btn-primary btn-block videobutton']) }}
               </div>
 
 
