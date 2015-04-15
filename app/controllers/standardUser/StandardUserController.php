@@ -34,7 +34,7 @@ class StandardUserController extends \BaseController {
 		$aud_review = Audiencereview::where('user_id','=',$current_user)->get();
 		$performances = Performance::where('user_id','=',$current_user)->get();
 		$abouts = Profile::where('user_id','=',$current_user)->first();
-
+		
 		
 
 

@@ -101,6 +101,24 @@
 							</form>
 						</li>
 						<li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+				          	
+							  <i class="fa fa fa-bolt"></i>
+							
+				          </a>
+
+	 						<ul class="dropdown-menu dropdown-menu-notification" role="menu">
+				            <li>
+				            	<div class="notification">
+				            	
+				            	</div>
+				            </li>
+				            <div class="see-more-block">
+				            	<a href="">See All</a>
+				            </div>
+				          </ul>
+				        </li>
+				        <li class="dropdown">
 				          <a href="#" id ="menubar-avatar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	 						{{ HTML::image(Sentry::getUser()->profileimage , 'profile picture', array('class' => 'img-circle avatar')) }}	</a>
 				          <ul class="dropdown-menu" role="menu">
@@ -158,7 +176,9 @@
 		  	</div><!-- /.container-fluid -->
 			</nav>
 		</header>
-
+<div class="notification">
+	
+</div>
 		<div class="container">
 		 
 		@yield('content')
@@ -243,7 +263,7 @@ document.addEventListener("click", function(){
 </script>
 <script type="text/javascript">
    
-   
+  
   $(document).ready( function(){
     $("body").on("click", ".likebutton", function() {
       var handle = $(this);
@@ -256,7 +276,7 @@ document.addEventListener("click", function(){
         else url= '/diminish';
       }
       // for other likes
-      else(handle.data("model") == 'Blog') {
+      else if(handle.data("model") == 'Blog') {
         if (handle.data("action") == 'like')
           url = '/likes';
         else url= '/diminish';
@@ -302,7 +322,8 @@ document.addEventListener("click", function(){
 
  
 </script>
-
+		
+	    
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -315,6 +336,19 @@ document.addEventListener("click", function(){
                
             });
         });
+        </script>
+        {{ HTML::script('/js/notification-updater.js') }}
+        <script type="text/javascript">
+       
+        NotificationUpdater.settings.target_class_name = "notification";
+        NotificationUpdater.settings.url = "{{url('userfeeds')}}";
+        NotificationUpdater.settings.csrf_token = '{{ csrf_token() }}';
+        
+        /* 
+        $.ajax({url: '/userfeeds', dataType: 'json', method: 'POST', data: {_token: '{{ csrf_token() }}', test: 'hello', },
+        	success: function(response) {
+        		console.log(response);
+        	},}); */
         </script>
         </body>
 </html>

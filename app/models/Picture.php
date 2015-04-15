@@ -24,6 +24,13 @@ class Picture extends Eloquent
                 return $this->morphMany('Like','likeable');
             
             }
+            public function feedable()
+
+            {
+                
+                return $this->morphMany('Feed','feedable');
+            
+            }
 
 
 		   

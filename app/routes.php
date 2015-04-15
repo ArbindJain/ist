@@ -60,6 +60,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::get('scoutpublished/{id}', array('as'=> 'scoutpublished','uses'=> 'ScoutController@getscout'));
 	Route::resource('audiencereviews','AudiencereviewsController');
 	Route::resource('userperformances','PerformanceController');
+	Route::resource('userfeeds','FeedsController');
 	
 	
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeedsTable extends Migration {
+class CreateReadfeedsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,15 @@ class CreateFeedsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('feeds', function(Blueprint $table)
+		Schema::create('readfeeds', function(Blueprint $table)
 		{
-			//
+			
 			$table->increments('id');
+	        $table->integer('feed_id')->unsigned();
 			$table->integer('user_id')->unsigned();
-	        $table->integer('feedable_id');
-	        $table->string('feedable_type');
-	        $table->string('story');
-			$table->string('grouptype');
+			$table->boolean('read');
 			$table->timestamps();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+			$table->foreign('feed_id')->references('id')->on('feeds')->onDelete('CASCADE')->onUpdate('CASCADE');
         	
 		});
 	}
@@ -34,7 +32,7 @@ class CreateFeedsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drops('feeds');
+		Schema::drops('readfeeds');
 	}
 
 }
