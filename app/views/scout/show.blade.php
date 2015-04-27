@@ -1,212 +1,11 @@
-@extends('masterdatepick')
+@extends('master')
 
 @section('title', 'Profile')
 
 @section('content')
 
 <!-- ****** Display profile image,name and other suff ***** -->
-<style>
 
-/*************-------------Menu Bar Code Only--------------*******************/
-.dropdown-menu-edited {
-  min-width:auto;
-  width:600px;
-}
-
-.dropdown-menu-edited li  {
-  min-width:auto;
-  width:20%;
-  float:left;        
-}
-
-.dropdown-menu-edited li a {
-  
-  }
-
-.avatar {
-  width: 32px;
-  height: 32px;
-}
-
-#size{
-  width: 120px;
-  height: 120px;
-}
-
-.search-container {
-  margin-right: -75px;
-
-}
-.search-box {
-  -webkit-transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
-  transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
-  width: 40px;
-  height: 40px;
-  border: none;
-  cursor: pointer;
-  margin-top:12px;
-}
-
-.search-box + label .search-icon {
-  color: black;
-}
-
-.search-box:hover {
-  color: black;
-/*background: #c8c8c8;
-  box-shadow: 0 0 0 5px #3d4752;
-  box-shadow: 0 0 0 0px #3d4752;*/
-
-}
-
-.search-box:hover + label .search-icon {
-  color: black;
-}
-
-.search-box:focus {
-  -webkit-transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
-  transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  padding-left: 15px;
-  cursor: text;
-  width: 300px;
-  border-radius: auto;
-  background: #ebebeb;
-  color: black;
-}
-
-.search-box:focus + label .search-icon {
-  color: black;
-}
-
-.search-box:not(:focus) {
-  text-indent: -5000px;
-}
-
-#search-submit {
-  position: relative;
-  left: -5000px;
-}
-
-.search-icon {
-  position: relative;
-  left: -30px;
-  color: white;
-  cursor: pointer;
-}
-#menubar-avatar {
-  padding: 14px 15px !important;
-}
-.navbar{
-  border-bottom: 3px solid #eeeeee;
-}
-
-/*************-------------profile Bar Code (next bar after menu)--------------*******************/
-.profile-main-block{
-  padding-left: 70px;
-  margin-bottom: 20px;
-}
-.name-block{
-  display: block;
-  margin-left: 30px;
-  margin-top: 5px;
-}
-.name-space {
-  display: block;
-  margin-bottom: 5px;
-}
-.link-block {
-  display: block;
-  margin-top: 27px;
-  margin-left: 30px;
-}
-.com-time-container{
-  text-align: left;
-}
-.centered-pills { text-align:center; }
-.centered-pills ul.nav-pills { display:inline-block; }
-.tabnav li { display: inline; }
-* html .centered-pills ul.nav-pills { display:inline; } /* IE6 */
-*+html .centered-pills ul.nav-pills { display:inline; } /* IE7 */
-
-.sub-nav-block {
-  display: block;
-  border-bottom: 2px solid #ececec;
-}
-.album-block{
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  margin-bottom: 10px;
-  margin-left: 17px;
-}
-.tab-content {
-  display: block;
-  margin: 10px 50px;
-}
-
-/* --------------- follow button css  ---------------*/
-#follow-mirror  {
-  display: none;
-}
-#unfollow-mirror{
-  display: none;
-}
-/*----------------- Like button css ------------------*/
-#like-mirror {
-  display: none;
-}
-#dislike-mirror{
-  display: none;
-}
-/*---------------Comment Block style ---------------*/
-.comment-block{
-  display: block;
-  padding: 4px 0px;
-}
-/*--------------Flow Player ----------------------*/
-.flow-player{
-  width:200px;
-  height: 200px;
-}
-
-
-
-
-  #size1{
-    display: block;
-    width: 40px;
-    height: 40px;
-  }
-  .user-details{
-    display: block;
-    margin-left: 10px;
-
-  }
-  .article-image {
-    display: block;
-    margin-left: 50px;
-
-  }
-  .comment-method{
-    display: block;
-    margin-left: 60px;
-    margin-top: 5px;
-  }
-  .text-width{
-    display: block;
-    width: 70%;
-    margin-left: 60px;
-  }
-  /*--Poster css*/
-  #postersize{
-  	width: 551px;
-  	height:315px;
-  }
-  
-</style>
 
 <div class="row">
   <div class="col-md-9 profile-main-block col-md-offset-3">
@@ -223,9 +22,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12 centered-pills">
+  <div class="col-md-12 ">
     <div class="sub-nav-block">
-    <ul class="nav nav-pills ">
+    <ul class="nav nav-pills centertab ">
       <li role="navigation" class="active"><a href="{{url()}}/userProtected#yourfeedwall">MyEvent(wall)</a></li>
       <li role="navigation"><a href="{{url()}}/userProtected#photo">Photos</a></li>
       <li role="navigation"><a href="{{url()}}/userProtected#video">Video</a></li>
@@ -239,7 +38,7 @@
       <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
         <div class="col-md-8">
-            <ul class=" pull-left tabnav">
+            <ul class=" tabnav centertab">
               <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
               <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
@@ -256,7 +55,7 @@
             </div>
             <!-- button for scout generation -->
             <div role="tabpanel" class="tab-pane active" id="findtalent">
-              <div class="scout-wrapper">
+             <!-- <div class="scout-wrapper">
               	{{ HTML::image($scout->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left','id'=>'postersize')) }}
                   <span>Title : {{$scout->scouttitle}}</span><br>
                   <span>Date and Time : {{Carbon\Carbon::parse($scout->scoutdatetime)->toDayDateTimeString()}}</span><br>
@@ -267,18 +66,20 @@
                   <span>scoutdescription : {{$scout->scoutdescription}}</span><br>
                   <span>artistdescription : {{$scout->artistdescription}}</span><br>
                   <span>posted around - {{$scout->created_at->diffForHumans()}}</span><br>
-              </div>  
+              </div>  -->
               <div class="clearfix"></div>
               <div class="selected-sc">
                 <h3>Selected</h3>
                 @foreach($selectedscout as $selecteduser)
+
                   @foreach($selecteduser->selectlist as $selectedmr)
+
                     <div class="col-md-4">
                     <span class="scoutevent">
                     <a href="#" class="scoutposterblock">
-                      {{ HTML::image($selectedmr->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
-                      {{$selectedmr->scouttitle}}
-                      
+                      {{ HTML::image(Sentry::findUserById($selecteduser->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left scoutuserimg-size')) }}
+                      <div class="scoutusername"><p>{{Sentry::findUserById($selecteduser->user_id)->name}}</p></div>
+                      <div class="scoutusertitle"><p>{{Sentry::findUserById($selecteduser->user_id)->title}}</p></div>
                     </a>
                     </span>
 
@@ -286,16 +87,18 @@
                   @endforeach
                 @endforeach
               </div>
+              <div class="clearfix"></div>
               <div class="shortlisted-sc">
                 <h3>Short-listed</h3>
                 @foreach($shortlistscout as $shota)
                   @foreach($shota->shlisted as $shotalist)
                     <div class="col-md-4">
                     <span class="scoutevent">
+                    
                     <a href="#" class="scoutposterblock">
-                      {{ HTML::image($shotalist->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
-                      {{$shotalist->scouttitle}}
-                      
+                      {{ HTML::image(Sentry::findUserById($shota->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left scoutuserimg-size')) }}
+                      <div class="scoutusername"><p>{{Sentry::findUserById($shota->user_id)->name}}</p></div>
+                      <div class="scoutusertitle"><p>{{Sentry::findUserById($shota->user_id)->title}}</p></div>
                     </a>
                     </span>
 
@@ -303,72 +106,78 @@
                   @endforeach
                 @endforeach
               </div>
+              <div class="clearfix"></div>
               <div class="applicants-sc">
                 <h3>Applicants</h3>
 
                 @foreach($applicantscout as $applicants)
-                  @foreach($applicants->applieduser as $allapplicants)
-                   
+               
+
                   <!-- Button trigger modal -->
 <div class="col-md-4">
                   <span class="scoutevent">
-<a class="" data-toggle="modal" data-target="#myModal">
-  {{ HTML::image($allapplicants->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
-     {{$allapplicants->scouttitle}}               
-</a>
+  <a href="" data-toggle="modal" data-target="#myModal-{{$applicants->id}}" class="scoutposterblock">
+                      {{ HTML::image(Sentry::findUserById($applicants->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left scoutuserimg-size')) }}
+                      <div class="scoutusername"><p>{{Sentry::findUserById($applicants->user_id)->name}}</p></div>
+                      <div class="scoutusertitle"><p>{{Sentry::findUserById($applicants->user_id)->title}}</p></div>
+  </a>
+
+
 </span>
 
                   </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal-{{$applicants->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Scout Intervention</h4>
+       
+      <div class="modal-body" style="height: 300px; background-color: #e5e5e5;">
+      <div class="col-md-2">
+        <div class="pop-img">{{ HTML::image(Sentry::findUserById($applicants->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left scoutuserimg-size')) }}
+     </div>
+     <div class="pop-username text-capitalize">{{Sentry::findUserById($applicants->user_id)->name}}</div>
+      <div class="pop-title text-capitalize">{{Sentry::findUserById($applicants->user_id)->title}}</div>
       </div>
-      <div class="modal-body">
-      {{ HTML::image(Sentry::getUser($allapplicants->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left')) }}
-    {{Sentry::getUser($allapplicants->user_id)->title}}
-    {{Sentry::getUser($allapplicants->user_id)->name}}
-    Insert links - audio video and pictures
+      <div class="col-md-10">
+        <ul class="pop-button nav nav-pills ">
+        <li class="pull-right">
+          {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}         
+          {{ Form::hidden('shortlist', '1') }}
+          {{ Form::hidden('selected', 'NULL') }}
+          {{ Form::submit('shortlist', ['class' => 'btn']) }}
+          {{ Form::close() }}</li>
+        
+        <li class="pull-right">  
+        {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}         
+          {{ Form::hidden('shortlist', 'NULL') }}
+          {{ Form::hidden('selected', '1') }}
+          {{ Form::submit('selected', ['class' => 'btn ']) }}
+          {{ Form::close() }}</li>
+        
 
-     {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}
-               
-      {{ Form::hidden('shortlist', '1') }}
-      {{ Form::hidden('selected', 'NULL') }}
-   
-
-
-
-    <!-- Update Profile Field -->
-    <div class="form-group">
-      {{ Form::submit('shortlist', ['class' => 'btn']) }}
-    </div>
-  {{ Form::close() }}
-  {{ Form::model($applicants, ['method' => 'PUT', 'route' => ['scoutpublishedapply.update',$applicants->id]]) }}
-               
-      {{ Form::hidden('shortlist', 'NULL') }}
-      {{ Form::hidden('selected', '1') }}
-
-
-
-    <!-- Update Profile Field -->
-    <div class="form-group">
-      {{ Form::submit('selected', ['class' => 'btn']) }}
-    </div>
-  {{ Form::close() }}
+      </ul>
+      <div class="attachedfile-block">
+      <img src="{{url()}}/{{$applicants->image}}-resiged.jpg" class="img-thumb imgsize-insidemodal">
+      <div class="flowplayer videosize-modal ">
+        <video>
+          <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$applicants->video}}.webm">
+          <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$applicants->video}}.mp4">
+          <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$applicants->video}}.flv">
+        </video>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+      </div>
+      
+      
+
+      
       </div>
     </div>
   </div>
 </div>
 
-                  @endforeach
+                  
                 @endforeach
               </div>
                 
@@ -384,6 +193,5 @@
 
 
 
-
-
+            
 @stop

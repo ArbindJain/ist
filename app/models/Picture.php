@@ -31,6 +31,13 @@ class Picture extends Eloquent
                 return $this->morphMany('Feed','feedable');
             
             }
+            public function newsfeedable()
+
+            {
+                
+                return $this->morphMany('Newsfeed','newsfeedable');
+            
+            }
 
 
 		   

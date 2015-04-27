@@ -4,13 +4,22 @@
 
 @section('content')
 <!-- ****** Display profile image,name and other suff ***** -->
+<script>
+// autoload tabs
+$(document).ready(function() {
+  if (window.location.hash) {
+    $("a[href='" + window.location.hash + "']").tab("show");
+  }
+});
+</script>
+
 <div class="row">
   @include('partials._profiledisplay')
 </div>
 <div class="row">
-  <div class="col-md-12 centered-pills">
+  <div class="col-md-12 ">
     <div class="sub-nav-block">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills centertab">
       <li role="navigation" class="active"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Photo</a></li>
       <li role="navigation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a></li>
       <li role="navigation"><a href="#audio" aria-controls="audio" role="tab" data-toggle="tab">Audio</a></li>
@@ -23,19 +32,18 @@
     <div class="tab-content">
     <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="photo">
-        <span class="album-block">
-        <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
-        </span>
         <div class="col-md-8">
           <div class="row">
           @foreach($all_albums as $allalbum)
             <div class="col-md-4">
-             {{ link_to_route('real',  $allalbum->user_id, array($allalbum->id), array('class' => 'btn btn-info')) }}
-              {{$allalbum->albumname}}
+             <a href="{{ URL::to('real', array('id' => $allalbum->id)) }}">
               @if(isset($allalbum->picture))
-                {{HTML::image($allalbum->picture->picturename)}}
+              <figure>
+                <img src="{{url()}}/{{$allalbum->picture->picturename}}-resiged.jpg" class="">
+                <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
+              </figure>
               @endif
-                      
+               </a>       
             </div>
              
 
@@ -45,38 +53,8 @@
           
         </div>
         <div class="col-md-4">
-          Audience Review
-          {{ Form::open(['route' => 'audiencereviews.store']) }}
-                      <fieldset>
-                  @if (Session::has('flash_message'))
-                    <div class="form-group">
-                      <p>{{ Session::get('flash_message') }}</p>
-                    </div>
-                  @endif
-              {{Form::hidden('user_id',$userprofile->id)}}
-              <!-- Image title field -->
-              <div class="form-group">
-                {{ Form::text('review', null, ['placeholder' => 'review this user!', 'class' => 'form-control','required' => 'required'])}}
-                {{ errors_for('review', $errors) }}
-              </div>
 
-              <!-- Submit field -->
-              <div class="form-group">
-                {{ Form::submit('submit review ', ['class' => 'btn btn-sm btn-success btn-block']) }}
-              </div>
-
-              </fieldset>
-                {{ Form::close() }}
-                @foreach($reviewaudis as $reviewaudi)
-                <br>{{$reviewaudi->review}}
-                {{$reviewaudi->created_at->diffForHumans()}}
-                Posted by {{Sentry::getUser($reviewaudi->commenter_id)->name}}
-                @if($reviewaudi->user_id == Sentry::getUser()->id)
-                {{ Form::model($reviewaudi, ['method' => 'DELETE', 'route' => ['audiencereviews.destroy',$reviewaudi->id]]) }}
-                {{ Form::submit('Delete', array('class' => 'btn btn-default')) }}
-                {{ Form::close() }}
-                 @endif
-                @endforeach
+        @include('partials._audienceentry')
 
         </div>
         
@@ -84,69 +62,323 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="video">
          <!-- video uploaded by the user display -->
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-video-o"></i> Videos</h3>
-        </span>
+        
         <div class="col-md-8">
-          <div class="row">
+          <div class="row gallery">
             @foreach($user_videos as $uservid)
-            <div class="col-md-6">
-             <div class="flowplayer ">
-   <video>
-      <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$uservid->videosrc}}.webm">
-      <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$uservid->videosrc}}.mp4">
-      <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$uservid->videosrc}}.flv">
+            <div class="col-md-6 gallery-image gallery-viewer-image" data-image-id="{{$uservid->id}}">
+              <div class="gallery-image-overlay"></div>
+              <img>
+              <span class="gv-video">
+                <div class="flowplayer">
+                  <video>
+                    <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$uservid->videosrc}}.webm">
+                    <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$uservid->videosrc}}.mp4">
+                    <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$uservid->videosrc}}.flv">
 
-   </video>
-</div>
-</div>
-            
+                  </video>
+                </div>
+              </span>
+              <div class="gallery-viewer-image-content" style="display: none;">
+                <!-- inserted as is -->
+                <div class="img-title">{{$uservid->videotitle}}</div>
+                <div class="img-description">{{$uservid->videodescription}}</div>
+                 <!-- // -->
+                <!--- Video like button !-->
+                  @include('partials._videolikebutton')
+                <!--- End Video like button -!-->
+
+                <span class="img-comment-wrapper comment-target">
+                  @foreach($uservid->commented as $comments)
+                  <div class="img-comment comment-block-{{$comments->id}}">
+                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                    <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  @endforeach
+                </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $uservid->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$uservid->id)}}
+                    {{Form::hidden('model','Video')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+            </div>
             @endforeach   
 
           </div>
         </div>
-        <div class="com-md-4">
-          User review block -----------------------
+        <div class="col-md-4">
+          @include('partials._audienceentry')
         </div>
 
       </div>
       <div role="tabpanel" class="tab-pane" id="audio">
        <!-- video uploaded by the user display -->
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-audio-o"></i> Audios</h3>
-        </span>
+        
         <div class="col-md-8">
 
-          <div class="row">
+          <div class="row gallery">
           @foreach($user_audios as $useraud)
+            <div class="col-md-6 gallery-image gallery-viewer-image" data-image-id="{{$useraud->id}}">
+              <div class="gallery-image-overlay"></div>
+              <img>
+              <span class="gv-audio">
+                <div id="player" style="background-color:#000" class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+              <video preload="none">
+                <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$useraud->audiosrc}}.ogg">
+              </video>
+              </div>
+              </span>
+              <div class="gallery-viewer-image-content" style="display: none;">
+                <!-- inserted as is -->
+                <div class="img-title">{{$useraud->videotitle}}</div>
+                <div class="img-description">{{$useraud->videodescription}}</div>
+                 <!-- // -->
+                 <!--- Audio like button !-->
+                  @include('partials._audiolikebutton')
+                <!--- End Audio like button -!-->
 
-    <div class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
-   <video>
+                <span class="img-comment-wrapper comment-target">
+                  @foreach($useraud->commented as $comments)
+                  <div class="img-comment comment-block-{{$comments->id}}">
+                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                    <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  @endforeach
+                </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $useraud->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$useraud->id)}}
+                    {{Form::hidden('model','Audio')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
 
-    <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$useraud->audiosrc}}.ogg">
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+            </div>
+          @endforeach
+          <!-- temp data-->
+          <div class="row gallery">
+            @foreach($user_videos as $uservid)
+            
+            @endforeach   
 
-    <source type="video/mpeg" src="{{url()}}/galleryaudio/mp3/{{$useraud->audiosrc}}.mp3">
+          </div>
 
-   </video>
-</div>
-@endforeach
-
+          <!-- end if temp data -->
    
           </div>
 
         </div>
-        <div class="com-md-4">
-          User review block -----------------------
+        <div class="col-md-4">
+          @include('partials._audienceentry')
         </div>
 
 
       </div>
       <div role="tabpanel" class="tab-pane" id="recent">4...</div>
-      <div role="tabpanel" class="tab-pane" id="blog">2...</div>
-      <div role="tabpanel" class="tab-pane" id="about">3...</div>
+      <div role="tabpanel" class="tab-pane" id="blog">
+        
+
+        <div class="col-md-8">
+          @foreach($articles as $article)
+            
+            <div class="media">
+              <div class="media-left">
+                <a href="#">
+                  <img class="media-object" src="https://secure.gravatar.com/avatar/8a8bf3a2c952984defbd6bb48304b38e?s=80&d=retro&r=G" style="width: 64px; height: 64px;">
+                </a>
+              </div>
+              <div class="media-body text-left">
+                <h4 class="media-heading" id="top-aligned-media">{{$article->title}}<a class="anchorjs-link" href="#top-aligned-media"><span class="anchorjs-icon"></span></a></h4>
+                <p class="text-left">
+                  {{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $article->body), 0, 200) }}
+                </p>
+           {{ link_to_route('blog.show', 'Read More', $article->id, ['class' => 'btn btn-default']) }}
+             
+          
+
+
+              </div>
+
+            </div>  
+
+          @endforeach         
+        </div>
+        <div class="col-md-4">
+          @include('partials._audienceentry')
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="about">
+        
+        <div class="col-md-8">
+          <div class="col-md-6">
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Name</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->name}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">DOB</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->dob}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Gender</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->gender}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Email</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->email}}</span>
+            </div>
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">Title</span>
+              <span class="text-muted text-title text-capitalize">{{Sentry::findUserById($abouts->user_id)->title}}</span>
+            </div>
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">Phone</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->phone}}</span>
+            </div>
+            
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">talent fields</span><br>
+              <div class="about-talent-field">
+                @if(isset(Sentry::findUserById($abouts->user_id)->art))
+                <span>Arts</span>
+
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->collection))
+                <span>Collection</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->cooking))
+                <span>Cooking</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->dance))
+                <span>Dance</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->fashion))
+                <span>Fashion</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->moviesandtheatre))
+                <span>Movies&Theatre</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->music))
+
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->sports))
+                <span>Sports</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->unordinary))
+                <span>Unordinary</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->wanderer))
+                <span>Wanderer</span>
+                @else
+                 
+                @endif
+              </div>
+            </div>
+            
+
+
+            
+          </div>
+
+          <div class="col-md-6">
+          @if(!is_null($abouts->video))
+            <div class="flowplayer" style="background-color:#000;">
+               <video>
+                  <source type="video/webm" src="{{url()}}/aboutvideo/webm/{{$abouts->video}}.webm">
+                  <source type="video/mp4"   src="{{url()}}/aboutvideo/mp4/{{$abouts->video}}.mp4">
+                  <source type="video/flash" src="{{url()}}/aboutvideo/flv/{{$abouts->video}}.flv">
+               </video>
+            </div>
+          @endif
+          </div>
+          <div class="col-md-12">
+            <div class="profile-blocks">
+              <div class="about-details-block" >
+                <span class="profile-title text-capitalize">About me</span><br>
+                <span class="text-muted">{{$abouts->about_us}}</span>
+              </div>
+              <div class="about-details-block" >
+                <span class="profile-title text-capitalize">Awards or Achievements</span><br>
+                @foreach($rewards as $reward)
+                <span class="text-muted">
+                  {{$reward->achievements}}
+                </span><br>
+                @endforeach
+                <ul class="list-inline reward-img">
+                @foreach($rewards as $reward)
+                  <li><img src="{{url()}}/achievementcertificate/{{$reward->achievement_certificate}}" class="sizeforcertificate responsive "><p>{{substr($reward->achievements,0,30)}}...</p></li>
+                @endforeach 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          @include('partials._audienceentry')
+        </div>
+      </div>
+    </div>
+  </div>
+      </div>
     </div>
   </div>
 </div>
+<!--
 <div class="row">
 	<div class="col-md-12">
 		
@@ -201,5 +433,14 @@
         @endif
 
 	</div>
+-->
 
+            {{ HTML::script('/js/gallery-viewer.js')}}
+            <script>
+              window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
+            </script>
+            {{ HTML::script('/js/remote-comment.js')}}
+            <script>
+              window.RemoteComment.settings.comment_url = "{{url('comments')}}";
+            </script>
 @stop

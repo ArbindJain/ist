@@ -10,9 +10,11 @@ class BlogsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$blogs = Blog::all();
+		$blogs = Blog::orderBy('created_at','desc')->get();
+		$sidebarblogs = Blog::orderBy('created_at','desc')->take(3)->get();
 		return View::make('blog.index')
-			->with('blogs',$blogs);
+			->with('blogs',$blogs)
+			->with('sidebarblogs',$sidebarblogs);
 	}
 
 
@@ -75,10 +77,13 @@ class BlogsController extends \BaseController {
 		$commented = Comment::where('commentable_id','=',$id)->where('commentable_type','=','Blog')->orderBy('id', 'desc')->get();
 		//----- Like on blog ------//
 		$likecount = Like::where('likeable_id','=',$blog->id)->count();
+
+		$sidebarblogs = Blog::orderBy('created_at','desc')->take(10)->get();
 			return View::make('blog.show')
 					->with('blog',$blog)
 					->with('commented',$commented)
-					->with('likecount',$likecount);
+					->with('likecount',$likecount)
+					->with('sidebarblogs',$sidebarblogs);
 
 				//	->with('blogcomments',$blogcomments);
 

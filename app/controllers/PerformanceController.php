@@ -9,7 +9,10 @@ class PerformanceController extends \BaseController {
 	 */
 	public function index()
 	{
-		
+		$performances = Performance::all();
+
+		return View::make('performance.performanceposted')
+					->with('performances',$performances);	
 	}
 
 

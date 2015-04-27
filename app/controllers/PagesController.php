@@ -15,11 +15,33 @@ class PagesController extends \BaseController {
 	{
 		
 		$userprofile = User::find($id);
+			
+		$articles = Blog::where('user_id','=',$id)->get();
+		$abouts = Profile::where('user_id','=',$id)->first();
 		
-		$all_albums = Album::where('user_id','=',$id)->with('image')->get();
-
 		$user_videos = Video::where('user_id','=',$id)->get();
+		foreach ($user_videos as $key => $image) {
+
+
+			$user_videos[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Video')->first();
+			
+
+			$user_videos[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Video')->orderBy('id','asc')->get();
+			
+		
+		}
+
 		$user_audios = Audio::where('user_id','=',$id)->get();
+		foreach ($user_audios as $key => $image) {
+
+			$user_audios[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Audio')->first();
+			
+
+			$user_audios[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Audio')->orderBy('id','asc')->get();
+			
+
+		}
+
 
 		//$album_art = array();
 
@@ -27,6 +49,7 @@ class PagesController extends \BaseController {
 		//foreach ($album_art as $picture) if (isset($picture->id)) var_dump($picture->id);
 		
 		//retriving all picture id by using album id
+		$all_albums = Album::where('user_id','=',$id)->with('image')->get();
 		foreach ($all_albums as $key => $album) $all_albums[$key]->picture = Picture::where('album_id', '=', $album->id)->first();
 		
 		$followings = null;
@@ -37,6 +60,7 @@ class PagesController extends \BaseController {
 		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
 		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
 		$reviewaudis = Audiencereview::where('user_id','=',$userprofile->id)->get();
+		$rewards = Achievement::where('user_id','=',$id)->get();
 
 		return View::make('pages.profile')
 			->with('userprofile',$userprofile)
@@ -46,7 +70,10 @@ class PagesController extends \BaseController {
 			->with('all_albums',$all_albums)
 			->with('user_videos',$user_videos)
 			->with('user_audios',$user_audios)
-			->with('reviewaudis',$reviewaudis);
+			->with('reviewaudis',$reviewaudis)
+			->with('articles',$articles)
+			->with('abouts',$abouts)
+			->with('rewards',$rewards);
 		 
 		
 

@@ -23,6 +23,7 @@ class CreateBlogsTable extends Migration {
         $table->string('sports')->nullable();
         $table->string('unordinary')->nullable();
         $table->string('wanderer')->nullable();
+        $table->string('blogposter');
         $table->timestamps();
         $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         

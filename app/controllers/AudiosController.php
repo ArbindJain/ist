@@ -25,7 +25,11 @@ class AudiosController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+	$input = 	'/home/arbind/ist/public/galleryaudio/ogg/sample.ogg';
+	$output = '/home/arbind/ist/public/galleryaudio/ogg/sample.ogg';
+	
+	passthru("nohup /usr/bin/ffmpeg -i $input -acodec libvorbis $output 1> /home/arbind/ist/public/logfile.txt 2>&1 &");
+	
 	}
 
 
@@ -44,20 +48,27 @@ class AudiosController extends \BaseController {
             //->withFlashMessage('Audio track successfully uploaded!');
            // return Response::json($audtrack)
 
-		
+	//	exec('sox /mypath/my_audio.amr /mypath/my_audio.mp3');
+	//	ffmpeg -y -i a.mp3 -acodec libvorbis -aq 50 output.ogg
         	$audfile =  Input::file('audiosrc');
         	// Creating SHA1 version for less possible file conflicts
             $sha1 = sha1($audfile->getClientOriginalName());
-            $filename=date('Y-m-d-h-i-s').".".$sha1;
+            $random = str_random(16);
+            $filename=date('Y-m-d-h-i-s')."-".$random."-".$sha1;
+            $extension = $audfile->getClientOriginalExtension(); 
             //$audfile->move('public/galleryaudio/', $filename);
 
+
 			$file_in  = Input::file('audiosrc')->getRealPath();
-			$file_out_ogg = 'public/galleryaudio/ogg/'.$filename.'.ogg';
-			$file_out_mp3 = 'public/galleryaudio/mp3/'.$filename.'.mp3';
 
-			Sonus::convert()->input($file_in)->output($file_out_ogg)->go();
+			//$file_out_ogg = 'public/galleryaudio/ogg/'.$filename.'.ogg';
 
-			Sonus::convert()->input($file_in)->output($file_out_mp3)->go();
+			$output = '/home/arbind/ist/public/galleryaudio/ogg/'.$filename.'.ogg';
+			// inside nohup and & will do the job
+			passthru("nohup /usr/bin/ffmpeg -i $file_in -acodec libvorbis $output 1> /home/arbind/ist/public/logfile.txt 2>&1 &");
+	
+
+			//Sonus::convert()->input($file_in)->output($file_out_mp3)->go();
 			
             $audiotrack = new Audio();
 			$audiotrack->audiosrc = $filename;

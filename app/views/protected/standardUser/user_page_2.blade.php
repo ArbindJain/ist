@@ -1,0 +1,299 @@
+@extends('master')
+
+@section('title', 'Profile')
+
+@section('content')
+<!-- ****** Display profile image,name and other suff ***** -->
+
+
+<div class="row">
+  <div class="col-md-9 profile-main-block col-md-offset-3">
+    {{ HTML::image($active_user->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'size')) }}
+    <span>
+      <ul class="list-unstyled pull-left name-block text-capitalize">
+        <li class="name-space "><h3>{{$active_user->name}}</h3></li>
+        <li class="title-space ">{{$active_user->title}}</li>
+        <li class="address-space">{{$active_user->city}},{{ $active_user->country}}</li>
+      </ul>
+    </span>
+    
+  </div>
+</div>
+
+<div class="row">
+<div class="form-group">
+  <div class="col-md-12">
+    <div class="sub-nav-block">
+    <ul class="nav nav-pills centertab">
+      <li role="navigation"><a href="{{url()}}/userProtected#yourfeedwall">MyEvent(wall)</a></li>
+      <li role="navigation" class="active"><a href="#photo" >Photos</a></li>
+      <li role="navigation"><a href="{{url()}}/userProtected#video">Video</a></li>
+      <li role="navigation"><a href="{{url()}}/userProtected#audio">Audio</a></li>
+      <li role="navigation"><a href="{{url()}}/userProtected#recent">Recent Activity</a></li>
+      <li role="navigation"><a href="{{url()}}/userProtected#blog">Blog</a></li>
+      <li role="navigation"><a href="{{url()}}/userProtected#about">About</a></li>
+    </ul>
+    </div>
+    <div class="tab-content">
+      
+        <span class="album-block">
+          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
+
+        </span>
+        <div class="col-md-8">
+        <div class="row pop">
+            <!-- create album Button trigger modal -->
+      <a type="button" class="pull-left" data-toggle="modal" data-target="#myModal">
+        upload image
+      </a>
+
+      <div class="clearfix"></div>
+       <!-- retrive's album and first photo of album -->
+       <!-- new -->
+            <div class="gallery">
+              @foreach($album_images as $albumimage)
+              
+              <div class="gallery-image gallery-viewer-image" data-image-id="{{$albumimage->id}}">
+                <div class="gallery-image-overlay"></div>
+
+                
+                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg">
+                <div class="gallery-viewer-image-content" style="display: none;">
+                  <!-- inserted as is -->
+                  <div class="img-title">{{$albumimage->picturetitle}}</div>
+                  <div class="img-description">{{$albumimage->picturedescription}}</div>
+                 <!-- like button -->
+                 @include('partials._photolikebutton')
+                 <!-- end like button --->
+                 <!-- // -->
+
+                   <span class="img-comment-wrapper comment-target">
+                    @foreach($albumimage->commented as $comments)
+                    <div class="img-comment comment-block-{{$comments->id}}">
+                      <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                      <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                          
+                        </div>
+                      </div>
+                    </div>
+                    </span>
+                    @endforeach
+                  </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $albumimage->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$albumimage->id)}}
+                    {{Form::hidden('model','Picture')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+              </div>
+              @endforeach
+            </div>
+            <!-- /new -->
+      <!-- end of retrival's  -->
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                  <div id='drop_zone'>
+   <!-- <form action="#" class='dropzone' id='mydropzone'>
+      
+       
+      <input type="text" name="title">
+      <input type="text" name ="description">
+      <button type="submit">Submit data and files!</button>
+    </form>-->
+    {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                      <fieldset>
+
+                        @if (Session::has('flash_message'))
+                <div class="form-group">
+                  <p>{{ Session::get('flash_message') }}</p>
+                </div>
+              @endif
+              <div class="dropzone-previews">
+              </div>
+              
+              
+              <!-- Album name field -->
+              <div class="form-group">
+                Select any Album
+                {{Form::select('album', $albums)}}
+              </div>
+
+              
+
+              <!-- Image title field -->
+              <div class="form-group">
+                {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturetitle', $errors) }}
+              </div>
+
+              <!-- Image Description field -->
+              <div class="form-group">
+                {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturedescription', $errors) }}
+              </div>
+
+
+
+              <!-- Submit field -->
+              <div class="form-group">
+                
+      <button type="submit" class="btn btn-md btn-success btn-block">Upload Image</button>
+              </div>
+
+
+
+              </fieldset>
+                {{ Form::close() }}
+</div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- video modal end !-->  
+     
+
+        </div>
+
+        <div class="col-md-4">
+        @include('partials._audiencereview')
+          
+        </div>
+
+      
+      
+        
+        
+               
+      
+    </div><!-- tab content -->
+  </div>
+</div>
+
+{{ HTML::script('/js/gallery-viewer.js')}}
+            <script>
+              window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
+            </script>
+            {{ HTML::script('/js/remote-comment.js')}}
+            <script>
+              window.RemoteComment.settings.comment_url = "{{url('comments')}}";
+            </script>
+<script>
+// autoload tabs
+$(document).ready(function() {
+  if (window.location.hash) {
+    $("a[href='" + window.location.hash + "']").tab("show");
+  }
+});
+</script>
+
+
+<script type="text/javascript">
+  Dropzone.autoDiscover = true;
+Dropzone.options.mydropzone = {
+  previewsContainer: ".dropzone-previews",
+    paramName: "file",
+    maxFilesize: 5,
+    maxFiles: 1,
+    autoProcessQueue: false,
+
+    init: function () {
+        this.on("addedfile", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    });
+        var myDropzone = this;
+
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+    this.on("success", function(file, responseText) {
+            console.log(responseText);
+            window.location.hash = 'photo';
+            window.location.reload();
+        });
+     
+    },
+    
+
+};
+</script>
+<script type="text/javascript">
+  
+  var form = document.querySelector('.vid_form');
+  var request = new XMLHttpRequest();
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+
+    var formdata = new FormData(form);
+    request.open('post','videogallery');
+    request.send(formdata);
+    request.onload = test;
+
+    function test(var1) {
+      var respObj = JSON.parse(this.response);
+      console.log(respObj);
+      window.location.hash = 'video';
+            window.location.reload();
+    }
+    
+     });
+  
+</script>
+<script type="text/javascript">
+  
+    var audform = document.querySelector('.aud_form');
+  var requestaud = new XMLHttpRequest();
+  audform.addEventListener('submit',function(e){
+    e.preventDefault();
+
+    var formdata1 = new FormData(audform);
+    requestaud.open('post','audiogallery');
+    requestaud.send(formdata1);
+    requestaud.onload = test;
+
+    function test(var2) {
+      var respObj = JSON.parse(this.response);
+      console.log(respObj);
+      window.location.hash = 'audio';
+            window.location.reload();
+    }
+    
+     });
+  
+</script>
+
+
+
+@stop

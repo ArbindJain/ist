@@ -95,14 +95,17 @@ class ScoutController extends \BaseController {
 		foreach ($applicantscout as $key => $applicant) 
 		{
 			$applicantscout[$key]->applieduser = Scout::where('id','=',$applicant->scout_id)->get();
+			
 		}
-		$shortlistscout =  Scoutadd::where('scout_id','=',$scout->id)->where('shortlist','=','1')->get();
+
+
+		$shortlistscout =  Scoutadd::where('scout_id','=',$scout->id)->where('user_id','=',Sentry::getUser()->id)->where('shortlist','=','1')->get();
 		foreach ($shortlistscout as $key => $shortlisted) 
 		{
 			$shortlistscout[$key]->shlisted = Scout::where('id','=',$shortlisted->scout_id)->get();	
 
 		}
-		$selectedscout =  Scoutadd::where('scout_id','=',$scout->id)->where('selected','=','1')->get();
+		$selectedscout =  Scoutadd::where('scout_id','=',$scout->id)->where('user_id','=',Sentry::getUser()->id)->where('selected','=','1')->get();
 		foreach ($selectedscout as $key => $selectlist) {
 
 			$selectedscout[$key]->selectlist = Scout::where('id','=',$selectlist->scout_id)->get();
@@ -138,8 +141,8 @@ class ScoutController extends \BaseController {
 	 */
 	public function update($id)
 	{
-			var_dump($id);
-			$shortlisting = Scoutadd::find('9');
+			
+			$shortlisting = Scoutadd::find($id);
 
 			$shortlisting->shortlist = Input::get('shortlist'); 
 			$shortlisting->save();
@@ -165,7 +168,14 @@ class ScoutController extends \BaseController {
 	public function getscout($id)
 	{
 		$scoutview = Scout::find($id);
-		$image_list = ['' => ''] + Picture::where('album_id','=',Sentry::getUser()->id)->lists('picturetitle','picturename');
+
+		/*$created = new Carbon\Carbon($scoutview->scoutdatetime);
+		$now = Carbon\Carbon::now();
+		$differenceindays = ($created->diff($now)->days < 1)
+		    ? 'today'
+		    : $created->diffInDays($now);*/
+		//var_dump(Carbon\Carbon::createFromTimeStamp(0)->diffInDays());
+		$image_list = ['' => ''] + Picture::where('user_id','=',Sentry::getUser()->id)->lists('picturetitle','picturename');
 		$video_list = ['' => ''] + Video::where('user_id','=',Sentry::getUser()->id)->lists('videotitle','videosrc');
 		$audio_list = ['' => ''] + Audio::where('user_id','=',Sentry::getUser()->id)->lists('audiotitle','audiosrc');
 		

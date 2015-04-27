@@ -76,6 +76,7 @@ foreach ($types as $key => $type) {
             $pictures->picturetitle = Input::get('picturetitle');
             $pictures->picturedescription = Input::get('picturedescription');
             $pictures->album_id = Input::get('album');
+            $pictures->user_id = Snetry::getUser()->id;
             $pictures->save();
             // last inserted id
             $lastInsertedId = $pictures->id;
@@ -85,6 +86,12 @@ foreach ($types as $key => $type) {
             $insert_feed->grouptype ='NULL';
             $insert_feed->story ='added a photo';
             $picturefeed->feedable()->save($insert_feed);
+            // last inserted id
+            $lastInsertedNewsId = $pictures->id;
+            $pictureNewsfeed = Picture::find($lastInsertedNewsId);
+            $insert_newsfeed = new Newsfeed();
+            $insert_newsfeed->user_id = Sentry::getUser()->id;
+            $pictureNewsfeed->newsfeedable()->save($insert_newsfeed);
             //last inserted feed id
             $lastInsertedFeedId = $insert_feed->id;
             $feedread = new Readfeed();

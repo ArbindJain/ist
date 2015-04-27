@@ -15,7 +15,7 @@
 </style>
 <div class="row">
 	<div class="col-md-12">
-	<ul class="nav navbar-nav"><ul class="nav navbar-nav navbar-right">
+<!--	<ul class="nav navbar-nav"><ul class="nav navbar-nav navbar-right">
 		      @if (Sentry::check())
 		      	 @if (Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
 
@@ -59,7 +59,7 @@
 					<li class="{{ set_active('profiles') }}"><a href="/profiles/{{Sentry::getUser()->id}}">My Profile</a></li>
 					<li><a href="/logout">Logout</a></li>
 				@endif
-		      </ul>
+		      </ul>-->
 	@foreach($users as $user)
 	
 		

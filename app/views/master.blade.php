@@ -9,7 +9,7 @@
 		<title>@yield('title') - IST</title>
 
 	    <!-- Bootstrap -->
-	    <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
+	   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 	   
 	    <link rel="stylesheet" href="/css/bootstrap.min.css" />
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -22,7 +22,8 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
 		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
 		
-
+		<!-- timer cdn -->
+		{{ HTML::script('/js/TimeCircles.js') }}
 		<!-- 1. skin -->
 <link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
 
@@ -33,7 +34,7 @@
  
 <!-- 3. flowplayer -->
 <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
-{{ HTML::script('/js/audio.js') }}
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	    <!--[if lt IE 9]>
@@ -47,6 +48,7 @@
 		<header>
 			<nav class="navbar navbar-default" role="navigation">
 		  	<div class="container">
+		  	<div class="demo" data-date="2013-12-25 00:00:00"></div>
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -69,15 +71,15 @@
 			      	 	<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
 				          <ul class="dropdown-menu dropdown-menu-edited" role="menu">
-				            <li><a href="#">Dance</a></li>
-				            <li><a href="#">Art</a></li>
-				            <li><a href="#">Music</a></li>
-				            <li><a href="#">Sports</a></li>
-				            <li><a href="#">Fashion</a></li>
-				            <li><a href="#">Wanderer</a></li>
-				            <li><a href="#">Cooking</a></li>
-				            <li><a href="#">Unordinary</a></li>
-				            <li><a href="#">Movies & Theater</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Dance</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Art</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Music</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Sports</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Fashion</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Wanderer</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.cooking')) }}">Cooking</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.unordinary')) }}">Unordinary</a></li>
+				            <li><a href="{{ URL::to('categories_type', array('cate' => 'users.moviesandtheatre')) }}">Movies & Theater</a></li>
 				          </ul>
 				        </li>
 				        <li class="{{ set_active('/') }}"><a href="/scout">Scout Talent</a></li>
@@ -85,10 +87,10 @@
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Talent Hub <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
 				            <li><a href="#">Contest</a></li>
-				            <li><a href="#">Performances</a></li>
+				            <li><a href="{{url()}}/userperformances">Performances</a></li>
 				            <li><a href="#">Events</a></li>
 				            <li><a href="#">Tutorial</a></li>
-				            <li><a href="#">Blog</a></li>
+				            <li><a href="{{url()}}/blog">Blog</a></li>
 				            <li><a href="#">Trending</a></li>
 				          </ul>
 				        </li>
@@ -114,7 +116,7 @@
 				            	</div>
 				            </li>
 				            <div class="see-more-block">
-				            	<a href="">See All</a>
+				            	<a href="{{url()}}/newsfeeds">See All</a>
 				            </div>
 				          </ul>
 				        </li>
@@ -122,12 +124,12 @@
 				          <a href="#" id ="menubar-avatar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	 						{{ HTML::image(Sentry::getUser()->profileimage , 'profile picture', array('class' => 'img-circle avatar')) }}	</a>
 				          <ul class="dropdown-menu" role="menu">
-				            <li><a href="#">Your Profile</a></li>
+				            <li><a href="{{url()}}/userProtected">Your Profile</a></li>
 				            <li><a href="#">Invite a Friend</a></li>
-				            <li><a href="#">Account Settings</a></li>
+				            <li><a href="{{url()}}/profiles/{{Sentry::getUser()->id}}/edit">Account Settings</a></li>
 				            <li><a href="#">Connect</a></li>
 				            <li><a href="#">Help</a></li>
-				            <li><a href="#">Signout</a></li>
+				            <li><a href="{{url()}}/logout">Signout</a></li>
 				          </ul>
 				        </li>
 
@@ -180,20 +182,66 @@
 	
 </div>
 		<div class="container">
-		 
+		  
 		@yield('content')
  
 		</div>
-		
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $("body").on('submit', 'form[data-remote]', function(e){
+    e.preventDefault();
+    //  setInterval(function () {
+     //  $(".comment-box").each(function() {
+     //     $(this).load(location.href + " #" + $(this).prop("id"));
+
+       // });
+      
+     // }, 5000);
+
+    
+    var form = $(this);
+    var target = form.closest('div.comment-box');
+        $.ajax({
+          url: '{{url()}}/comments',
+          type: 'POST',
+          cache: false,
+          data: form.serialize(),
+          dataType: 'json',
+          beforeSend: function(){
+
+          },
+          success: function(commentdata) { 
+            //$(".comment-block").html(user);
+            //alert(users);
+            console.log(commentdata);
+            var mar= commentdata.comment;
+            var username = commentdata.user_id;
+            var time = commentdata.created_at;
+            var marid = commentdata.comment_id;
+            var viewid = commentdata.view_id;
+            var target_id = ".comment-view-"+viewid;
+            console.log(target_id);
+            $(target_id).append("<div class= \'comment-box-"+marid+"\'><a href=\'#\'><b>"+username+" </b>&nbsp;&nbsp;&nbsp;</a><span>"+mar+"<br></span><div class=\'com-details\'><div class=\'com-time-container\'>"+time+"</div></div></div>");
+            $('.text-shift').val('');
+              
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+        
+    });
+}); 
+</script>		
 <script type="text/javascript">
 
 document.addEventListener("click", function(){
     document.getElementById("search-submit")},true);
 
 	    </script>
-	    <script type="text/javascript">
-         $('.gallery-img').Am2_SimpleSlider();
-       </script>
+	   
        
        <script type="text/javascript">
    
@@ -265,18 +313,26 @@ document.addEventListener("click", function(){
    
   
   $(document).ready( function(){
-    $("body").on("click", ".likebutton", function() {
+    $("body").on("click", ".like-button", function() {
       var handle = $(this);
       url = '';
 
       // for picture likes 
-      if (handle.data("model") == 'Picture') {
+      if (handle.data("model") == 'Picture')
+       {
         if (handle.data("action") == 'like')
           url = '/likes';
         else url= '/diminish';
       }
-      // for other likes
-      else if(handle.data("model") == 'Blog') {
+      // for video likes
+      else if(handle.data("model") == 'Video') 
+      {
+        if (handle.data("action") == 'like')
+          url = '/likes';
+        else url= '/diminish';
+      }
+      else if(handle.data("model") == 'Audio') 
+      {
         if (handle.data("action") == 'like')
           url = '/likes';
         else url= '/diminish';
@@ -301,10 +357,21 @@ document.addEventListener("click", function(){
         dataType: 'json',
         success: function() {
 
+
           //console.log("success");
+          var new_class = "." + handle.data("realclass");
+          console.log(new_class);
           var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
           var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';
+          
           handle.data("action", new_action).children(".btntext").empty().append(new_text);
+          if(new_text == 'Unlike'){
+                    $(new_class).children('.fa').removeClass('fa-thumbs-up').addClass('fa-thumbs-down');
+                }
+                else{
+                	  $(new_class).children('.fa').removeClass('fa-thumbs-down').addClass('fa-thumbs-up');
+              
+                }
         },
         error: function(jxhr, status) {
           alert("error: "+status);
@@ -330,6 +397,7 @@ document.addEventListener("click", function(){
 	    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
+  {{ HTML::script('/js/audio.js') }}
   <script type="text/javascript">
             $(function () {
             $('#datetimepicker1').datetimepicker({
@@ -350,5 +418,6 @@ document.addEventListener("click", function(){
         		console.log(response);
         	},}); */
         </script>
+        
         </body>
 </html>

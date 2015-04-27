@@ -3,35 +3,37 @@
 @section('title', 'Profile')
 
 @section('content')
-<!-- ****** Display profile image,name and other suff ***** -->
-<style>
-  #size1{
-    display: block;
-    width: 40px;
-    height: 40px;
-  }
-  .user-details{
-    display: block;
-    margin-left: 10px;
 
-  }
-  .article-image {
-    display: block;
-    margin-left: 50px;
+<script type="text/javascript">
+            $(document).ready(function() {
+              $('.performance-form').hide();
+              $('.button').click(function(){
+                  var target = '.'+$(this).data("target");
+                  $(".performance-form").not(target).hide();
+                  //$(target).css({opacity: 1 });
+                  $(target).fadeIn();
+                  
+              });
+            });
+           
+            </script>
+            <script type="text/javascript">
+ $(document).ready(function() {
 
-  }
-  .comment-method{
-    display: block;
-    margin-left: 60px;
-    margin-top: 5px;
-  }
-  .text-width{
-    display: block;
-    width: 70%;
-    margin-left: 60px;
-  }
-  
-</style>
+              
+              $('.closebutton').click(function(){
+                  var target = '.'+$(this).data("target");
+                  //$(".performance-form").not(target).hide();
+
+                  
+                 // $(target).animate({ height: 0, opacity: 0 }, 'slow');
+
+                  $(target).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+                 $(target).fadeOut();
+
+              });
+            });
+            </script>
 
 <div class="row">
   <div class="col-md-9 profile-main-block col-md-offset-3">
@@ -49,9 +51,9 @@
 
 <div class="row">
 <div class="form-group">
-  <div class="col-md-12 centered-pills">
+  <div class="col-md-12">
     <div class="sub-nav-block">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills centertab">
       <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
       <li role="navigation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Photos</a></li>
       <li role="navigation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a></li>
@@ -65,93 +67,76 @@
       <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
 
-        <div class="col-md-8">    
-            <ul class=" pull-left">
+         
+            <ul class="centertab  nav">
               <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
               <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
             </ul> 
-          </div>
 
-          <div class="tab-content">
-            <div class="clearfix"></div>
+          <div class="tab-content" style="margin: 10px 0px;">
             <div role="tabpanel" class="tab-pane active" id="performance">
+                <div class="col-md-8 perf">
+                    <a href="#" style="text-decoration:none;" class="performance-button button text-capitalize" data-target = "performance-form">Performing some where?</a>
+                    
+                    <div class="performance-form">
+                    <a href="#"  class="performance-closebutton pull-right closebutton" data-target = "performance-form">
+                    <i class="fa fa-times"></i>
+                    </a>
+                    <div class="clearfix"></div>
+                        {{ Form::open(['route' => 'userperformances.store']) }}
+                            <fieldset>
 
-            <div class="col-md-8">
-              
+                                @if (Session::has('flash_message'))
+                                <div class="form-group">
+                                <p>{{ Session::get('flash_message') }}</p>
+                                </div>
+                                @endif
 
+                                <!-- performance text field -->
+                                <div class="form-group">
+                                {{ Form::text('performancetext', null, ['placeholder' => 'Where are you performing today', 'class' => 'form-control', 'required' => 'required'])}}
+                                {{ errors_for('performancetext', $errors) }}
+                                </div>
 
+                                <!-- venue Description field -->
+                                <div class="form-group">
+                                {{ Form::text('venue', null, ['placeholder' => 'venue details', 'class' => 'form-control', 'required' => 'required'])}}
+                                {{ errors_for('venue', $errors) }}
+                                </div>
 
- 
+                                <!-- date and time Description field -->
+                                <div class="form-group">
+                                <input type='text' name="performancedatetime" placeholder="performance date and time" class="form-control" id='datetimepicker1' />
+                                {{ errors_for('performancedatetime', $errors) }}
+                                </div>
 
-                Performance
-                {{ Form::open(['route' => 'userperformances.store']) }}
-                      <fieldset>
+                                <!-- Submit field -->
+                                <div class="form-group">
+                                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+                                </div>
 
-                        @if (Session::has('flash_message'))
-                          <div class="form-group">
-                            <p>{{ Session::get('flash_message') }}</p>
+                            </fieldset>
+                        {{ Form::close() }}
+                    </div>
+                    @foreach($performances as $performance)
+                      <div class="performance-list">
+                          <div class="feed-blocka">
+                              <span class="feedtime">{{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}<br>{{$performance->venue}}</span>
+                              <span class="feeddez">{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</span>
+                              <!-- Delete the performance entry -->
+                              {{ Form::model($performance, ['method' => 'DELETE', 'files' => true , 'route' => ['userperformances.destroy',$performance->id]]) }}
+                              <a><button type="submit" style="border: 0; background: transparent; " class="pull-right">
+                              <i class="fa fa-trash-o"></i>
+                              </button></a>
+                              {{ Form::close() }}
                           </div>
-
-                        @endif
-
-              <!-- performance text field -->
-              <div class="form-group">
-                {{ Form::text('performancetext', null, ['placeholder' => 'Where are you performing today', 'class' => 'form-control', 'required' => 'required'])}}
-                {{ errors_for('performancetext', $errors) }}
-              </div>
-
-              <!-- venue Description field -->
-              <div class="form-group">
-                {{ Form::text('venue', null, ['placeholder' => 'venue details', 'class' => 'form-control', 'required' => 'required'])}}
-                {{ errors_for('venue', $errors) }}
-              </div>
-
-              <!-- date and time Description field -->
-              <div class="form-group">
-                <input type='text' name="performancedatetime" placeholder="performance date and time" class="form-control" id='datetimepicker1' />
-                {{ errors_for('performancedatetime', $errors) }}
-              </div>
-              
-
-              <!-- Submit field -->
-              <div class="form-group">
-                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
-                
-              </div>
-
-              </fieldset>
-                {{ Form::close() }}
-                <h2>Performance posted by you.</h2>
-                @foreach($performances as $performance)
-
-                <div class="performance-list">
-                  {{Sentry::getUser($performance->user_id)->name}}
-                  {{$performance->performancetext}}
-                  {{$performance->venue}}
-                  {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
-
-                  <!-- Delete the performance entry -->
-                  {{ Form::model($performance, ['method' => 'DELETE', 'files' => true , 'route' => ['userperformances.destroy',$performance->id]]) }}
-                  {{ Form::submit('Delete', array('class' => 'btn btn-default  pull-right')) }}
-                  {{ Form::close() }}
-                  </div><br><br><br>
-
-                @endforeach
-
-            </div>
-            <div class="col-md-4">
-                Audience review
-                @foreach($aud_review as $reviews)
-                <br>{{$reviews->review}}
-                {{$reviews->created_at->diffForHumans()}}
-                Posted by {{Sentry::getUser($reviews->commenter_id)->name}}
-                <br>
-                
-
-                @endforeach
-                
-              </div> 
+                      </div> 
+                    @endforeach
+                </div>
+                  <div class="col-md-4">
+                    @include('partials._audiencereview')
+                  </div>
             </div>
             <div role="tabpanel" class="tab-pane " id="tutorial">
             No tutorial uploaded yet
@@ -179,12 +164,13 @@
                   <div class="event-applied ">
                   <br><br>
                     <h4 class="pull-left"> <b>Applied Scout List </b></h4><br><br><br><br>
+                 
                   @foreach($scoutadds as $amma)
-
                     @foreach($amma->scouted as $bhairu)
+                   
                       <div class="col-md-4">
                   <span class="scoutevent">
-                  <a href="/scout/{{$scout->id}}" class="scoutposterblock">
+                  <a href="/scoutpublished/{{$amma->scout_id}}" class="scoutposterblock">
                     {{ HTML::image($bhairu->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
                     {{$bhairu->scouttitle}}
 
@@ -211,15 +197,38 @@
       <div role="tabpanel" class="tab-pane " id="photo">
         <span class="album-block">
           <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
-        </span>
 
-        <!-- create album Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-        upload an image
-      </button>
+        </span>
+        <div class="col-md-8">
+        <div class="row pop">
+            <!-- create album Button trigger modal -->
+      <a type="button" class="pull-left" data-toggle="modal" data-target="#uploadimagemodal">
+        upload image
+      </a>
+
+      <div class="clearfix"></div>
+       <!-- retrive's album and first photo of album -->
+      @foreach($all_albums as $allalbum)
+            <div class="col-md-4">
+              @if(isset($allalbum->picture))
+
+             <a href="{{url()}}/userProtecte/{{$allalbum->id}}#photos">
+              <figure>
+                <img src="{{url()}}/{{$allalbum->picture->picturename}}-resiged.jpg" class="">
+                <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
+              </figure>
+
+               </a>  
+              @endif     
+            </div>
+             
+
+          @endforeach
+      <!-- end of retrival's  -->
+      </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="uploadimagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -287,7 +296,17 @@
             </div>
           </div>
         </div>
-      </div><!-- video modal end !-->
+      </div><!-- video modal end !-->  
+     
+
+        </div>
+
+        <div class="col-md-4">
+        @include('partials._audiencereview')
+          
+        </div>
+
+      
       
         
         
@@ -295,12 +314,76 @@
       </div><!-- photo tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="video">
         <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
+          <h3 class="pull-left"> <i class="fa fa-file-video-o"></i> Video</h3>
         </span>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalvideo">
-          upload Video
-        </button>
-<!-- Modal -->
+        <div class="col-md-8">
+          <div class="row pop">
+            <a type="button" class="" data-toggle="modal" data-target="#myModalvideo">
+              upload Video
+            </a>
+            <div class="clearfix"></div>
+            <div class ="gallery">
+               @foreach($user_videos as $uservid)
+            <div class="col-md-6 gallery-image gallery-viewer-image" data-image-id="{{$uservid->id}}">
+              <div class="gallery-image-overlay"></div>
+              <img>
+              <span class="gv-video">
+                <div class="flowplayer">
+                  <video>
+                    <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$uservid->videosrc}}.webm">
+                    <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$uservid->videosrc}}.mp4">
+                    <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$uservid->videosrc}}.flv">
+
+                  </video>
+                </div>
+              </span>
+              <div class="gallery-viewer-image-content" style="display: none;">
+                <!-- inserted as is -->
+                <div class="img-title">{{$uservid->videotitle}}</div>
+                <div class="img-description">{{$uservid->videodescription}}</div>
+                <!-- // -->
+                <!-- video like button -->
+                @include('partials._videolikebutton')
+                <!-- End video like button -->
+                <span class="img-comment-wrapper comment-target">
+                  @foreach($uservid->commented as $comments)
+                  <div class="img-comment comment-block-{{$comments->id}}">
+                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                    <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  @endforeach
+                </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $uservid->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$uservid->id)}}
+                    {{Form::hidden('model','Video')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+            </div>
+            @endforeach   
+            </div>
+          </div>
+          
+          <!-- Modal -->
       <div class="modal fade" id="myModalvideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -358,17 +441,83 @@
             </div>
           </div>
         </div>
-      </div><!-- video modal end !-->                
-
+      </div><!-- video modal end !-->  
+        </div>
+        <div class="col-md-4">
+          @include('partials._audiencereview')
+        </div>
+        
       </div><!-- video tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="audio">
        <span class="album-block">
           <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Audio</h3>
         </span>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalaudio">
-          upload Audio
-        </button>
-<!-- Modal Audio -->
+        <div class="col-md-8">
+          <div class="row pop">
+            <a type="button" class="" data-toggle="modal" data-target="#myModalaudio">
+            upload Audio
+            </a> 
+            <div class="gallery">
+              @foreach($user_audios as $useraud)
+            <div class="col-md-6 gallery-image gallery-viewer-image" data-image-id="{{$useraud->id}}">
+              <div class="gallery-image-overlay"></div>
+              <img>
+              <span class="gv-audio">
+                <div id="player" style="background-color:#000" class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+              <video preload="none">
+                <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$useraud->audiosrc}}.ogg">
+              </video>
+              </div>
+              </span>
+              <div class="gallery-viewer-image-content" style="display: none;">
+                <!-- inserted as is -->
+                <div class="img-title">{{$useraud->videotitle}}</div>
+                <div class="img-description">{{$useraud->videodescription}}</div>
+               <!-- // -->
+
+                <!-- Audio like button -->
+                @include('partials._audiolikebutton')
+                <!-- End Audio like button -->
+
+                <span class="img-comment-wrapper comment-target">
+                  @foreach($uservid->commented as $comments)
+                  <div class="img-comment comment-block-{{$comments->id}}">
+                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                    <span>{{$comments->comment}}<br></span><br>
+                      <div class="com-details">
+                        <div class="com-time-container">
+                          {{ $comments->created_at->diffForHumans() }} ·
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  @endforeach
+                </span>
+                </div>
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $useraud->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$useraud->id)}}
+                    {{Form::hidden('model','Audio')}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+            </div>
+          @endforeach
+            </div>
+          </div>
+            
+            <!-- Modal Audio -->
       <div class="modal fade" id="myModalaudio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -416,6 +565,14 @@
           </div>
         </div>
       </div><!-- video modal end !--> 
+        </div>
+        <div class="col-md-4">
+          
+          @include('partials._audiencereview')
+
+        </div>
+        
+
 
 
       </div>
@@ -429,14 +586,14 @@
           <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Blog</h3>
         </span>
 
-        <div class="col-md-8">
+        <div class="col-md-8 ">
           {{ HTML::linkRoute('blog.create','Create New Post') }}<br>
           @foreach($articles as $article)
             
             <div class="media">
               <div class="media-left">
                 <a href="#">
-                  <img class="media-object" src="https://secure.gravatar.com/avatar/8a8bf3a2c952984defbd6bb48304b38e?s=80&d=retro&r=G" style="width: 64px; height: 64px;">
+                  <img class="media-object" src="{{url()}}/blogposter/{{$article->blogposter}}.jpg" style="width: 64px; height: 64px;">
                 </a>
               </div>
               <div class="media-body text-left">
@@ -459,14 +616,13 @@
           @endforeach         
         </div>
         <div class="col-md-4">
+
+          @include('partials._audiencereview')
           
         </div>
       
       </div>
       <div role="tabpanel" class="tab-pane" id="about">
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> About</h3>
-        </span>
         <div class="col-md-8">
           <div class="col-md-6">
             <div class="about-details-block" >
@@ -489,7 +645,7 @@
           </div>
 
           <div class="col-md-6">
-            <div class="flowplayer ">
+            <div class="flowplayer" style="background-color:#515151;">
                <video>
                   <source type="video/webm" src="{{url()}}/aboutvideo/webm/{{$abouts->video}}.webm">
                   <source type="video/mp4"   src="{{url()}}/aboutvideo/mp4/{{$abouts->video}}.mp4">
@@ -505,19 +661,79 @@
                 <span class="text-muted">{{$abouts->about_us}}</span>
               </div>
               <div class="about-details-block" >
-                <span class="profile-title text-capitalize">Awards or Achievements</span>
-                <span class="text-muted"></span>
+                <span class="profile-title text-capitalize">Awards or Achievements<span class="pull-right"><a type="button" data-toggle="modal" data-target="#myModalachievement">Add</a></span></span>
+                <br>
+                <!-- Button trigger modal -->
+                <!-- Modal -->
+                <div class="modal fade" id="myModalachievement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel  ">Add Achievement</h4>
+                      </div>
+                      <div class="modal-body">
+                      {{ Form::open(['route' => 'achievements.store','files' => 'true','class'=>'award-form' ]) }}
+                      <fieldset>
+                      <!-- Achievements certificate -->
+                      <div class="form-group">
+                      {{ Form::file('achievement_certificate') }}
+                      </div>  
+
+                      <!-- Achievements title field -->
+                      <div class="form-group">
+                        {{ Form::text('achievements', null, ['placeholder' => 'Achievements', 'class' => 'form-control', 'required' => 'required'])}}
+                        {{ errors_for('achievements', $errors) }}
+                      </div>
+
+
+
+                      </fieldset>
+                      
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Achievement</button>
+                        {{ Form::close() }}
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal end here -->
+
+                @foreach($rewards as $reward)
+                <span class="text-muted">
+                  {{$reward->achievements}}
+                </span><br>
+                @endforeach
+                <ul class="list-inline reward-img">
+                @foreach($rewards as $reward)
+                  <li><img src="{{url()}}/achievementcertificate/{{$reward->achievement_certificate}}" class="sizeforcertificate responsive "><p>Mytext here for</p></li>
+                
+                @endforeach 
+                </ul>
+
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          
+          @include('partials._audiencereview')
+
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
+{{ HTML::script('/js/gallery-viewer.js')}}
+            <script>
+              window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
+            </script>
+            {{ HTML::script('/js/remote-comment.js')}}
+            <script>
+              window.RemoteComment.settings.comment_url = "{{url('comments')}}";
+            </script>
 <script>
 // autoload tabs
 $(document).ready(function() {

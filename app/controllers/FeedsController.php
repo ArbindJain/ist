@@ -73,11 +73,7 @@ class FeedsController extends \BaseController {
 	 */
 	public function create()
 	{
-		/*$last_id = Input::get('last_id');
-		$read_all = Readfeed::where('id','<','2')->take(10)->orderBy('created_at','desc')->get();
-		echo '<pre>';
-		var_dump($read_all);
-		echo '</pre>';*/
+		
 	}
 
 
@@ -89,6 +85,11 @@ class FeedsController extends \BaseController {
 	public function store()
 	{
 		//
+		/*$last_id = Input::get('last_id');
+		$read_all = Readfeed::where('id','<','2')->take(10)->orderBy('created_at','desc')->get();
+		echo '<pre>';
+		var_dump($read_all);
+		echo '</pre>';*/
 	}
 
 

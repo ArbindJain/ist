@@ -46,6 +46,7 @@ Route::group(['before' => 'guest'], function()
 Route::group(['before' => 'auth|standardUser'], function()
 {
 	Route::get('userProtected', 'StandardUserController@getUserProtected');
+	Route::get('userProtecte/{id}', array('as'=> 'userProtecte','uses'=> 'StandardUserController@getUserProtecte'));
 	Route::resource('profiles', 'UsersController', ['only' => ['show', 'edit', 'update']]);
 	Route::resource('about', 'ProfilesController');
 	Route::resource('imagegallery', 'PicturesController');
@@ -61,7 +62,12 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('audiencereviews','AudiencereviewsController');
 	Route::resource('userperformances','PerformanceController');
 	Route::resource('userfeeds','FeedsController');
+	Route::resource('newsfeeds','NewsfeedsController');
+	//Route::resource('group','CategoriesController');
+
+	Route::get('categories_type/{name}', array('as'=> 'group','uses'=> 'CategoriesController@index'));
 	
+	Route::resource('achievements','AchievementController');
 	
 
 

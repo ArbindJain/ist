@@ -1,60 +1,186 @@
+
 @extends('master')
 
 @section('title', 'Blog')
 
 @section('content')
 
-
 <div class="row">
-
-	<div class="col-md-12">
-		<span>	<h2>{{$blog->title}}</h2></span>
-		<span>Posted On: {{$blog->created_at->toFormattedDateString();}}</span>
-
-		<span>Posted by: {{Sentry::findUserById($blog->user_id)->name}}</span>
-		<span> <h4>{{$blog->body}}</h4></span>	
-		<a class="likebutton" data-model="Blog" data-id="{{$blog->id}}" data-action="{{isset($blog)?'unlike':'like'}}"><i class="fa fa-star-o"></i>&nbsp;<span class="btntext">{{isset($blog)?'Unlike':'Like'}}</span></a>
-        <div class="comment-box">
-              <div class="comment-view refresh"  >
-                {{-- */ $i = 0; /* --}}
-              @foreach($commented as $comments)
-              
-              <div class="comment-block-{{$comments->id}}">
-                  <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
-                  <span>{{$comments->comment}}<br></span><br>
-                  <div class="com-details">
-                  <div class="com-time-container">
-                  {{ $comments->created_at->diffForHumans() }} ·
-                  </div>
-                  </div>
-                </div>
-              @endforeach
+  <div class="col-md-8">
+      <div id="main-single-content">
+            <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
+            <div class="content-single">
+              <h2>{{$blog->title}}</h2>
+              <div class="tag">
+              <p id="bloglike">
+                <a class="likebutton" data-model="Blog" data-id="{{$blog->id}}" data-action="{{isset($blog)?'unlike':'like'}}"><i class="fa fa-thumbs-down"></i> &nbsp;<span class="btntext">{{isset($blog)?'Unlike':'Like'}}</span></a>
                 
+                <a href=""><i class="ca fa fa-comments"></i> Comments</a>
+              </p>
+                <p> 
+                  <span><i class="fa fa-user" data-original-title="" title=""></i> <a href="#">{{Sentry::findUserById($blog->user_id)->name}}</a></span> 
+                  <i class="fa fa-circle" data-original-title="" title=""></i> 
+                  <span><i class="fa fa-calendar" data-original-title="" title=""></i> <a href="#">{{$blog->created_at->toFormattedDateString()}}</a></span>
+                  <i class="fa fa-circle" data-original-title="" title=""></i>
+                  <span><i class="fa fa-tag" data-original-title="" title=""></i> <a href="#">Acesories</a>, <a href="#">Furniture</a></span>
+                  
+                  
+                </p>
               </div>
+              <div class="hr-single"></div>
+              {{$blog->body}}
+              <!-- start:comments -->
               
-
-              {{ Form::open(['data-remote','route' => 'comments.store','class'=>'commentform' ]) }}
-              {{Form::hidden('blog_id',$blog->id)}}
-              {{Form::hidden('model','Blog')}}
-              <div class="form-group">
-                {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
-                {{ errors_for('commentbody', $errors) }}
-              </div>
-              <!-- Submit field -->
-              <div class="form-group">
-                {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
-
-              </div>
-                {{ Form::close() }}
-                </div>
-              
-
-          </div> 
-        </div>      
-	</div>
-	
-		
+              <!-- end:comments -->
+            </div>
+          </div>
+  </div>
+  <div class="col-md-4">
+      <!-- start:sidebar -->
+                              <div id="sidebar">
+                                    <!-- start:widget recent post -->
+                                    <div class="widget-sidebar">
+                                          <h3 class="title-widget-sidebar">
+                                                 RECENT ARTICLE
+                                          </h3>
+                                          <div class="content-widget-sidebar">
+                                                <ul>
+                                                @foreach($sidebarblogs as $sidebarblog)
+                                                      <li class="recent-post">
+                                                            <div class="thumbnail">
+                                                                  <img src="{{url()}}/blogposter/{{$sidebarblog->blogposter}}.jpg" class="img-responsive">
+                                                            </div>
+                                                            <a href="{{url()}}/blog/{{$sidebarblog->id}}"><h5>{{$sidebarblog->title}}</h5></a>
+                                                            <p><small><i class="fa fa-calendar"></i> {{$sidebarblog->created_at->toFormattedDateString()}}</small></p>
+                                                      </li>
+                                                      <hr>
+                                                @endforeach
+                                                      
+                                                </ul>
+                                          </div>
+                                    </div>
+                                    <!-- end:widget recent post -->
+                                    
+                                    <!-- start:categories -->
+                                    <div class="widget-sidebar">
+                                          <h3 class="title-widget-sidebar">
+                                                CATEGORIES
+                                          </h3>
+                                          <div class="content-widget-sidebar">
+                                                <ul>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Dance</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Art</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Music</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Sports</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Fashion</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Wanderer</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Cooking</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Unordinary</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      <li class="categories">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  Movies and Theatre</h5>
+                                                            </a>
+                                                      </li>
+                                                </ul>
+                                          </div>
+                                    </div>
+                                    <!-- end:categories -->
+                                    <!-- start:widget archive -->
+                                    <div class="widget-sidebar">
+                                          <h3 class="title-widget-sidebar">
+                                                ARCHIVES
+                                          </h3>
+                                          <div class="content-widget-sidebar">
+                                                <ul>
+                                                      <li class="archive">
+                                                            <a href="#">
+                                                                  <h5><i class="fa fa-angle-double-right"></i>
+                                                                  July 2014</h5>
+                                                            </a>
+                                                      </li>
+                                                      <hr>
+                                                      
+                                                </ul>
+                                          </div>
+                                    </div>
+                                    <!-- end:archive -->
+                                    <!-- start:Subcribe Newslatter -->
+                                    <div class="widget-sidebar">
+                                          <h3 class="title-widget-sidebar">
+                                                 SUBCRIBE NEWSLETTER
+                                          </h3>
+                                          <div class="content-widget-sidebar">
+                                                <p class="content-footer">
+                                                      Excepteur culpa qui officia deserunt mollit anim id est laborum.
+                                                </p>
+                                                <form role="form">
+                                                      <div class="form-group">
+                                                            <div class="input-group">
+                                                                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                                  <input type="text" class="form-control" placeholder="Username">
+                                                            </div>
+                                                      </div>
+                                                      <div class="form-group">
+                                                            <a href="#" class="btn btn-default">REGISTER</a>
+                                                      </div>
+                                                </form>
+                                          </div>
+                                    </div>
+                                    <!-- end:Subcribe Newslatter -->
+                              </div>
+                              <!-- end:sidebar -->
+  </div>
 </div>
+
 <script type="text/javascript">
 
   $(document).ready(function(){
@@ -117,6 +243,7 @@ $(document).ready(function(){
     });
 }); 
 </script>
+<!--
 <script type="text/javascript">
    
    
@@ -156,6 +283,8 @@ $(document).ready(function(){
           var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
           var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';
           handle.data("action", new_action).children(".btntext").empty().append(new_text);
+          //$('.likebutton').children('.fa').removeClass('fa-thumbs-up').addClass('fa-thumbs-down');
+
         },
         error: function(jxhr, status) {
           alert("error: "+status);
@@ -172,5 +301,5 @@ $(document).ready(function(){
   
 
  
-</script>
+</script>-->
 @stop

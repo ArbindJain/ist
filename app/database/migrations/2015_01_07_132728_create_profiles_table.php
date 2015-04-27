@@ -30,7 +30,7 @@ class CreateProfilesTable extends Migration {
 	public function down()
 	{
 		//
-		xSchema::drop('profiles');
+		Schema::drop('profiles');
 	}
 
 }
