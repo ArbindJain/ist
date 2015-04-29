@@ -468,62 +468,7 @@ margin-left: 50px;
   padding-top: 20px;
 
 }
-.feed-block {
-  display: inline-block;
-  margin-left: 58px;
-  float: left;
-  min-width: 100%;
 
-}
-.feed-blocka {
-  display: inline-block;
-  float: left;
-  min-width: 100%;
-
-}
-
-.feedtime {
-  display: inline-block;
-  vertical-align: middle;
-  background-color: #fff;
-  padding: 10px 10px;
-  border: 1px solid #ececec;
-  font-weight: bold;
-  min-width: 50px;
-  width: 20%;
-  max-width: 200px;
-  text-align: center;
-
-}
-.feed-blocke {
-  display: inline-block;
-  float: left;
-
-}
-.feeddesc {
-  display: inline-block;
-  vertical-align: middle;
-  background-color: #515151;
-  color: #fff;
-  padding: 15px 15px 15px 15px;
-  max-width: 515px;
-    min-width: 200px;
-    width: 70%;
-  margin-left: -3px;
-  
-}
-.feeddez {
-  display: inline-block;
-  vertical-align: middle;
-  background-color: #515151;
-  color: #fff;
-  padding: 15px 15px 15px 15px;
-  max-width: 515px;
-    min-width: 200px;
-    width: 80%;
-  margin-left: -3px;
-  
-}
 /***** performace page *****/
 .performance-button{
   display: block;
@@ -534,6 +479,46 @@ margin-left: 50px;
   text-decoration: none;
 }
 
+.feed-block {
+  display: block;
+  position: relative;
+  margin-left: 54px;
+  border: 1px solid #f2f2f2;
+}
+.feedtimeadd-block {
+  display: block;
+  width: 100%;
+
+  padding: 10px 5px;
+
+}
+.feedtimer {
+  display: block;
+  width: 30%;
+  float: left;
+  text-align: center;
+
+}
+.feedvenue {
+  display: block;
+  width: 100%;
+  
+}
+.feedvenue p{
+  display: block;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  
+}
+
+.feeddesc {
+  display: block;
+  width: 100%;
+  background-color: #515151;
+  color: #fff;
+  padding: 20px 20px;
+  margin-bottom: 0px;
+}
 
 /******** --- scout page ---------**********/
 
@@ -652,7 +637,6 @@ margin-left: 50px;
 .scout-sidebar {
   width: 100%;
   height: 348px;
-  background-color: #f2f2f2;
 
   border: 1px solid #f2f2f2;
   margin-bottom: 20px;
@@ -706,23 +690,24 @@ margin-left: 50px;
   opacity: 0.6;
   padding: 10px 10px;
   border-top: 1px solid #f2f2f2;
-  background-color: #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
   overflow: hidden;
   display: inline-flex;
   position: relative;
+
 
 }
 .lastdate-on {
   color: #515151;
   background-color: #fff;
   text-transform: uppercase;
-  padding: 3px 5px 0px 5px;
+  padding: 3px 5px 0px 16px;
   margin-bottom: 0px;
 }
 .title-bar .tit-scout {
   margin: auto 0px;
   font-size: 24px;
-  padding-left: 20px;
+  padding-left: 10px;
  width: 70%;
   float: left;
   text-transform: capitalize;
@@ -734,8 +719,9 @@ margin-left: 50px;
   margin: auto 0px;
   width: 30%;
   font-size: 24px;
-  padding-left: 50px;
+  padding-left: 30px;
   float: right;
+  color: #f18c1c;
 
 
 }
@@ -745,24 +731,13 @@ margin-left: 50px;
 .title-bar .butt-scout button{
   
 }
-.venue-block{
+.button-block{
   display: block;
   width: 100%;
-  padding: 5px 10px;
 
 }
-.address-scout {
 
 
-  margin: auto 0px;
-  padding: 4px 20px;
-
-}
-.address-scout p {
-  display: block;
-  font-size: 14px;
-
-}
 .singlescout-poster{
   display: block;
   overflow: hidden;
@@ -772,82 +747,25 @@ margin-left: 50px;
   border: 1px solid #f2f2f2;
 }
 .rights-block p {
-  padding: 20px 30px;
+  padding: 10px 20px 0px 20px;
   text-align: left;
   text-transform: capitalize;
 }
 .rights-block h3 {
-  padding:  0px 30px;
+  padding:  10px 20px;
+  margin:  0px;
   text-align: left;
   text-transform: uppercase;
+  border-bottom: 1px solid #f2f2f2; 
 }
 
-.desc-bar{
-  display: block;
-  position: relative;
-  padding: 2px 0px;
-  border: 1px solid #f2f2f2;
-  margin-bottom: 20px;
-
-
-
+.scout-contenttab {
 }
-.datee {
-  display: block;
-  width: 200px;
-}
-.desc-bar p{
 
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  background-color: #f2f2f2;
-  padding: 10px 20px;
-  font-size: 18px;
-}
-.desc-bar span{
-  display: block;
-  padding: 60px 20px 20px 20px;
-}
-.eventdate {
-  font-size: 14px;
-}
-.eventdate1 {
-  font-size: 14px;
-  padding: 0px 20px 10px 20px !important;
-}
-.cate-bar{
-  display: block;
-  position: relative;
-  padding: 2px 0px;
-  border: 1px solid #f2f2f2;
-  margin-bottom: 20px;
-
-
-
-}
-.cate-bar p{
-  position: absolute;
-  top: 0px;
-  background-color: #f2f2f2;
-  padding: 10px 20px;
-  font-size: 18px;
-  width: 100%;
-
-}
-.cate-bar span{
-  padding: 5px;
+.content-footerscout{
+  padding: 6px 20px;
   background-color: #515151;
-  color: #fff;
-}
-.tags {
-  
-  padding: 60px 20px 20px 20px;
-}
- .content-footerscout{
-      padding: 6px 20px;
-      background-color: #515151;
-      margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
  .content-footerscout img{
@@ -881,6 +799,85 @@ margin-left: 50px;
       margin-left: 10px;
 }
 
+.prize-block {
+  width: 100%;
+  height: auto;
+  padding: 10px 0px;
+  border-top: 1px solid #f2f2f2;
+}
+.prize-block .p-title {
+  padding-left: 20px;
+  text-transform: uppercase;
+  float: left;
+}
+.prize-block .p-value {
+  float: right;
+  padding-right: 20px;
+  color: #f18c1c;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.p-desc{
+ }
+ul.ul-type-a {
+    list-style: none;
+    padding: 0;
+    margin: 0 -15px;
+}
+ul.ul-type-a .fa {
+  line-height: 1.428571429;
+}
+    /* ul type a */
+    ul.ul-type-a > li {
+        clear: both;
+        padding: 8px 0;
+        margin: 0 15px;
+        border-bottom: #e6e6e6 solid 1px;
+    }
+    ul.ul-type-a > li:hover {
+        background-color: #eee;
+    }
+    ul.ul-type-a > li:last-child {
+        border-bottom: none;
+    }
+    ul.ul-type-a > li > span.x-label {
+        float: left;
+        clear: both;
+        font-size: 12px;
+        color: #888;
+    }
+    ul.ul-type-a > li > span.x-content {
+        display: block;
+        float: none;
+        clear: both;
+    }
+    ul.ul-type-a > li > span.x-content > span.x-content-inner {
+        display: block;
+        margin-left: 20px;
+    }
+    ul.ul-type-a > li > span.x-label > .fa, 
+    ul.ul-type-a > li > span.x-content > .fa {
+        float: left;
+        margin-right: 4px;
+        color: #888;
+    }
+    .addressmap-block{
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .s-address{
+      display: block;
+      padding: 10px 5px 10px 20px;
+      border: 1px solid #f2f2f2;
+      text-transform: capitalize;
+
+    }
+    .s-map {
+      display: block;
+      border: 1px solid #f2f2f2;
+    }
 
 /******** --- image caption ---------**********/
 

@@ -14,12 +14,19 @@ class CreateScoutsTable extends Migration {
 	{
 		Schema::create('scouts', function(Blueprint $table)
 		{
-			//
+			
 			$table->increments('id');
 			$table->string('scouttitle');
 			$table->string('scoutdatetime');
+			$table->string('applydatetime');
 			$table->string('scoutduration');
-			$table->string('renumeration');
+			$table->string('renumerationmin')->nullable();
+			$table->string('renumerationmax')->nullable();
+			$table->string('audiencesizemin')->nullable();
+			$table->string('audiencesizemax')->nullable();
+			$table->string('gender');
+			$table->string('agerangemax')->nullable();
+			$table->string('agerangemin')->nullable();
 			$table->integer('user_id')->unsigned();
 			$table->string('art')->nullable();
 			$table->string('collection')->nullable();
@@ -33,6 +40,8 @@ class CreateScoutsTable extends Migration {
 			$table->string('wanderer')->nullable();
 			$table->string('skills');
 			$table->string('venue');
+			$table->string('city');
+			$table->string('country');
 			$table->string('scoutdescription');
 			$table->string('artistdescription');
 			$table->string('agreement')->nullable();

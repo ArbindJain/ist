@@ -1,4 +1,4 @@
-@extends('masterdatepick')
+@extends('master')
 
 @section('title', 'Profile')
 
@@ -267,16 +267,60 @@
                                     {{ errors_for('scoutdatetime', $errors) }}
                               
                             </div> 
+                             <!-- Scout Date and Time field -->
+                            <div class="form-group">
+                              <div class='input-group date' id='datetimepicker2'>
+                                          <input type="datetime" name="applieddatetime" class="form-control"  />
+                                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                          </span>
+                                      </div>
+                                    {{ errors_for('applieddatetime', $errors) }}
+                              
+                            </div> 
                              <!-- Event Duration  field -->
                             <div class="form-group">
                               {{ Form::text('scoutduration', null, ['placeholder' => 'Scout Duration', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('scoutduration', $errors) }}
                             </div> 
 
-                            <!-- scout renumeration -->
+                            
+                            <!-- scout renumeration range min-->
                             <div class="form-group">
-                              {{ Form::text('renumeration', null, ['placeholder' => 'Renumeration', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('renumeration', $errors) }}                              
+                              {{ Form::text('renumerationrangemin', null, ['placeholder' => 'Renumeration Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('renumerationrangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout renumeration range max -->
+                            <div class="form-group">
+                              {{ Form::text('renumerationrangemax', null, ['placeholder' => 'Renumeration Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('renumerationrangemax', $errors) }}                              
+                            </div> 
+                            <!-- scout audience range min-->
+                            <div class="form-group">
+                              {{ Form::text('audiencerangemin', null, ['placeholder' => 'Audience Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('audiencerangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout audience range max -->
+                            <div class="form-group">
+                              {{ Form::text('audiencerangemax', null, ['placeholder' => 'Audience Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('audiencerangemax', $errors) }}                              
+                            </div> 
+                             <!-- scout age range min-->
+                            <div class="form-group">
+                              {{ Form::text('agerangemin', null, ['placeholder' => 'Age Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('agerangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout age range max -->
+                            <div class="form-group">
+                              {{ Form::text('agerangemax', null, ['placeholder' => 'Age Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('agerangemax', $errors) }}                              
+                            </div> 
+                            <!-- scout audience gender -->
+                            <div class="form-group"> 
+                              <select name="gender">
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="NULL" selected="selected">Any</option>
+                              </select>                            
                             </div>  
 
                             <div class="form-group">
@@ -312,6 +356,16 @@
                             <div class="form-group">
                               {{ Form::text('venue', null, ['placeholder' => 'Venue', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('venue', $errors) }}                              
+                            </div> 
+                            <!-- scout City -->
+                            <div class="form-group">
+                              {{ Form::text('city', null, ['placeholder' => 'City', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('city', $errors) }}                              
+                            </div> 
+                            <!-- scout Country -->
+                            <div class="form-group">
+                              {{ Form::text('country', null, ['placeholder' => 'Country', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('country', $errors) }}                              
                             </div> 
                             
                             <!-- scout description -->

@@ -54,8 +54,16 @@ class ScoutController extends \BaseController {
 		$scout = new Scout();
 		$scout->scouttitle = Input::get('scouttitle');
 		$scout->scoutdatetime = Input::get('scoutdatetime');
+
+		$scout->applydatetime = Input::get('applieddatetime');
 		$scout->scoutduration = Input::get('scoutduration');
-		$scout->renumeration = Input::get('renumeration');
+		$scout->renumerationmin = Input::get('renumerationrangemin');
+		$scout->renumerationmax = Input::get('renumerationrangemax');
+		$scout->audiencesizemin = Input::get('audiencerangemin');
+		$scout->audiencesizemax = Input::get('audiencerangemax');
+		$scout->gender = Input::get('gender');
+		$scout->agerangemax = Input::get('agerangemax');
+		$scout->agerangemin = Input::get('agerangemin');
 		$scout->art =Input::get('art');
 		$scout->collection =Input::get('collection');
 		$scout->cooking =Input::get('cooking');
@@ -68,6 +76,8 @@ class ScoutController extends \BaseController {
 		$scout->wanderer =Input::get('wanderer');
 		$scout->skills = Input::get('skills');
 		$scout->venue = Input::get('venue');
+		$scout->city = Input::get('city');
+		$scout->country = Input::get('country');
 		$scout->scoutdescription = Input::get('scoutdescription');
 		$scout->artistdescription = Input::get('artistdescription');
 		$scout->agreement = $agreefilename;

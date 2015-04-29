@@ -122,15 +122,25 @@
                     @foreach($performances as $performance)
                       <div class="performance-list">
                           <div class="feed-blocka">
-                              <span class="feedtime">{{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}<br>{{$performance->venue}}</span>
-                              <span class="feeddez">{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</span>
-                              <!-- Delete the performance entry -->
+                              <div class="feedtimeadd-block">
+                              <div class="feedtimer">
+                                <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
+                              </div>
+                              <div class="feedvenue">
+                                <p>
+                                  <i class="fa fa-map-marker"></i> &nbsp; {{$performance->venue}}
+                                </p>  
+                              </div>
+                            </div>
+                            <div class="feeddesc" >{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</div>
+                         <!-- Delete the performance entry -->
                               {{ Form::model($performance, ['method' => 'DELETE', 'files' => true , 'route' => ['userperformances.destroy',$performance->id]]) }}
                               <a><button type="submit" style="border: 0; background: transparent; " class="pull-right">
                               <i class="fa fa-trash-o"></i>
                               </button></a>
                               {{ Form::close() }}
                           </div>
+                          
                       </div> 
                     @endforeach
                 </div>

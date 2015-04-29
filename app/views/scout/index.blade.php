@@ -22,7 +22,7 @@
                         <aside>
                               <div class="headerscout-block {{$usergroup}}">
                                 <span class="posted-date">
-                                  {{--*/ $created = new Carbon\Carbon($scout->scoutdatetime); /*--}}
+                                  {{--*/ $created = new Carbon\Carbon($scout->applydatetime); /*--}}
                                   {{--*/ $now = Carbon\Carbon::now(); /*--}}
                                   {{--*/$difference = ($created->diff($now)->days < 1)
                                   ? 'today'
@@ -43,9 +43,13 @@
                               
                               <div class="content-title">
                                     <div class="">
-                                    <h3><a href="{{url()}}/scoutpublished/{{$scout->id}}">{{ $scout->scouttitle}}</a></h3>
-                                    <h5><b>Renumeration:</b> {{$scout->renumeration}}</h5>
-                                    <h5><b>Venue :</b> {{$scout->venue}}</h5>
+                                    <h3><a href="{{url()}}/scoutpublished/{{$scout->id}}">{{ substr($scout->scouttitle, 0, 35) }}</a></h3>
+                                    @if($scout->renumerationmin == null && $scout->renumerationmax != null)
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmax}}</h5>
+                                    @else
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmin}} - <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmax}}</h5>
+                                    @endif
+                                    <h5><b>Venue :</b> {{$scout->city}}&nbsp;,{{$scout->country}}</h5>
                                     <h5><b>Category: </b>
                                     @if(isset($scout->art))
                                     <span>Arts</span>
@@ -106,8 +110,7 @@
                                     <img src="{{url()}}/{{Sentry::findUserById($scout->user_id)->profileimage}}">
                                     <span class="text-capitalize footer-username">{{Sentry::findUserById($scout->user_id)->name}}</span>
                                     <span class="pull-right">
-                                          <a href="#"><i class="fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comments"></i> 30</a>
-                                          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
+                                         <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
                                     </span>
                               </div>
                         </aside>

@@ -61,17 +61,26 @@
               </a>
             </div>
             <div class="feeduser_postedon">
-              <p class="text-muted">
+              <p class="text-muted">&nbsp;
                 {{$performance->created_at->diffForHumans()}}
               </p>
             </div>
       
       <div class="feed-block">
-        <span class="feedtime">{{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}<br>{{$performance->venue}}</span>
-        
-        <span class="feeddesc" >{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</span>
+        <div class="feedtimeadd-block">
+        <div class="feedtimer">
+        <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
+        </div>
+        <div class="feedvenue">
+        <p>
+        <i class="fa fa-map-marker"></i> &nbsp; {{$performance->venue}}
+        </p>  
+        </div>
+        </div>
+        <div class="feeddesc" >{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</div>
       </div> 
       </div> 
+      
 
     @endforeach 
       </div>
