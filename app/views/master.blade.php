@@ -15,14 +15,13 @@
 	    <link rel="stylesheet" type="text/css" href="http://scottdorman.github.io/bootstrap-flat/css/bootstrap-flat.min.css">
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	    <link href="/css/SimpleSlider.css" rel="stylesheet" type="text/css">
-	    {{ HTML::script('/js/dropzone.js') }}
-	    {{ HTML::style('/css/dropzone.css') }}
+	    
 		 <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 		<!-- below script required for flowplayer -->
+		{{ HTML::script('/js/dropzone.js') }}
+	    {{ HTML::style('/css/dropzone.css') }}
+	    
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
-		<script src="/js/Am2_SimpleSlider.js" type="text/javascript"></script>
-		
 		<!-- timer cdn -->
 		{{ HTML::script('/js/TimeCircles.js') }}
 		<!-- 1. skin -->

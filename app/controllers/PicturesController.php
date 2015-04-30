@@ -76,10 +76,10 @@ foreach ($types as $key => $type) {
             $pictures->picturetitle = Input::get('picturetitle');
             $pictures->picturedescription = Input::get('picturedescription');
             $pictures->album_id = Input::get('album');
-            $pictures->user_id = Snetry::getUser()->id;
+            $pictures->user_id = Sentry::getUser()->id;
             $pictures->save();
             // last inserted id
-            $lastInsertedId = $pictures->id;
+           /* $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);
             $insert_feed = new Feed();
             $insert_feed->user_id = Sentry::getUser()->id;
@@ -96,7 +96,7 @@ foreach ($types as $key => $type) {
             $lastInsertedFeedId = $insert_feed->id;
             $feedread = new Readfeed();
             $feedread->feed_id = $lastInsertedFeedId;
-            $feedread->save();
+            $feedread->save();*/
 
             // redirect To astral...
            // return Redirect::to('imagegallery')->withFlashMessage('image successfully uploaded!');

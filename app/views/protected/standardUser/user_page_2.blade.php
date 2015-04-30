@@ -43,7 +43,7 @@
         <div class="col-md-8">
         <div class="row pop">
             <!-- create album Button trigger modal -->
-      <a type="button" class="pull-left" data-toggle="modal" data-target="#myModal">
+      <a type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
         upload image
       </a>
 
@@ -108,8 +108,8 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -132,10 +132,34 @@
                   <p>{{ Session::get('flash_message') }}</p>
                 </div>
               @endif
-              <div class="dropzone-previews">
+              
+              <div class="dropzone-previews" id="template">
+                <div class="dz-preview dz-file-preview">
+
+  <div class="dz-details">
+    <div class="dz-filename"><span data-dz-name></span></div>
+    <div class="dz-size" data-dz-size></div>
+    <img data-dz-thumbnail />
+
+  </div>
+  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+  <div class="dz-success-mark"><span>✔</span></div>
+  <div class="dz-error-mark"><span>✘</span></div>
+  <div class="dz-error-message"><span data-dz-errormessage></span></div>
+
+</div>
+<div class="form-group">
+  {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
+  {{ errors_for('picturetitle', $errors) }}
+</div>
+<!-- Image Description field -->
+<div class="form-group">
+  {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
+  {{ errors_for('picturedescription', $errors) }}
+</div>
               </div>
               
-              
+              <div id ="meex"></div>
               <!-- Album name field -->
               <div class="form-group">
                 Select any Album
@@ -196,6 +220,54 @@
   </div>
 </div>
 
+
+<script type="text/javascript">
+var previewNode = document.querySelector("#template");
+previewNode.id = "";
+var previewTemplate = previewNode.parentNode.innerHTML;
+previewNode.parentNode.removeChild(previewNode);
+
+  Dropzone.autoDiscover = true;
+Dropzone.options.mydropzone = {
+  previewTemplate: previewTemplate,
+  autoQueue: false, // Make sure the files aren't queued until manually added
+  previewsContainer: "#meex",
+    paramName: "file",
+    maxFilesize: 5,
+    maxFiles: 2,
+    addRemoveLinks: true,
+    autoProcessQueue: false,
+
+
+    init: function () {
+       
+    /*   this.on("addedfile", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    });*/
+        var myDropzone = this;
+
+     
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+    
+    this.on("success", function(file, responseText) {
+            console.log(responseText);
+            window.location.hash = 'photo';
+            window.location.reload();
+        });
+     
+    },
+    
+
+};
+</script>
 {{ HTML::script('/js/gallery-viewer.js')}}
             <script>
               window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
@@ -214,41 +286,6 @@ $(document).ready(function() {
 </script>
 
 
-<script type="text/javascript">
-  Dropzone.autoDiscover = true;
-Dropzone.options.mydropzone = {
-  previewsContainer: ".dropzone-previews",
-    paramName: "file",
-    maxFilesize: 5,
-    maxFiles: 1,
-    autoProcessQueue: false,
-
-    init: function () {
-        this.on("addedfile", function() {
-      if (this.files[1]!=null){
-        this.removeFile(this.files[0]);
-      }
-    });
-        var myDropzone = this;
-
-    // First change the button to actually tell Dropzone to process the queue.
-    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-      // Make sure that the form isn't actually being sent.
-      e.preventDefault();
-      e.stopPropagation();
-      myDropzone.processQueue();
-    });
-    this.on("success", function(file, responseText) {
-            console.log(responseText);
-            window.location.hash = 'photo';
-            window.location.reload();
-        });
-     
-    },
-    
-
-};
-</script>
 <script type="text/javascript">
   
   var form = document.querySelector('.vid_form');
