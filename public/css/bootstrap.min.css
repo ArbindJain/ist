@@ -1,4 +1,16 @@
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+@font-face {
+    font-family: Helvetica Neue;
+    src: url('/fonts/HelveticaNeueLTStd-Roman.otf');
+}
+@font-face {
+    font-family: Helvetica Neuebold;
+    src: url('/fonts/HelveticaNeueLTStd-Bd.otf');
+}
+@font-face {
+    font-family: Helvetica Neuemedium;
+    src: url('/fonts/HelveticaNeueLTStd-Md.otf');
+}
 html {
   font-family: Helvetica Neue;
   -ms-text-size-adjust: 100%;
@@ -280,12 +292,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #63b3f7;
+  color: #515151;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color: #1a90f3;
+  color: #cccccc; 
   text-decoration: underline;
 }
 a:focus {
@@ -3562,8 +3574,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #ffffff;
-  background-color: #63b3f7;
+  color: #f18c1c;
+  background-color: #ffffff;
 }
 .nav-stacked > li {
   float: none;

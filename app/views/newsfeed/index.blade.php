@@ -33,6 +33,7 @@
 						@if($new->model == 'Picture')
 
 						<img src="{{url()}}/{{$new->postedimage}}-resiged.jpg" class="img pull-left" id="postedimage">
+						{{$new->postedtitle}}
 						@elseif($new->model == 'Video')
 						<div class="flowplayer videobackground" id="postedimage">
 			               <video>
@@ -42,12 +43,14 @@
 
 			               </video>
 			            </div>
+			            {{$new->postedtitle}}
 			            @elseif($new->model == 'Audio')
 				              <div id="player" style="background-color:#000"  class="flowplayer postedaudio fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
 				              <video preload="none">
 				                <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$new->postedimage}}.ogg">
 				              </video>
 				              </div>
+				              {{var_dump($new->postedtitle)}}
 
 			            @else
 

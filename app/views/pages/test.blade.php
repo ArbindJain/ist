@@ -22,9 +22,6 @@
     <div class="tab-content">
     <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="photo" >
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
-        </span>
         <div class="col-md-8">
           <div class="row">
             <!-- new -->

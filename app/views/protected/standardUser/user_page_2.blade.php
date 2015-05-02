@@ -35,15 +35,10 @@
     </ul>
     </div>
     <div class="tab-content">
-      
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
-
-        </span>
         <div class="col-md-8">
         <div class="row pop">
             <!-- create album Button trigger modal -->
-      <a type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+      <a type="button" class="btn btn-link" data-toggle="modal" data-target=".bs-example-modal-lg">
         upload image
       </a>
 
@@ -111,12 +106,8 @@
       <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
             <div class="modal-body">
-                  <div id='drop_zone'>
+           <div id='drop_zone'>
    <!-- <form action="#" class='dropzone' id='mydropzone'>
       
        
@@ -132,34 +123,10 @@
                   <p>{{ Session::get('flash_message') }}</p>
                 </div>
               @endif
-              
-              <div class="dropzone-previews" id="template">
-                <div class="dz-preview dz-file-preview">
-
-  <div class="dz-details">
-    <div class="dz-filename"><span data-dz-name></span></div>
-    <div class="dz-size" data-dz-size></div>
-    <img data-dz-thumbnail />
-
-  </div>
-  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-  <div class="dz-success-mark"><span>✔</span></div>
-  <div class="dz-error-mark"><span>✘</span></div>
-  <div class="dz-error-message"><span data-dz-errormessage></span></div>
-
-</div>
-<div class="form-group">
-  {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
-  {{ errors_for('picturetitle', $errors) }}
-</div>
-<!-- Image Description field -->
-<div class="form-group">
-  {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
-  {{ errors_for('picturedescription', $errors) }}
-</div>
+              <div class="dropzone-previews">
               </div>
               
-              <div id ="meex"></div>
+              
               <!-- Album name field -->
               <div class="form-group">
                 Select any Album
@@ -193,6 +160,39 @@
               </fieldset>
                 {{ Form::close() }}
 </div>
+            <!--
+            <div id='drop_zone'>
+
+              {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                  <fieldset>
+                      @if (Session::has('flash_message'))
+                        <div class="form-group">
+                          <p>{{ Session::get('flash_message') }}</p>
+                        </div>
+                      @endif
+                      <div class="dropzone-previews" id="template">
+                        <div class="dz-preview dz-file-preview">
+                          <div class="dz-details">
+                            <div class="dz-filename"><span data-dz-name></span></div>
+                            <div class="dz-size" data-dz-size></div>
+                            <img data-dz-thumbnail />
+                          </div>
+                          <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                          <div class="dz-success-mark"><span>✔</span></div>
+                          <div class="dz-error-mark"><span>✘</span></div>
+                          <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                        </div>
+                      </div>
+                      <div id ="meex"></div>
+                      <div class="form-group">
+                        Select any Album
+                        {{Form::select('album', $albums)}}
+                      </div>
+                      <button type="submit" class="btn btn-md btn-success">Upload Image</button>
+                  </fieldset>
+              {{ Form::close() }}
+            </div>-->
+                  
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -219,26 +219,55 @@
     </div><!-- tab content -->
   </div>
 </div>
-
-
+<script type="text/javascript">
+  Dropzone.autoDiscover = true;
+Dropzone.options.mydropzone = {
+  previewsContainer: ".dropzone-previews",
+    addRemoveLinks: true,
+    paramName: "file",
+    maxFilesize: 5,
+    maxFiles: 5,
+    autoProcessQueue: false,
+      init: function () {
+     /* this.on("addedfile", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    });*/
+        var myDropzone = this;
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+    this.on("success", function(file, responseText) {
+            console.log(responseText);
+            window.location.hash = 'photo';
+            window.location.reload();
+        });
+     
+    },
+    
+};
+</script>
+<!--
 <script type="text/javascript">
 var previewNode = document.querySelector("#template");
 previewNode.id = "";
 var previewTemplate = previewNode.parentNode.innerHTML;
 previewNode.parentNode.removeChild(previewNode);
-
   Dropzone.autoDiscover = true;
 Dropzone.options.mydropzone = {
   previewTemplate: previewTemplate,
   autoQueue: false, // Make sure the files aren't queued until manually added
-  previewsContainer: "#meex",
+  previewsContainer: ".dropzone-previews",
     paramName: "file",
     maxFilesize: 5,
     maxFiles: 2,
     addRemoveLinks: true,
     autoProcessQueue: false,
-
-
     init: function () {
        
     /*   this.on("addedfile", function() {
@@ -247,7 +276,6 @@ Dropzone.options.mydropzone = {
       }
     });*/
         var myDropzone = this;
-
      
     // First change the button to actually tell Dropzone to process the queue.
     this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
@@ -265,9 +293,8 @@ Dropzone.options.mydropzone = {
      
     },
     
-
 };
-</script>
+</script>-->
 {{ HTML::script('/js/gallery-viewer.js')}}
             <script>
               window.GalleryViewer.settings.resource_path = "{{url('Images')}}";

@@ -68,7 +68,7 @@
       <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
 
          
-            <ul class="centertab  nav">
+            <ul class="centertab  nav nav-pills">
               <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
               <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
@@ -80,10 +80,12 @@
                     <a href="#" style="text-decoration:none;" class="performance-button button text-capitalize" data-target = "performance-form">Performing some where?</a>
                     
                     <div class="performance-form">
+                    
+                    <div class="clearfix"></div>
+                    <div class="form-box">
                     <a href="#"  class="performance-closebutton pull-right closebutton" data-target = "performance-form">
                     <i class="fa fa-times"></i>
                     </a>
-                    <div class="clearfix"></div>
                         {{ Form::open(['route' => 'userperformances.store']) }}
                             <fieldset>
 
@@ -95,29 +97,33 @@
 
                                 <!-- performance text field -->
                                 <div class="form-group">
+                                {{ Form::label('performancetext', 'performance title',['class' => 'text-capitalize text-muted']) }}
                                 {{ Form::text('performancetext', null, ['placeholder' => 'Where are you performing today', 'class' => 'form-control', 'required' => 'required'])}}
                                 {{ errors_for('performancetext', $errors) }}
                                 </div>
 
                                 <!-- venue Description field -->
                                 <div class="form-group">
+                                {{ Form::label('venue', 'venue',['class' => 'text-capitalize text-muted']) }}
                                 {{ Form::text('venue', null, ['placeholder' => 'venue details', 'class' => 'form-control', 'required' => 'required'])}}
                                 {{ errors_for('venue', $errors) }}
                                 </div>
 
                                 <!-- date and time Description field -->
                                 <div class="form-group">
+                                {{ Form::label('performancedatetime', 'performance date & time',['class' => 'text-capitalize text-muted']) }}
                                 <input type='text' name="performancedatetime" placeholder="performance date and time" class="form-control" id='datetimepicker1' />
                                 {{ errors_for('performancedatetime', $errors) }}
                                 </div>
 
                                 <!-- Submit field -->
                                 <div class="form-group">
-                                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+                                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-default videobutton']) }}
                                 </div>
 
                             </fieldset>
                         {{ Form::close() }}
+                        </div>
                     </div>
                     @foreach($performances as $performance)
                       <div class="performance-list">
@@ -205,15 +211,11 @@
       </div>
     </div>
       <div role="tabpanel" class="tab-pane " id="photo">
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Photos</h3>
-
-        </span>
         <div class="col-md-8">
-        <div class="row pop">
+        <div class="row">
             <!-- create album Button trigger modal -->
-      <a type="button" class="pull-left" data-toggle="modal" data-target="#uploadimagemodal">
-        upload image
+      <a type="button" class=" btn btn-link text-capitalize" data-toggle="modal" data-target="#uploadimagemodal">
+        create album
       </a>
 
       <div class="clearfix"></div>
@@ -243,18 +245,10 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              <h4 class="modal-title" id="myModalLabel">Create Album</h4>
             </div>
             <div class="modal-body">
-                  <div id='drop_zone'>
-   <!-- <form action="#" class='dropzone' id='mydropzone'>
-      
-       
-      <input type="text" name="title">
-      <input type="text" name ="description">
-      <button type="submit">Submit data and files!</button>
-    </form>-->
-    {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                  {{ Form::open(['route' => 'album.store']) }}
                       <fieldset>
 
                         @if (Session::has('flash_message'))
@@ -262,48 +256,27 @@
                   <p>{{ Session::get('flash_message') }}</p>
                 </div>
               @endif
-              <div class="dropzone-previews">
-              </div>
-              
-              
+
+
               <!-- Album name field -->
               <div class="form-group">
-                Select any Album
-                {{Form::select('album', $albums)}}
+                {{ Form::text('albumname', null, ['placeholder' => 'Album Name', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('albumname', $errors) }}
               </div>
 
               
 
-              <!-- Image title field -->
-              <div class="form-group">
-                {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
-                {{ errors_for('picturetitle', $errors) }}
-              </div>
-
-              <!-- Image Description field -->
-              <div class="form-group">
-                {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
-                {{ errors_for('picturedescription', $errors) }}
-              </div>
-
-
-
-              <!-- Submit field -->
-              <div class="form-group">
-                
-      <button type="submit" class="btn btn-md btn-success btn-block">Upload Image</button>
-              </div>
 
 
 
               </fieldset>
-                {{ Form::close() }}
-</div>
+                
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-default">Create Album</button>
             </div>
+            {{ Form::close() }}
           </div>
         </div>
       </div><!-- video modal end !-->  
@@ -323,12 +296,9 @@
                
       </div><!-- photo tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="video">
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-video-o"></i> Video</h3>
-        </span>
         <div class="col-md-8">
-          <div class="row pop">
-            <a type="button" class="" data-toggle="modal" data-target="#myModalvideo">
+          <div class="row">
+            <a type="button" class=" btn btn-link text-capitalize" data-toggle="modal" data-target="#myModalvideo">
               upload Video
             </a>
             <div class="clearfix"></div>
@@ -399,7 +369,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              <h4 class="modal-title" id="myModalLabel">Add Video</h4>
             </div>
             <div class="modal-body">
                  {{ Form::open(['route' => 'videogallery.store','files' => 'true' ,'class'=>'vid_form']) }}
@@ -421,34 +391,34 @@
                 {{ Form::text('videotitle', null, ['placeholder' => 'Video Title', 'class' => 'form-control','id'=>'vidtitle', 'required' => 'required'])}}
                 {{ errors_for('videotitle', $errors) }}
               </div>
-              <div class="form-group">
-              {{ Form::file('videosrc') }}
-              </div>
-
               <!-- Image Description field -->
               <div class="form-group">
                 {{ Form::text('videodescription', null, ['placeholder' => 'Video Description', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('videodescription', $errors) }}
               </div>
 
-
-
-              <!-- Submit field -->
               <div class="form-group">
-                {{ Form::submit('Upload Video', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+              {{ Form::file('videosrc') }}
               </div>
+
+              
+
+
+
+              
 
 
 
 
               </fieldset>
-                {{ Form::close() }}
 
             </div><!-- modal boxy end !-->
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-default">Upload Video</button>
             </div>
+
+                {{ Form::close() }}
           </div>
         </div>
       </div><!-- video modal end !-->  
@@ -459,12 +429,9 @@
         
       </div><!-- video tabpanel end !-->
       <div role="tabpanel" class="tab-pane" id="audio">
-       <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Audio</h3>
-        </span>
         <div class="col-md-8">
-          <div class="row pop">
-            <a type="button" class="" data-toggle="modal" data-target="#myModalaudio">
+          <div class="row ">
+            <a type="button" class="btn btn-link text-capitalize" data-toggle="modal" data-target="#myModalaudio">
             upload Audio
             </a> 
             <div class="gallery">
@@ -539,9 +506,7 @@
                  {{ Form::open(['route' => 'audiogallery.store','files' => 'true','class'=>'aud_form' ]) }}
                       <fieldset>
 
-              <div class="form-group">
-              {{ Form::file('audiosrc') }}
-              </div>
+              
 
               <!-- Image title field -->
               <div class="form-group">
@@ -555,23 +520,23 @@
                 {{ errors_for('audiodescription', $errors) }}
               </div>
 
-
-
-              <!-- Submit field -->
               <div class="form-group">
-                {{ Form::submit('Upload Track', ['class' => 'btn btn-md btn-success btn-block']) }}
+              {{ Form::file('audiosrc') }}
               </div>
+
+              
 
 
 
               </fieldset>
-                {{ Form::close() }}
 
             </div><!-- modal boxy end !-->
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-default">Uplaod Audio</button>
             </div>
+
+                {{ Form::close() }}
           </div>
         </div>
       </div><!-- video modal end !--> 
@@ -587,17 +552,12 @@
 
       </div>
       <div role="tabpanel" class="tab-pane" id="recent">
-        <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Recent Activity</h3>
-        </span>
-      4...</div>
+      No data
+      </div>
       <div role="tabpanel" class="tab-pane" id="blog">
-      <span class="album-block">
-          <h3 class="pull-left"> <i class="fa fa-file-image-o"></i> Blog</h3>
-        </span>
 
         <div class="col-md-8 ">
-          {{ HTML::linkRoute('blog.create','Create New Post') }}<br>
+          {{ HTML::linkRoute('blog.create','Create New Post',['class'=>'btn btn-link text-capitalize']) }}
           @foreach($articles as $article)
             
             <div class="media">
@@ -637,79 +597,110 @@
           <div class="col-md-6">
             <div class="about-details-block" >
               <span class="about-title text-capitalize">Name</span>
-              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->name}}</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->name}}</span>
             </div>
             <div class="about-details-block" >
-              <span class="about-title text-capitalize">date of birth</span>
-              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->dob}}</span>
+              <span class="about-title text-capitalize">DOB</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->dob}}</span>
+            </div>
+            <div class="about-details-block" >
+              <span class="about-title text-capitalize">Gender</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->gender}}</span>
             </div>
             <div class="about-details-block" >
               <span class="about-title text-capitalize">Email</span>
-              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->email}}</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->email}}</span>
+            </div>
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">Title</span>
+              <span class="text-muted text-title text-capitalize">{{Sentry::findUserById($abouts->user_id)->title}}</span>
             </div>
             <div class="about-details-block">
               <span class="about-title text-capitalize">Phone</span>
-              <span class="text-muted">{{Sentry::getUser($abouts->user_id)->phone}}</span>
+              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->phone}}</span>
             </div>
+            
+            <div class="about-details-block">
+              <span class="about-title text-capitalize">talent fields</span><br>
+              <div class="about-talent-field">
+                @if(isset(Sentry::findUserById($abouts->user_id)->art))
+                <span>Arts</span>
+
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->collection))
+                <span>Collection</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->cooking))
+                <span>Cooking</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->dance))
+                <span>Dance</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->fashion))
+                <span>Fashion</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->moviesandtheatre))
+                <span>Movies&Theatre</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->music))
+
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->sports))
+                <span>Sports</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->unordinary))
+                <span>Unordinary</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($abouts->user_id)->wanderer))
+                <span>Wanderer</span>
+                @else
+                 
+                @endif
+              </div>
+            </div>
+            
+
+
             
           </div>
 
           <div class="col-md-6">
-            <div class="flowplayer" style="background-color:#515151;">
+          @if(!is_null($abouts->video))
+            <div class="flowplayer" style="background-color:#000;">
                <video>
                   <source type="video/webm" src="{{url()}}/aboutvideo/webm/{{$abouts->video}}.webm">
                   <source type="video/mp4"   src="{{url()}}/aboutvideo/mp4/{{$abouts->video}}.mp4">
                   <source type="video/flash" src="{{url()}}/aboutvideo/flv/{{$abouts->video}}.flv">
-
                </video>
             </div>
+          @endif
           </div>
           <div class="col-md-12">
             <div class="profile-blocks">
               <div class="about-details-block" >
-                <span class="profile-title text-capitalize">About me</span>
+                <span class="profile-title text-capitalize">About me</span><br>
                 <span class="text-muted">{{$abouts->about_us}}</span>
               </div>
               <div class="about-details-block" >
-                <span class="profile-title text-capitalize">Awards or Achievements<span class="pull-right"><a type="button" data-toggle="modal" data-target="#myModalachievement">Add</a></span></span>
-                <br>
-                <!-- Button trigger modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="myModalachievement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel  ">Add Achievement</h4>
-                      </div>
-                      <div class="modal-body">
-                      {{ Form::open(['route' => 'achievements.store','files' => 'true','class'=>'award-form' ]) }}
-                      <fieldset>
-                      <!-- Achievements certificate -->
-                      <div class="form-group">
-                      {{ Form::file('achievement_certificate') }}
-                      </div>  
-
-                      <!-- Achievements title field -->
-                      <div class="form-group">
-                        {{ Form::text('achievements', null, ['placeholder' => 'Achievements', 'class' => 'form-control', 'required' => 'required'])}}
-                        {{ errors_for('achievements', $errors) }}
-                      </div>
-
-
-
-                      </fieldset>
-                      
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Achievement</button>
-                        {{ Form::close() }}
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- modal end here -->
-
+                <span class="profile-title text-capitalize">Awards or Achievements</span><br>
                 @foreach($rewards as $reward)
                 <span class="text-muted">
                   {{$reward->achievements}}
@@ -717,11 +708,9 @@
                 @endforeach
                 <ul class="list-inline reward-img">
                 @foreach($rewards as $reward)
-                  <li><img src="{{url()}}/achievementcertificate/{{$reward->achievement_certificate}}" class="sizeforcertificate responsive "><p>Mytext here for</p></li>
-                
+                  <li><img src="{{url()}}/achievementcertificate/{{$reward->achievement_certificate}}" class="sizeforcertificate responsive "><p>{{substr($reward->achievements,0,30)}}...</p></li>
                 @endforeach 
                 </ul>
-
               </div>
             </div>
           </div>

@@ -23,23 +23,20 @@ class NewsfeedsController extends \BaseController {
 			{
 				$postedimage = Picture::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->picturename;
+				$postedTitle = $postedimage->picturetitle;
 			}
 			elseif($postmodel == 'Video')
 			{
 				$postedimage = Video::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->videosrc;
+				$postedTitle = $postedimage->videotitle;
 			}
 			elseif($postmodel == 'Audio')
 			{
 				$postedimage = Audio::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->audiosrc;
+				$postedTitle = $postedimage->audiotitle;
 			}
-			
-			
-
-
-			
-
 			
 			$newfeed = new stdClass;
 			$newfeed->postid = $postid;
@@ -48,6 +45,7 @@ class NewsfeedsController extends \BaseController {
 			$newfeed->username = $userName;
 			$newfeed->postedon = $postedOn;
 			$newfeed->postedimage = $postedImage;
+			$newfeed->postedtitle = $postedTitle;
 			
 			$newarray[] = json_decode(json_encode($newfeed));
 			foreach ($newarray as $key => $image) {

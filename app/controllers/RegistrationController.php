@@ -41,11 +41,43 @@ class RegistrationController extends \BaseController {
 	public function store()
 	{
 		$which_group = Input::get('group');
-		$input = Input::only('email', 'password', 'password_confirmation', 'name','dob');
+		if($which_group == 'Stars'){
+			$input = Input::only('email', 'password', 'password_confirmation', 'name','gender');
 
-		$this->registrationForm->validate($input);
+			$this->registrationForm->validate($input);
 
-		$input = Input::only('email', 'password','name','dob','terms');
+			$input = Input::only('email', 'password','name','terms','gender','contact','art','cooking','dance','fashion','moviesandtheatre','music','sports','unordinary','wanderer');
+			$day = Input::get('day');
+			$month = Input::get('month');
+			$year = Input::get('year');
+			$dob = $day.$month.$year;	
+			$input = array_add($input,'dob',$dob);
+		}
+		elseif ($which_group == 'Audiences') {
+			$input = Input::only('email', 'password', 'password_confirmation', 'name','gender');
+
+			$this->registrationForm->validate($input);
+
+			$input = Input::only('email', 'password','name','terms','gender','contact');
+			$day = Input::get('day');
+			$month = Input::get('month');
+			$year = Input::get('year');
+			$dob = $day.$month.$year;	
+			$input = array_add($input,'dob',$dob);
+		}
+		elseif ($which_group == 'Promoters') {
+			$input = Input::only('email', 'password', 'password_confirmation', 'name','contact','address','city','country');
+
+			$this->registrationForm->validate($input);
+
+			$input = Input::only('email', 'password','name','terms','contact','address','city','country');
+			$day = Input::get('day');
+			$month = Input::get('month');
+			$year = Input::get('year');
+			$dob = $day.'-'.$month.'-'.$year;	
+			$input = array_add($input,'dob',$dob);
+		}
+		
 		$input = array_add($input, 'activated', true);
 
 		$user = $this->user->create($input);

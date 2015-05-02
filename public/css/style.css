@@ -1,3 +1,19 @@
+
+/* Image uplaod box =====================
+=======================================*/
+body{
+  padding-top: 90px;
+}
+.previewbox {
+  display: block;
+  position: relative;
+  top: 0px;
+  min-width: 700px;
+  float: right;
+}
+
+
+
 /* count down timer =====================
 =======================================*/
 /**
@@ -1344,3 +1360,28 @@ a{
 a:hover{
   color: #f18c1c;
 };
+
+/*Form Input=====================
+=======================================*/
+.form-control {
+  font-weight: normal;
+  border: 1px solid #ddd;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow:  none !important;
+  box-shadow:     none !important;
+  -webkit-border-radius:  0 !important;
+  -moz-border-radius:   0 !important;
+  border-radius:      0 !important;
+}
+
+.form-control:focus {
+  border-color: #515151;
+}
+.form-box{
+  display: block;
+  overflow: hidden;
+  border: 1px solid #f2f2f2;
+  padding:  30px 20px;
+  background-color: #f9f9f9;
+
+}

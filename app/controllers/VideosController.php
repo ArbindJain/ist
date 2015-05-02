@@ -46,9 +46,9 @@ class VideosController extends \BaseController {
 		$file_out_flv = 'public/galleryvideo/flv/'.$filename.'.flv'; 
 
 		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_webm)->go();
-
 		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_mp4)->go();
 		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_flv)->go();
+		 
 			
         	
             //$vidfile->move('public/galleryvideo/', $filename);
@@ -57,6 +57,7 @@ class VideosController extends \BaseController {
 			$vidsnaps->videosrc = $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');
+			$vidsnaps->thumbnail = Sonus::getThumbnails($file_in, 'foo-thumb' 1);;
 			$vidsnaps->user_id = Sentry::getUser()->id;
 			$vidsnaps->save();
             // redirect To astral...

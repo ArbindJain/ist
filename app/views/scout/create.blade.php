@@ -217,9 +217,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12 centered-pills">
+  <div class="col-md-12">
     <div class="sub-nav-block">
-    <ul class="nav nav-pills ">
+    <ul class="nav nav-pills centertab">
       <li role="navigation" class="active"><a href="{{url()}}/userProtected#yourfeedwall">MyEvent(wall)</a></li>
       <li role="navigation"><a href="{{url()}}/userProtected#photo">Photos</a></li>
       <li role="navigation"><a href="{{url()}}/userProtected#video">Video</a></li>
@@ -232,11 +232,11 @@
     <div class="tab-content">
       <div class="clearfix"></div>
       <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
-        <div class="col-md-8">
-            <ul class=" pull-left tabnav">
-              <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
+        <div class="col-md-12">
+            <ul class="nav nav-pills centertab">
+              <li role="navigation" ><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
-              <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
+              <li role="navigation" class="active"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
             </ul> 
           </div>
 
@@ -250,15 +250,19 @@
             </div>
             <!-- button for scout generation -->
             <div role="tabpanel" class="tab-pane active" id="findtalent">
+            <div class="form-box">
               {{ Form::open(['route' => 'scout.store','files' => 'true' ,'class'=>'scout_form']) }}
                             <fieldset>
                             <!-- Image title field -->
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('scoutitle', 'Scout Title',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('scouttitle', null, ['placeholder' => 'Scout Title', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('scouttitle', $errors) }}
                             </div>
                               <!-- Scout Date and Time field -->
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
+                            {{ Form::label('scoutdatetime', 'Event date & time',['class' => 'text-capitalize text-muted']) }}
+                                          
                               <div class='input-group date' id='datetimepicker1'>
                                           <input type="datetime" name="scoutdatetime" class="form-control"  />
                                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -268,7 +272,9 @@
                               
                             </div> 
                              <!-- Scout Date and Time field -->
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
+                            {{ Form::label('applieddatetime', 'Apllication Closing date & time',['class' => 'text-capitalize text-muted']) }}
+                                          
                               <div class='input-group date' id='datetimepicker2'>
                                           <input type="datetime" name="applieddatetime" class="form-control"  />
                                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -278,52 +284,63 @@
                               
                             </div> 
                              <!-- Event Duration  field -->
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
+                              {{ Form::label('scoutduration', 'Event duration',['class' => 'text-capitalize text-muted']) }}          
                               {{ Form::text('scoutduration', null, ['placeholder' => 'Scout Duration', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('scoutduration', $errors) }}
                             </div> 
+                             <!-- scout audience gender -->
+                            <div class="form-group col-md-6"> 
 
-                            
-                            <!-- scout renumeration range min-->
-                            <div class="form-group">
-                              {{ Form::text('renumerationrangemin', null, ['placeholder' => 'Renumeration Min', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('renumerationrangemin', $errors) }}                              
-                            </div>  
-                            <!-- scout renumeration range max -->
-                            <div class="form-group">
-                              {{ Form::text('renumerationrangemax', null, ['placeholder' => 'Renumeration Max', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('renumerationrangemax', $errors) }}                              
-                            </div> 
-                            <!-- scout audience range min-->
-                            <div class="form-group">
-                              {{ Form::text('audiencerangemin', null, ['placeholder' => 'Audience Min', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('audiencerangemin', $errors) }}                              
-                            </div>  
-                            <!-- scout audience range max -->
-                            <div class="form-group">
-                              {{ Form::text('audiencerangemax', null, ['placeholder' => 'Audience Max', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('audiencerangemax', $errors) }}                              
-                            </div> 
-                             <!-- scout age range min-->
-                            <div class="form-group">
-                              {{ Form::text('agerangemin', null, ['placeholder' => 'Age Min', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('agerangemin', $errors) }}                              
-                            </div>  
-                            <!-- scout age range max -->
-                            <div class="form-group">
-                              {{ Form::text('agerangemax', null, ['placeholder' => 'Age Max', 'class' => 'form-control', 'required' => 'required'])}}
-                              {{ errors_for('agerangemax', $errors) }}                              
-                            </div> 
-                            <!-- scout audience gender -->
-                            <div class="form-group"> 
-                              <select name="gender">
+                              {{ Form::label('gender', 'gender',['class' => 'text-capitalize text-muted']) }}
+                              <select name="gender" class="form-control">
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                                 <option value="NULL" selected="selected">Any</option>
                               </select>                            
                             </div>  
 
-                            <div class="form-group">
+                            
+                            <!-- scout renumeration range min-->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('renumerationrangemin', 'remuneration min',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('renumerationrangemin', null, ['placeholder' => 'Remuneration Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('renumerationrangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout renumeration range max -->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('renumerationrangemax', 'remuneration max',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('renumerationrangemax', null, ['placeholder' => 'Remuneration Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('renumerationrangemax', $errors) }}                              
+                            </div> 
+                            <!-- scout audience range min-->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('audiencerangemin', 'max people',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('audiencerangemin', null, ['placeholder' => 'Audience Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('audiencerangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout audience range max -->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('audiencerangemax', 'min people',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('audiencerangemax', null, ['placeholder' => 'Audience Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('audiencerangemax', $errors) }}                              
+                            </div> 
+                             <!-- scout age range min-->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('agerangemin', 'age min',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('agerangemin', null, ['placeholder' => 'Age Min', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('agerangemin', $errors) }}                              
+                            </div>  
+                            <!-- scout age range max -->
+                            <div class="form-group col-md-6">
+                              {{ Form::label('agerangemax', 'age max',['class' => 'text-capitalize text-muted']) }}
+                              {{ Form::text('agerangemax', null, ['placeholder' => 'Age Max', 'class' => 'form-control', 'required' => 'required'])}}
+                              {{ errors_for('agerangemax', $errors) }}                              
+                            </div> 
+                           
+
+                          <!--  <div class="form-group col-md-12">
+
                               {{ Form::label('art', 'Art:') }}
                               {{ Form::checkbox('art', '1') }}
                               {{ Form::label('collection', 'Collection:') }}
@@ -344,59 +361,99 @@
                               {{ Form::checkbox('unordinary', '1') }}
                               {{ Form::label('wanderer', 'Wanderer:') }}
                               {{ Form::checkbox('wanderer', '1') }}
-                            </div> 
+                            </div> -->
+                            <div class="col-md-12 form-group">
+              <label for="checkbox-2" class="control-label text-capitalize text-muted">Category</label>
+                <div class="has-feedback">
+                  <input id="checkbox-2" class="checkbox-custom" name="art" type="checkbox" value="1" >
+                        <label for="checkbox-2" class="checkbox-custom-label">Art</label>
+                        
+                        <input id="checkbox-3" class="checkbox-custom" name="cooking" type="checkbox" value="1" >
+                        <label for="checkbox-3" class="checkbox-custom-label">Cooking</label>
+                        
+                        <input id="checkbox-4" class="checkbox-custom" name="dance" type="checkbox" value="1" >
+                        <label for="checkbox-4" class="checkbox-custom-label">Dance</label>
+                        
+                        <input id="checkbox-5" class="checkbox-custom" name="fashion" type="checkbox" value="1" >
+                        <label for="checkbox-5" class="checkbox-custom-label">Fashion</label>
+                        
+                        <input id="checkbox-6" class="checkbox-custom" name="moviesandtheatre" type="checkbox" value="1" >
+                        <label for="checkbox-6" class="checkbox-custom-label">Movies & Theatre</label>
+                       
+                        <input id="checkbox-7" class="checkbox-custom" name="music" type="checkbox" value="1" >
+                        <label for="checkbox-7" class="checkbox-custom-label">Music</label>
+                        
+                        <input id="checkbox-8" class="checkbox-custom" name="sports" type="checkbox" value="1" >
+                        <label for="checkbox-8" class="checkbox-custom-label">Sports</label>
+                        
+                        <input id="checkbox-9" class="checkbox-custom" name="unordinary" type="checkbox" value="1" >
+                        <label for="checkbox-9" class="checkbox-custom-label">Unordinary</label>
+                        
+                        <input id="checkbox-10" class="checkbox-custom" name="wanderer" type="checkbox" value="1" >
+                        <label for="checkbox-10" class="checkbox-custom-label">Wanderer</label>
+                </div>
+              </div>
 
                             <!-- scout Skills -->
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('skills', 'skill',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('skills', null, ['placeholder' => 'skills', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('skills', $errors) }}                              
                             </div> 
 
                             <!-- scout Venue -->
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('venue', 'venue address',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('venue', null, ['placeholder' => 'Venue', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('venue', $errors) }}                              
                             </div> 
                             <!-- scout City -->
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
+                              {{ Form::label('city', 'city',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('city', null, ['placeholder' => 'City', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('city', $errors) }}                              
                             </div> 
                             <!-- scout Country -->
-                            <div class="form-group">
+                            <div class="form-group col-md-6">
+                              {{ Form::label('country', 'country',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('country', null, ['placeholder' => 'Country', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('country', $errors) }}                              
                             </div> 
                             
                             <!-- scout description -->
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('scoutdescription', 'Scout description',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('scoutdescription', null, ['placeholder' => 'Scout Description', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('scoutdescription', $errors) }}                              
                             </div> 
 
                             <!-- scout artist description -->
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('artistdescription', 'artist description',['class' => 'text-capitalize text-muted']) }}
                               {{ Form::text('artistdescription', null, ['placeholder' => 'Artist Description', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('artistdescription', $errors) }}                              
                             </div>
 
                             <!-- Scout agreement -->           
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                            {{ Form::label('agreement', 'upload Certificate',['class' => 'text-capitalize text-muted']) }}
                             {{ Form::file('agreement') }}
                             </div>
 
                             <!-- Scout Poster with definate size  -->           
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
+                              {{ Form::label('scoutposter', 'upload poster',['class' => 'text-capitalize text-muted']) }}
                             {{ Form::file('scoutposter') }}
                             </div>
 
                             <!-- Submit field -->
-                            <div class="form-group">
-                              {{ Form::submit('Scout Now', ['class' => 'btn btn-md btn-success btn-block videobutton']) }}
+                            <div class="form-group col-md-12">
+                              {{ Form::submit('Scout Now', ['class' => 'btn btn-md btn-success videobutton']) }}
                             </div>
 
                             </fieldset>
-                          {{ Form::close() }}                   
+                          {{ Form::close() }}    
+                          </div>               
               
             </div>          
       </div>

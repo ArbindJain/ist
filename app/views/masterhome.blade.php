@@ -7,6 +7,8 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<title>@yield('title') - IST</title>
+		{{ HTML::script('/js/dropzone.js') }}
+	    {{ HTML::style('/css/dropzone.css') }}
 	    {{HTML::style('/fonts/HelveticaNeueLTStd-Roman.otf')}}
 	    <!-- Bootstrap -->
 	   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
@@ -16,25 +18,7 @@
 	    <link rel="stylesheet" type="text/css" href="/css/style.css">
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	    
-		 <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-		<!-- below script required for flowplayer -->
-		
-		
-		{{ HTML::script('/js/dropzone.js') }}
-	    {{ HTML::style('/css/dropzone.css') }}
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
-		<!-- timer cdn -->
-		{{ HTML::script('/js/TimeCircles.js') }}
-		<!-- 1. skin -->
-<link rel="stylesheet" href="//releases.flowplayer.org/5.5.2/skin/minimalist.css">
 
-<!-- js
-
-<script src="http://releases.flowplayer.org/js/flowplayer-3.2.13.min.js"></script> -->
- 
- 
-<!-- 3. flowplayer -->
-<script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -184,55 +168,7 @@
 		@yield('content')
  
 		</div>
-<script type="text/javascript">
-
-$(document).ready(function(){
-  $("body").on('submit', 'form[data-remote]', function(e){
-    e.preventDefault();
-    //  setInterval(function () {
-     //  $(".comment-box").each(function() {
-     //     $(this).load(location.href + " #" + $(this).prop("id"));
-
-       // });
-      
-     // }, 5000);
-
-    
-    var form = $(this);
-    var target = form.closest('div.comment-box');
-        $.ajax({
-          url: '{{url()}}/comments',
-          type: 'POST',
-          cache: false,
-          data: form.serialize(),
-          dataType: 'json',
-          beforeSend: function(){
-
-          },
-          success: function(commentdata) { 
-            //$(".comment-block").html(user);
-            //alert(users);
-            console.log(commentdata);
-            var mar= commentdata.comment;
-            var username = commentdata.user_id;
-            var time = commentdata.created_at;
-            var marid = commentdata.comment_id;
-            var viewid = commentdata.view_id;
-            var target_id = ".comment-view-"+viewid;
-            console.log(target_id);
-            $(target_id).append("<div class= \'comment-box-"+marid+"\'><a href=\'#\'><b>"+username+" </b>&nbsp;&nbsp;&nbsp;</a><span>"+mar+"<br></span><div class=\'com-details\'><div class=\'com-time-container\'>"+time+"</div></div></div><br>");
-            $('.text-shift').val('');
-              
-            
-          },
-          error: function(xhr, textStatus, thrownError) {
-              alert('ops Errore');
-          }
-       });
-        
-    });
-}); 
-</script>		
+	
 <script type="text/javascript">
 
 document.addEventListener("click", function(){
@@ -241,188 +177,12 @@ document.addEventListener("click", function(){
 	    </script>
 	   
        
-       <script type="text/javascript">
-   
-   
-  $(document).ready( function(){
-
-  $('.attach').click(function(e){
-
-        e.preventDefault();
-
-        $.ajax({
-          url: '{{url()}}/followuser',
-          type: 'POST',
-          cache: false,
-          data: $('form.add').serialize(),
-          dataType: 'json',
-          beforeSend: function() { 
-          },
-          success: function(data) {  
-           
-              $("#follow").hide();
-              $("#unfollow-mirror").show();
-              $("#follow-mirror").hide();
-              $("#unfollow").show();
-            
-          },
-          error: function(xhr, textStatus, thrownError) {
-              alert('ops Errore');
-          }
-       });
-    
-      });
-
-   $('.detach').click(function(e){
-
-        e.preventDefault();
-
-        $.ajax({
-          url: '{{url()}}/unfollowuser',
-          type: 'post',
-          cache: false,
-          data: $('form.sub').serialize(),
-          dataType: 'json',
-          beforeSend: function() { 
-          },
-          success: function(data) {   
-          $("#unfollow-mirror").hide(); 
-          $("#follow").show();
-          $("#unfollow").hide();
-          $("#follow-mirror").show();
-
-            
-          },
-          error: function(xhr, textStatus, thrownError) {
-              alert('ops Errore');
-          }
-       });
-    
-      });
-  
-
-
-  });
-  
-
- 
-</script>
-<script type="text/javascript">
-   
-  
-  $(document).ready( function(){
-    $("body").on("click", ".like-button", function() {
-      var handle = $(this);
-      url = '';
-
-      // for picture likes 
-      if (handle.data("model") == 'Picture')
-       {
-        if (handle.data("action") == 'like')
-          url = '/likes';
-        else url= '/diminish';
-      }
-      // for video likes
-      else if(handle.data("model") == 'Video') 
-      {
-        if (handle.data("action") == 'like')
-          url = '/likes';
-        else url= '/diminish';
-      }
-      else if(handle.data("model") == 'Audio') 
-      {
-        if (handle.data("action") == 'like')
-          url = '/likes';
-        else url= '/diminish';
-      }
-
-
-      if (url.length < 1) return;
-      url = '{{url()}}'+url;
-
-      var data = {
-        "_token": {{json_encode(csrf_token())}},
-        "model": handle.data('model'),
-        "current_id": handle.data('id'),
-      };
-      console.log($.param(data));
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        cache: false,
-        data: $.param(data),
-        dataType: 'json',
-        success: function() {
-
-
-          //console.log("success");
-          var new_class = "." + handle.data("realclass");
-          console.log(new_class);
-          var new_action = handle.data("action") == 'like'? 'unlike' : 'like';
-          var new_text = handle.data("action") == 'like'? 'Unlike' : 'Like';
-          
-          handle.data("action", new_action).children(".btntext").empty().append(new_text);
-          if(new_text == 'Unlike'){
-                    $(new_class).children('.fa').removeClass('fa-thumbs-up').addClass('fa-thumbs-down');
-                }
-                else{
-                	  $(new_class).children('.fa').removeClass('fa-thumbs-down').addClass('fa-thumbs-up');
-              
-                }
-        },
-        error: function(jxhr, status) {
-          alert("error: "+status);
-        },
-      });
-    });
-
-  
-
-   
-
-
-  });
-  
-
- 
-</script>
+     
 		
 	    
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
 	    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-  <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
-  {{ HTML::script('/js/audio.js') }}
-  <script type="text/javascript">
-            $(function () {
-            $('#datetimepicker1').datetimepicker({
-               
-            });
-        });
-        </script>
-        <script type="text/javascript">
-            $(function () {
-            $('#datetimepicker2').datetimepicker({
-               
-            });
-        });
-        </script>
-        {{ HTML::script('/js/notification-updater.js') }}
-        <script type="text/javascript">
-       
-        NotificationUpdater.settings.target_class_name = "notification";
-        NotificationUpdater.settings.url = "{{url('userfeeds')}}";
-        NotificationUpdater.settings.csrf_token = '{{ csrf_token() }}';
-        
-        /* 
-        $.ajax({url: '/userfeeds', dataType: 'json', method: 'POST', data: {_token: '{{ csrf_token() }}', test: 'hello', },
-        	success: function(response) {
-        		console.log(response);
-        	},}); */
-        </script>
+
         
         </body>
 </html>

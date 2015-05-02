@@ -1,83 +1,63 @@
-@extends('master')
+@extends('masterhome')
 
 @section('title', 'Home')
 
 @section('content')
-<style>
-.users-block{
-	display: block;
-	padding: 20px;
-	background-color: #eae8e8;
-	margin:5px;
-}
-	
-
-</style>
-<div class="row">
-	<div class="col-md-12">
-<!--	<ul class="nav navbar-nav"><ul class="nav navbar-nav navbar-right">
-		      @if (Sentry::check())
-		      	 @if (Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
-
-
-		        <li class="{{ set_active('/') }}"><a href="/">Home</a></li>
-		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">User Signup</a></li>
-		       <li class="{{ set_active('about') }}"><a href="/about">User About</a></li>
-		       <li class="{{ set_active('imagegallery') }}"><a href="/imagegallery">Image Gallery</a></li>
-			   <li class="{{ set_active('videogallery') }}"><a href="/videogallery">Video Gallery</a></li>
-			   <li class="{{ set_active('audiogallery') }}"><a href="/audiogallery">Audio Gallery</a></li>
-			   <li class="{{ set_active('blog') }}"><a href="/blog">Blog</a></li>
-				
-				@elseif (Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Audiences')))
-					<li class="{{ set_active('audiogallery') }}"><a href="/audiogallery">Audio Gallery</a></li>
-				
-			   <li class="{{ set_active('blog') }}"><a href="/blog">Blog</a></li>
-				@elseif (Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Promoters')))
-					  <li class="{{ set_active('promoter') }}"><a href="/promoter/{{Sentry::getUser()->id}}">Profile</a></li>
-					  <li class="{{ set_active('events') }}"><a href="/events">Events</a></li>
-
-				@endif
-				@else
-				<li class="{{ set_active('/') }}"><a href="/">Home</a></li>
-		       <li class="{{ set_active('userProtected') }}"><a href="/userProtected">User Signup</a></li>
-		       <li class="{{ set_active('about') }}"><a href="/about">User About</a></li>
-		       <li class="{{ set_active('imagegallery') }}"><a href="/imagegallery">Image Gallery</a></li>
-			   <li class="{{ set_active('videogallery') }}"><a href="/videogallery">Video Gallery</a></li>
-			   <li class="{{ set_active('audiogallery') }}"><a href="/audiogallery">Audio Gallery</a></li>
-			   <li class="{{ set_active('blog') }}"><a href="/blog">Blog</a></li>
-				@endif
-		      </ul>
-		     
-					
-		      </ul>
-
-		      <ul class="nav navbar-nav navbar-right">
-		      	@if (!Sentry::check())
-					<li class="{{ set_active('register') }}"><a href="/register">Register</a></li>
-					<li class="{{ set_active('login') }}"><a href="/login">Login</a></li>
-				@else
-					<li class="{{ set_active('profiles') }}"><a href="/profiles/{{Sentry::getUser()->id}}">My Profile</a></li>
-					<li><a href="/logout">Logout</a></li>
-				@endif
-		      </ul>-->
-	@foreach($users as $user)
-	
-		
-		<div class="pull-left users-block">
-			{{ HTML::image($user->profileimage , 'profile picture', array('class' => 'img-circle pull-right')) }}
-	
-			<p>{{$user->name}}</p>
-			<!--direct route referncing name should be first param of a route...-->
-			{{ link_to_route('user', 'show', array($user->id,$user->name), array('class' => 'btn btn-info')) }}
-		</div>
-			
-		
-			
-		
-	
-		
-	@endforeach
-	</div>
-</div>
+		{{HTML::style('css/default.css')}}
+		{{HTML::style('css/component.css')}}
+		{{HTML::script('js/modernizr.custom.js')}}
+<div class="container">	
+			<div class="main">
+				<ul id="og-grid" class="og-grid">
+					<li>
+						<a href="#" data-largesrc="/homeimage/1.jpg" data-title="Arbind Jain" data-description="Cake danish oat cake tart marshmallow gummi bears. Ice cream toffee tart oat cake brownie gummies brownie. Gummies candy canes cupcake gingerbread. Marzipan icing brownie bear claw sugar plum marshmallow. Topping tart icing. Liquorice candy liquorice dragée tiramisu. Croissant gummies jelly tiramisu marshmallow cupcake donut powder.">
+							<img src="/homeimage/thumbs/1.jpg" alt="img01"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/2.jpg" data-title="Akshay Mahadev" data-description="Komatsuna prairie turnip wattle seed artichoke mustard horseradish taro rutabaga ricebean carrot black-eyed pea turnip greens beetroot yarrow watercress kombu.">
+							<img src="/homeimage/thumbs/2.jpg" alt="img02"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/3.jpg" data-title="John Hopkins" data-description="Gummi bears lemon drops oat cake. Tart halvah cheesecake. Bear claw marshmallow cake tiramisu caramels tiramisu sugar plum. Cake tiramisu apple pie macaroon tiramisu oat cake macaroon candy.">
+							<img src="/homeimage/thumbs/3.jpg" alt="img03"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/4.jpg" data-title="John Hopkins" data-description="Cabbage bamboo shoot broccoli rabe chickpea chard sea lettuce lettuce ricebean artichoke earthnut pea aubergine okra brussels sprout avocado tomato.">
+							<img src="/homeimage/thumbs/4.jpg" alt="img03"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/3.jpg" data-title="Arbind Jain" data-description="Cake danish oat cake tart marshmallow gummi bears. Ice cream toffee tart oat cake brownie gummies brownie. Gummies candy canes cupcake gingerbread. Marzipan icing brownie bear claw sugar plum marshmallow. Topping tart icing. Liquorice candy liquorice dragée tiramisu. Croissant gummies jelly tiramisu marshmallow cupcake donut powder.">
+							<img src="/homeimage/thumbs/3.jpg" alt="img01"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/2.jpg" data-title="Akshay Mahadev" data-description="Komatsuna prairie turnip wattle seed artichoke mustard horseradish taro rutabaga ricebean carrot black-eyed pea turnip greens beetroot yarrow watercress kombu.">
+							<img src="/homeimage/thumbs/1.jpg" alt="img02"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/4.jpg" data-title="John Hopkins" data-description="Gummi bears lemon drops oat cake. Tart halvah cheesecake. Bear claw marshmallow cake tiramisu caramels tiramisu sugar plum. Cake tiramisu apple pie macaroon tiramisu oat cake macaroon candy.">
+							<img src="/homeimage/thumbs/4.jpg" alt="img03"/>
+						</a>
+					</li>
+					<li>
+						<a href="#" data-largesrc="/homeimage/1.jpg" data-title="John Hopkins" data-description="Cabbage bamboo shoot broccoli rabe chickpea chard sea lettuce lettuce ricebean artichoke earthnut pea aubergine okra brussels sprout avocado tomato.">
+							<img src="/homeimage/thumbs/2.jpg" alt="img03"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /container -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		{{HTML::script('js/grid.js')}}
+		<script>
+			$(function() {
+				Grid.init();
+			});
+		</script>
 
 @stop
