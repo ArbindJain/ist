@@ -14,9 +14,10 @@
       
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
       <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+      
+      {{HTML::style('/css/bootstrap.min.css')}}
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
-      <link rel="stylesheet" href="/css/style.css" />
+      {{HTML::style('/css/style.css')}}
       
 <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
    

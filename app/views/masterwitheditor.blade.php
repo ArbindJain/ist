@@ -11,8 +11,8 @@
     <title>@yield('title') - IST</title>
 
       <!-- Bootstrap -->
-      <link rel="stylesheet" href="/css/bootstrap.min.css" />
-      <link rel="stylesheet" type="text/css" href="/css/style.css">
+      {{HTML::style('/css/bootstrap.min.css')}}
+      {{HTML::style('/css/style.css')}}
       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/blackboard.min.css">
@@ -22,8 +22,10 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.min.js"></script>
 
 <!-- include summernote css/js-->
-<link href="/css/summernote.css" rel="stylesheet">
-<script src="/summernote.min.js"></script>
+<link href="" rel="stylesheet">
+<script src=""></script>
+{{HTML::style('/css/summernote.css')}}
+      {{HTML::script('/summernote.min.js')}}
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({

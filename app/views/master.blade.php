@@ -11,15 +11,17 @@
 	    <!-- Bootstrap -->
 	   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 	   
-	    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+	    
+	    {{HTML::style('/css/bootstrap')}}
 	    <link rel="stylesheet" type="text/css" href="http://scottdorman.github.io/bootstrap-flat/css/bootstrap-flat.min.css">
-	    <link rel="stylesheet" type="text/css" href="/css/style.css">
+	    
+	    {{HTML::style('/css/style.css')}}
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	    
 		 <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 		<!-- below script required for flowplayer -->
 		
-		
+
 		{{ HTML::script('/js/dropzone.js') }}
 	    {{ HTML::style('/css/dropzone.css') }}
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
@@ -49,7 +51,6 @@
 		<header>
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		  	<div class="container">
-		  	<div class="demo" data-date="2013-12-25 00:00:00"></div>
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

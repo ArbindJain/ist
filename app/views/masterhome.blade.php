@@ -13,9 +13,11 @@
 	    <!-- Bootstrap -->
 	   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 	   
-	    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+	    
+	    {{HTML::style('/css/bootstrap.min.css')}}
 	    <link rel="stylesheet" type="text/css" href="http://scottdorman.github.io/bootstrap-flat/css/bootstrap-flat.min.css">
-	    <link rel="stylesheet" type="text/css" href="/css/style.css">
+	    
+	    {{HTML::style('/css/style.css')}}
 	    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	    
 
