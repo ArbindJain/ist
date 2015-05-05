@@ -1,6 +1,10 @@
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
-@font-face {
-    font-family: Helvetica Neue;
+
+@font
+
+/*@font-face {
+  
+    font-family: Helvatica Neue;
     src: url('/fonts/HelveticaNeueLTStd-Roman.otf');
 }
 @font-face {
@@ -10,9 +14,11 @@
 @font-face {
     font-family: Helvetica Neuemedium;
     src: url('/fonts/HelveticaNeueLTStd-Md.otf');
-}
+}*/
+
 html {
-  font-family: Helvetica Neue;
+  /*font-family: Helvetica Neue;*/
+  font-family: 'Lato', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -278,6 +284,7 @@ html {
 }
 body {
   font-family: Helvetica Neue;
+  font-family: 'Lato', sans-serif;
   font-size: 13px;
   line-height: 1.428571429;
   color: #515151;
@@ -367,6 +374,7 @@ h6,
 .h5,
 .h6 {
   font-family: Helvetica Neue;
+  font-family: 'Lato', sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -2054,7 +2062,7 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #333333;
+  color: #f18c1c;
   background-color: #ebebeb;
   border-color: #adadad;
 }
@@ -5514,6 +5522,7 @@ button.close {
   margin-top: -10px;
   margin-left: -10px;
   font-family: Helvetica Neue;
+  font-family: 'Lato', sans-serif;
 }
 .carousel-control .icon-prev:before {
   content: '\2039';

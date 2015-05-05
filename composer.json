@@ -4,7 +4,8 @@
 		"cartalyst/sentry": "2.1.*",
 		"laracasts/validation": "~1.0",
 		"intervention/image": "1.*",
-		"closca/sonus": "dev-master"
+		"closca/sonus": "dev-master",
+		"cartalyst/tags": "~1.0"
 	},
 	"require-dev": {
 		"way/generators": "2.*"

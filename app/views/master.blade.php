@@ -8,11 +8,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<title>@yield('title') - IST</title>
 	    {{HTML::style('/fonts/HelveticaNeueLTStd-Roman.otf')}}
+	    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
 	    <!-- Bootstrap -->
 	   <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
 	   
 	    
-	    {{HTML::style('/css/bootstrap')}}
+	    {{HTML::style('/css/bootstrap.min.css')}}
 	    <link rel="stylesheet" type="text/css" href="http://scottdorman.github.io/bootstrap-flat/css/bootstrap-flat.min.css">
 	    
 	    {{HTML::style('/css/style.css')}}

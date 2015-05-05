@@ -40,7 +40,7 @@
 
 <!-- Submit field -->
 <div class="form-group">
-{{ Form::submit('review ', ['class' => 'btn btn-sm btn-success pull-right']) }}
+{{ Form::submit('review ', ['class' => 'btn btn-sm btn-default pull-right']) }}
 </div>
 {{ Form::close() }}
 </div>

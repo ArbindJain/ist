@@ -26,16 +26,16 @@
 }
 
 
-.btn-default {
+.btn-primary {
     color: #333;
     background-color: #fff;
     border-color: #ccc;
 }
-.btn-default.active,
-.btn-default.focus,
-.btn-default:active,
-.btn-default:focus,
-.btn-default:hover,
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
 .open>.dropdown-toggle.btn-default {
     color: #333;
     background-color: #fff;
@@ -136,6 +136,7 @@
 											<select class="form-control" name="gender" id="gendera">
 												<option value="Male">Male</option>
 												<option value="Female">Female</option>
+												<option value="Pangender">Pangender</option>
 											</select>
 										</div>
 							<!-- dob field -->
@@ -315,7 +316,7 @@
 							<!-- Submit field -->
 							<div class="col-md-12 form-group">
 								<div class="has-feedback text-center">
-									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-primary']) }}
+									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-default']) }}
 								</div>
 							</div>
 
@@ -507,7 +508,7 @@
 							<!-- Submit field -->
 							<div class="col-md-12 form-group">
 								<div class="has-feedback text-center">
-									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-primary']) }}
+									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-default']) }}
 								</div>
 							</div>
 
@@ -612,7 +613,7 @@
 							<!-- Submit field -->
 							<div class="col-md-12 form-group">
 								<div class="has-feedback text-center">
-									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-primary']) }}
+									{{ Form::submit('Create Account', ['class' => 'btn btn-md btn-default']) }}
 								</div>
 							</div>
 

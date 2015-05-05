@@ -13,7 +13,7 @@ class PicturesController extends \BaseController {
 		$pictures = Picture::all();
 
 		//Album Model to convert into list laravel TRICKS awesome!! loved it!!
-		$albums = ['' => ''] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+		$albums = ['null' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
 		$id = Sentry::getUser()->id;
 		$albumss = Album::where('user_id','=',$id)->get();
 		// Return the values at the end.
@@ -79,7 +79,7 @@ foreach ($types as $key => $type) {
             $pictures->user_id = Sentry::getUser()->id;
             $pictures->save();
             // last inserted id
-           /* $lastInsertedId = $pictures->id;
+         /*   $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);
             $insert_feed = new Feed();
             $insert_feed->user_id = Sentry::getUser()->id;

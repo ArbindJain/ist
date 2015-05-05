@@ -20,7 +20,7 @@ class StandardUserController extends \BaseController {
 	{
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
-		$albums = ['' => ''] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+		$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
 		$articles = Blog::where('user_id','=',$current_user)->get();
 		$scouts = Scout::where('user_id','=',$current_user)->get();
 		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','1')->get();
@@ -95,7 +95,7 @@ class StandardUserController extends \BaseController {
 		$allalbum = Album::find($id);
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
-		$albums = ['' => ''] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+		$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
 		$articles = Blog::where('user_id','=',$current_user)->get();
 		$scouts = Scout::where('user_id','=',$current_user)->get();
 		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','1')->get();

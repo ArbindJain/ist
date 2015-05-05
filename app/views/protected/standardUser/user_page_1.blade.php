@@ -156,7 +156,48 @@
             </div>
             <div role="tabpanel" class="tab-pane " id="tutorial">
             No tutorial uploaded yet
-            </div>
+            <!-- temp demo -->
+
+<script type="text/javascript">
+  $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
+
+ 
+  
+});
+</script>
+
+<style type="text/css">
+  @import url('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');
+
+.input-group .bootstrap-tagsinput {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+</style>
+  
+  <input type="text" value="Amsterdam,Washington" data-role="tagsinput">
+  
+  <hr>
+  
+  <select multiple="multiple" data-role="tagsinput">
+    <option value="Amsterdam">Amsterdam</option>
+    <option value="Washington">Washington</option>
+    <option value="Sydney">Sydney</option>
+    <option value="Beijing">Beijing</option>
+    <option value="Cairo">Cairo</option>
+  </select>
+  
+  <hr>
+  
+  <div class="input-group">
+    <input type="text" value="Amsterdam,Washington" class="form-control" data-role="tagsinput">
+    <span class="input-group-addon">Go</span>
+  </div>
+    
+
             <!-- button for scout generation -->
             <div role="tabpanel" class="tab-pane " id="findtalent">
               
@@ -214,8 +255,11 @@
         <div class="col-md-8">
         <div class="row">
             <!-- create album Button trigger modal -->
-      <a type="button" class=" btn btn-link text-capitalize" data-toggle="modal" data-target="#uploadimagemodal">
+      <a type="button" class=" btn btn-link text-capitalize" data-toggle="modal" data-target="#createalbummodal">
         create album
+      </a>
+       <a type="button" class="btn btn-link text-capitalize" data-toggle="modal" data-target=".bs-example-modal-lg">
+        upload Picture
       </a>
 
       <div class="clearfix"></div>
@@ -240,7 +284,7 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="uploadimagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal fade" id="createalbummodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -279,7 +323,108 @@
             {{ Form::close() }}
           </div>
         </div>
+      </div><!-- album modal end !-->  
+      <!-- image modal start -->
+         <!-- Modal -->
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+           <div id='drop_zone'>
+   <!-- <form action="#" class='dropzone' id='mydropzone'>
+      
+       
+      <input type="text" name="title">
+      <input type="text" name ="description">
+      <button type="submit">Submit data and files!</button>
+    </form>-->
+    {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                      <fieldset>
+
+                        @if (Session::has('flash_message'))
+                <div class="form-group">
+                  <p>{{ Session::get('flash_message') }}</p>
+                </div>
+              @endif
+              <div class="dropzone-previews">
+              </div>
+              
+              
+              <!-- Album name field -->
+              <div class="form-group">
+                Select any Album
+                {{Form::select('album', $albums)}}
+              </div>
+
+              
+
+              <!-- Image title field -->
+              <div class="form-group">
+                {{ Form::text('picturetitle', null, ['placeholder' => 'Picture Title', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturetitle', $errors) }}
+              </div>
+
+              <!-- Image Description field -->
+              <div class="form-group">
+                {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
+                {{ errors_for('picturedescription', $errors) }}
+              </div>
+
+
+
+              <!-- Submit field -->
+              <div class="form-group">
+                
+      <button type="submit" class="btn btn-md btn-success btn-block">Upload Image</button>
+              </div>
+
+
+
+              </fieldset>
+                {{ Form::close() }}
+</div>
+            <!--
+            <div id='drop_zone'>
+
+              {{ Form::open(['route' => 'imagegallery.store','files' => 'true','role'=>'form','class'=>'dropzone','id'=>'mydropzone' ]) }}
+                  <fieldset>
+                      @if (Session::has('flash_message'))
+                        <div class="form-group">
+                          <p>{{ Session::get('flash_message') }}</p>
+                        </div>
+                      @endif
+                      <div class="dropzone-previews" id="template">
+                        <div class="dz-preview dz-file-preview">
+                          <div class="dz-details">
+                            <div class="dz-filename"><span data-dz-name></span></div>
+                            <div class="dz-size" data-dz-size></div>
+                            <img data-dz-thumbnail />
+                          </div>
+                          <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                          <div class="dz-success-mark"><span>✔</span></div>
+                          <div class="dz-error-mark"><span>✘</span></div>
+                          <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                        </div>
+                      </div>
+                      <div id ="meex"></div>
+                      <div class="form-group">
+                        Select any Album
+                        {{Form::select('album', $albums)}}
+                      </div>
+                      <button type="submit" class="btn btn-md btn-success">Upload Image</button>
+                  </fieldset>
+              {{ Form::close() }}
+            </div>-->
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
       </div><!-- video modal end !-->  
+      <!-- end of image modal -->
      
 
         </div>
