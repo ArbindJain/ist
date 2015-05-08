@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-md-12">
 	<div class="form-box">
-		{{ Form::open(['route' => 'blog.store' ]) }}
+		{{ Form::open(['route' => 'blog.store','files' => 'true'  ]) }}
 	                    <fieldset>
 
 	                    	@if (Session::has('flash_message'))
@@ -23,7 +23,7 @@
 								{{ Form::text('title', null, ['placeholder' => 'Post Title', 'class' => 'form-control', 'required' => 'required'])}}
 								{{ errors_for('title', $errors) }}
 							</div>
-
+							
 							<!-- post desc field -->
 							<div class="form-group col-md-12">
                               {{ Form::label('bodydesc', 'Article body',['class' => 'text-capitalize text-muted']) }}
@@ -55,6 +55,12 @@
 								{{ Form::checkbox('wanderer', '1') }}
 
 							</div>-->
+							<div class="form-group col-md-12">
+                              {{ Form::label('blogtag', 'Tags',['class' => 'text-capitalize text-muted']) }}
+								<input type="text" name="blogtag" value="tag,sametag" data-role="tagsinput"> 
+  								{{ errors_for('blogtag', $errors) }}
+							</div>
+							 
 							 <div class="col-md-12 form-group">
               <label for="checkbox-2" class="control-label text-capitalize text-muted">Category</label>
                 <div class="has-feedback">
@@ -86,6 +92,13 @@
                         <label for="checkbox-10" class="checkbox-custom-label">Wanderer</label>
                 </div>
               </div>
+              				<!-- upload poster desc field -->
+							<div class="form-group col-md-12">
+                              {{ Form::label('blogposter', 'Blog poster',['class' => 'text-capitalize text-muted']) }}
+								{{Form::file('blogposter')}}
+								{{ errors_for('blogposter', $errors) }}
+							</div>
+
 							<!-- Submit field -->
 							<div class="form-group col-md-12">
 								{{ Form::submit('PUBLISH', ['class' => 'btn btn-md btn-default btn-block']) }}

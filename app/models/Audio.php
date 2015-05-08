@@ -1,8 +1,12 @@
 <?php
 
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
 
-class Audio extends Eloquent
+class Audio extends Eloquent implements TaggableInterface
     {
+            use TaggableTrait;
+            
     		protected $table = 'audios';
 
     		// relationship between user and album

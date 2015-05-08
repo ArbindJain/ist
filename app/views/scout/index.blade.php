@@ -110,7 +110,7 @@
                                     <img src="{{url()}}/{{Sentry::findUserById($scout->user_id)->profileimage}}">
                                     <span class="text-capitalize footer-username">{{Sentry::findUserById($scout->user_id)->name}}</span>
                                     <span class="pull-right">
-                                         <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
+                                         <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$scout->counted}}</a>
                                     </span>
                               </div>
                         </aside>

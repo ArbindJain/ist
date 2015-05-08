@@ -1,7 +1,9 @@
 <?php
 
-class PicturesController extends \BaseController {
 
+class PicturesController extends \BaseController{
+
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -78,6 +80,10 @@ foreach ($types as $key => $type) {
             $pictures->album_id = Input::get('album');
             $pictures->user_id = Sentry::getUser()->id;
             $pictures->save();
+            $picturetag = Input::get('picturetag');
+            $lastInsertedId = $pictures->id;
+            $picturefeed = Picture::find($lastInsertedId);
+            $picturefeed->tag($picturetag);
             // last inserted id
          /*   $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);

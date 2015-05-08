@@ -2,34 +2,28 @@ ffmpeg version 0.8.10-6:0.8.10-0ubuntu0.12.10.1, Copyright (c) 2000-2013 the Lib
   built on Feb  6 2014 20:56:10 with gcc 4.7.2
 *** THIS PROGRAM IS DEPRECATED ***
 This program is only provided for compatibility and will be removed in a future release. Please use avconv instead.
-[mp3 @ 0x120aba0] max_analyze_duration reached
-[mp3 @ 0x120aba0] Estimating duration from bitrate, this may be inaccurate
-Input #0, mp3, from '/tmp/phpfT4YpU':
+Input #0, mp3, from '/tmp/phpn6634f':
   Metadata:
-    title           : Teri_Adaaon_Mein_(Remix)_(3_A.M.)(samwep.in)
-    artist          : www.SamWep.in
-    album           : 3 A.M. - SamWep.in
-    genre           : Club
-    composer        : www.SamWep.in
-    publisher       : www.SamWep.in
-    date            : 2014
-  Duration: 00:03:24.79, start: 0.000000, bitrate: 64 kb/s
-    Stream #0.0: Audio: mp3, 32000 Hz, mono, s16, 64 kb/s
-Output #0, ogg, to '/home/arbind/ist/public/galleryaudio/ogg/2015-04-17-09-40-01-F2T6Ebjy-e38cabfa11e6a42eb0ae0443f2058da552ed967b.ogg':
+    album           : 
+    genre           : 
+    title           : 
+    artist          : 
+    track           : 
+    TYER            : 
+  Duration: 00:00:02.61, start: 0.000000, bitrate: 130 kb/s
+    Stream #0.0: Audio: mp3, 44100 Hz, mono, s16, 128 kb/s
+Output #0, ogg, to '/home/arbind/ist/public/galleryaudio/ogg/2015-05-08-07-34-17-oRiULJIJ4VSxHL6G-672c63f044465cb2edcb9ba8ba4e68a90a08a434.ogg':
   Metadata:
-    title           : Teri_Adaaon_Mein_(Remix)_(3_A.M.)(samwep.in)
-    artist          : www.SamWep.in
-    album           : 3 A.M. - SamWep.in
-    genre           : Club
-    composer        : www.SamWep.in
-    publisher       : www.SamWep.in
-    date            : 2014
+    album           : 
+    genre           : 
+    title           : 
+    artist          : 
+    TRACKNUMBER     : 
+    TYER            : 
     encoder         : Lavf53.21.1
-    Stream #0.0: Audio: libvorbis, 32000 Hz, mono, s16
+    Stream #0.0: Audio: libvorbis, 44100 Hz, mono, s16
 Stream mapping:
   Stream #0.0 -> #0.0
 Press ctrl-c to stop encoding
-size=      53kB time=15.56 bitrate=  28.0kbits/s    size=     202kB time=32.35 bitrate=  51.2kbits/s    size=     317kB time=47.77 bitrate=  54.4kbits/s    size=     454kB time=64.69 bitrate=  57.5kbits/s    size=     589kB time=81.31 bitrate=  59.3kbits/s    size=     732kB time=98.01 bitrate=  61.1kbits/s    size=     814kB time=115.19 bitrate=  57.9kbits/s    size=    1003kB time=132.20 bitrate=  62.1kbits/s    size=    1117kB time=148.00 bitrate=  61.8kbits/s    size=    1263kB time=164.79 bitrate=  62.8kbits/s    size=    1369kB time=181.37 bitrate=  61.8kbits/s    size=    1484kB time=198.54 bitrate=  61.2kbits/s    [mp3 @ 0x120bc60] Header missing
-Error while decoding stream #0.0
-size=    1589kB time=201.26 bitrate=  64.7kbits/s    
-video:0kB audio:1575kB global headers:3kB muxing overhead 0.732796%
+size=      24kB time=2.61 bitrate=  75.3kbits/s    
+video:0kB audio:21kB global headers:3kB muxing overhead 1.022629%

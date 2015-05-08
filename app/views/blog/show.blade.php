@@ -8,13 +8,20 @@
 <div class="row">
   <div class="col-md-8">
       <div id="main-single-content">
-            <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
+            <img src="{{url()}}/blogpostergallery/{{$blog->blogposter}}" class="img-responsive">
             <div class="content-single">
               <h2>{{$blog->title}}</h2>
               <div class="tag">
               <p id="bloglike">
-                <a class="likebutton" data-model="Blog" data-id="{{$blog->id}}" data-action="{{isset($blog)?'unlike':'like'}}"><i class="fa fa-thumbs-down"></i> &nbsp;<span class="btntext">{{isset($blog)?'Unlike':'Like'}}</span></a>
-                
+              <!-- Like and Unlike Button For blog
+======================================-->
+  <a class="likebutton-{{$blog->id}}Blog like-button" data-realclass="likebutton-{{$blog->id}}Blog" data-model="Blog" data-id="{{$blog->id}}" data-iconclass="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($liked)?'unlike':'like'}}">
+    <i class="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
+    &nbsp;
+    <span class="btntext">{{isset($liked)?'Unlike':'Like'}}</span>
+  </a>
+<!-- EndLike and Unlike Button For blog
+======================================-->
                 <a href=""><i class="ca fa fa-comments"></i> Comments</a>
               </p>
                 <p> 
@@ -22,7 +29,10 @@
                   <i class="fa fa-circle" data-original-title="" title=""></i> 
                   <span><i class="fa fa-calendar" data-original-title="" title=""></i> <a href="#">{{$blog->created_at->toFormattedDateString()}}</a></span>
                   <i class="fa fa-circle" data-original-title="" title=""></i>
-                  <span><i class="fa fa-tag" data-original-title="" title=""></i> <a href="#">Acesories</a>, <a href="#">Furniture</a></span>
+                  <span><i class="fa fa-tag" data-original-title="" title=""></i> 
+                  @foreach($tags as $tag)
+                  <a  class="text-capitalize" href="#">{{$tag->name}} </a>,
+                  @endforeach</span>
                   
                   
                 </p>
@@ -30,7 +40,49 @@
               <div class="hr-single"></div>
               {{$blog->body}}
               <!-- start:comments -->
+
+                <h3 style="">Comments</h3>
+                <hr>
+                <div class="comment-box-blog">
+            <div class="comment-view-{{$blog->id}} comment-feed comment-view-blog refresh"  >
+
               
+              @foreach($commented as $comments)
+              <div class="comment-block-{{$comments->id}}" style="padding: 10px 5px;">
+              <div class="comment-infoblk pull-left">
+                <img src="{{url()}}/{{Sentry::findUserById($comments->user_id)->profileimage}}" class="pull-left avatar img-circle" style="margin-right: 8px;">
+                
+                <div class="com-details" style="display:inline-block;">
+                <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                <div class="com-time-container">
+                  {{ $comments->created_at->diffForHumans() }}
+                </div>
+                </div>
+              </div>
+              <div class="commentdata-block" style="padding-left:140px;">
+                {{$comments->comment}}
+              </div>
+                
+              </div>
+              <hr>
+              @endforeach
+
+              <div class="clearfix"></div>
+            </div>
+            <div class="inputbox-blog">
+              {{ Form::open(['data-remote','route' => 'comments.store','class'=>'commentform' ]) }}
+              {{Form::hidden('blog_id',$blog->id)}}
+              {{Form::hidden('model','Blog')}}
+              <div class="form-group">
+              {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+              {{ errors_for('commentbody', $errors) }}
+
+              </div>
+
+              {{ Form::submit('comment', ['class' => 'btn btn-md btn-default ']) }}
+              {{ Form::close() }}
+              </div>
+          </div>
               <!-- end:comments -->
             </div>
           </div>
@@ -48,7 +100,7 @@
                                                 @foreach($sidebarblogs as $sidebarblog)
                                                       <li class="recent-post">
                                                             <div class="thumbnail">
-                                                                  <img src="{{url()}}/blogposter/{{$sidebarblog->blogposter}}.jpg" class="img-responsive">
+                                                                  <img src="{{url()}}/blogpostergallery/{{$sidebarblog->blogposter}}" class="img-responsive">
                                                             </div>
                                                             <a href="{{url()}}/blog/{{$sidebarblog->id}}"><h5>{{$sidebarblog->title}}</h5></a>
                                                             <p><small><i class="fa fa-calendar"></i> {{$sidebarblog->created_at->toFormattedDateString()}}</small></p>
@@ -154,27 +206,7 @@
                                     </div>
                                     <!-- end:archive -->
                                     <!-- start:Subcribe Newslatter -->
-                                    <div class="widget-sidebar">
-                                          <h3 class="title-widget-sidebar">
-                                                 SUBCRIBE NEWSLETTER
-                                          </h3>
-                                          <div class="content-widget-sidebar">
-                                                <p class="content-footer">
-                                                      Excepteur culpa qui officia deserunt mollit anim id est laborum.
-                                                </p>
-                                                <form role="form">
-                                                      <div class="form-group">
-                                                            <div class="input-group">
-                                                                  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                                                  <input type="text" class="form-control" placeholder="Username">
-                                                            </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <a href="#" class="btn btn-default">REGISTER</a>
-                                                      </div>
-                                                </form>
-                                          </div>
-                                    </div>
+                                    
                                     <!-- end:Subcribe Newslatter -->
                               </div>
                               <!-- end:sidebar -->
@@ -228,9 +260,13 @@ $(document).ready(function(){
             var time = commentdata.created_at;
             var marid = commentdata.comment_id;
             var viewid = commentdata.view_id;
-            var target_id = ".comment-view";
-            //alert(time);
-            $(target_id).append("<div class= \'comment-box-"+marid+"\'><a href=\'#\'><b>"+username+" </b>&nbsp;&nbsp;&nbsp;</a><span>"+mar+"<br></span><br><div class=\'com-details\'><div class=\'com-time-container\'>"+time+"</div></div></div>");
+            var userimage = commentdata.user_image;
+            var target_id = ".comment-view-"+viewid;
+            console.log(target_id);
+            
+            $(target_id).append("<div class= \'comment-block-"+marid+"\' style=\'padding: 10px 5px;\'><div class=\'comment-infoblk pull-left\'><img src=\'{{url()}}/"+userimage+"\' class=\'pull-left avatar img-circle\' style=\'margin-right: 8px;\'><div class =\'com-details\' style =\'display:inline-block;\'><a href=\'#\'><b>"+username+" </b>&nbsp;&nbsp;&nbsp;</a><div class=\'com-time-container\'>"+time+"</div></div></div><div class=\'commentdata-block\' style=\'padding-left:140px;\'>"+mar+"</div></div><hr><div class=\'clearfix\'></div>");
+            
+            $(target_id).scrollTop($(target_id)[0].scrollHeight);
             $('.text-shift').val('');
               
             
@@ -242,7 +278,8 @@ $(document).ready(function(){
         
     });
 }); 
-</script>
+</script> 
+
 <!--
 <script type="text/javascript">
    

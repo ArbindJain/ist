@@ -104,6 +104,30 @@ body{
     width: 70%;
     margin-left: 60px;
   }
+  .comment-box{
+  margin-left: 59px;
+  width: 470px;
+  
+}
+.comment-box-blog {
+  display: block;
+  
+  
+}
+.comment-block{
+  display: block;
+  padding: 4px 0px;
+}
+.comment-view-blog {
+  overflow: scroll;
+  min-height: 0px;
+  max-height: 400px;
+  overflow-x: hidden;
+}
+.inputbox-blog {
+  display: block;
+  margin-top: 20px;
+}
   
 
 
@@ -150,11 +174,13 @@ body{
   border: none;
 }
 
+
 #sidebar .widget-sidebar .content-widget-sidebar ul li img{
   width: 100px;
   height: 70px;
   float: left;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 #sidebar .widget-sidebar .content-widget-sidebar ul li img:hover{
@@ -235,7 +261,7 @@ body{
 
 #content aside .content-title{
       background-color: #fff;
-      padding: 20px 0;
+      padding: 20px 20px;
 }
 
 #content aside .content-title h3{
@@ -246,11 +272,12 @@ body{
 
 #content aside .content-title a{
       text-decoration: none;
-      color: #000;
+      color: #515151;
+
 }
 
 #content aside .content-title a:hover{
-      color: #C75E33;
+      color: #f18c1c;
 }
 
 #content aside .content-footer{
@@ -275,16 +302,17 @@ body{
 #content aside .content-footer span.pull-right a{
       color: #fff;
       text-decoration: none;
+      cursor: default;
 }
 
-#content aside .content-footer span.pull-right a:hover{
+/*#content aside .content-footer span.pull-right a:hover{
       color: #C75E33;
       transition: all 1s ease;
       -webkit-transition: all 1s ease;
          -moz-transition: all 1s ease;
           -ms-transition: all 1s ease;
            -o-transition: all 1s ease;
-}
+}*/
 
 #content aside .content-footer span.pull-right a i.fa{
       margin-left: 10px;
@@ -1103,10 +1131,7 @@ figure:hover figcaption {
 .videobackground {
   background-color: #3c3c3c;
 }
-.comment-box{
-  margin-left: 59px;
-  width: 470px;
-}
+
 .like-box{
   display: block;
   margin-left: 59px;
@@ -1283,11 +1308,8 @@ figure:hover figcaption {
 #dislike-mirror{
   display: none;
 }
-/*---------------Comment Block style ---------------*/
-.comment-block{
-  display: block;
-  padding: 4px 0px;
-}
+
+
 
 /*--------------Flow Player ----------------------*/
 .flow-player{
@@ -1319,13 +1341,14 @@ figure:hover figcaption {
 }
 .about-talent-field {
   width: 100%;
+  display: block;
   padding-top: 8px;
 }
 .about-talent-field span {
   
-  padding: 5px;
-  background-color: #515151;
-  color: #fff;
+  padding: 0px 3px;
+  border-bottom: 1px solid #f18c1c;
+  color: #515151;
   text-transform: capitalize;
 }
 .text-title {

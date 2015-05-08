@@ -1,8 +1,12 @@
 <?php
 
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
 
-class Picture extends Eloquent
+class Picture extends Eloquent implements TaggableInterface
     {
+            use TaggableTrait;
+            
     		protected $table = 'pictures';
 
 		    public function album()

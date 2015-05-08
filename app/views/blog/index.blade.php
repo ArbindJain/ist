@@ -13,84 +13,24 @@
                   
                   <div class="col-lg-6 col-md-6">
                         <aside>
-                              <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
+                             <a href="{{url()}}/blog/{{$blog->id}}"> <img src="{{url()}}/blogpostergallery/{{$blog->blogposter}}" class="img-responsive"></a>
                               <span class="posted-date"><i class="fa fa-calendar"></i> {{$blog->created_at->toFormattedDateString()}}</span>
                               <div class="content-title">
-                                    <div class="text-center">
+                                    <div class="text-left">
                                     <h3><a href="{{url()}}/blog/{{$blog->id}}">{{ $blog->title}}</a></h3>
                                     <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $blog->body), 0, 100) }}...</h5>
                                     </div>
                               </div>
                               <div class="content-footer">
                                     <img src="{{url()}}/{{Sentry::findUserById($blog->user_id)->profileimage}}">
-                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($blog->user_id)->name}}</span>
+                                    <a href="{{url()}}/user/{{$blog->user_id}}"><span class="text-capitalize footer-username">{{Sentry::findUserById($blog->user_id)->name}}</span></a>
                                     <span class="pull-right">
-                                          <a href="#"><i class="fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comments"></i> 30</a>
-                                          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
+                                          <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$blog->counted}}</a>
                                     </span>
                               </div>
                         </aside>
                   </div>
-                  <div class="col-lg-6 col-md-6">
-                        <aside>
-                              <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
-                              <span class="posted-date"><i class="fa fa-calendar"></i> {{$blog->created_at->toFormattedDateString()}}</span>
-                              <div class="content-title">
-                                    <div class="text-center">
-                                    <h3><a href="{{url()}}/blog/{{$blog->id}}">{{ $blog->title}}</a></h3>
-                                    <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $blog->body), 0, 100) }}...</h5>
-                                    </div>
-                              </div>
-                              <div class="content-footer">
-                                    <img src="{{url()}}/{{Sentry::findUserById($blog->user_id)->profileimage}}">
-                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($blog->user_id)->name}}</span>
-                                    <span class="pull-right">
-                                          <a href="#"><i class="fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comments"></i> 30</a>
-                                          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
-                                    </span>
-                              </div>
-                        </aside>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                        <aside>
-                              <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
-                              <span class="posted-date"><i class="fa fa-calendar"></i> {{$blog->created_at->toFormattedDateString()}}</span>
-                              <div class="content-title">
-                                    <div class="text-center">
-                                    <h3><a href="{{url()}}/blog/{{$blog->id}}">{{ $blog->title}}</a></h3>
-                                    <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $blog->body), 0, 100) }}...</h5>
-                                    </div>
-                              </div>
-                              <div class="content-footer">
-                                    <img src="{{url()}}/{{Sentry::findUserById($blog->user_id)->profileimage}}">
-                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($blog->user_id)->name}}</span>
-                                    <span class="pull-right">
-                                          <a href="#"><i class="fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comments"></i> 30</a>
-                                          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
-                                    </span>
-                              </div>
-                        </aside>
-                  </div>
-                  <div class="col-lg-6 col-md-6">
-                        <aside>
-                              <img src="{{url()}}/blogposter/{{$blog->blogposter}}.jpg" class="img-responsive">
-                              <span class="posted-date"><i class="fa fa-calendar"></i> {{$blog->created_at->toFormattedDateString()}}</span>
-                              <div class="content-title">
-                                    <div class="text-center">
-                                    <h3><a href="{{url()}}/blog/{{$blog->id}}">{{ $blog->title}}</a></h3>
-                                    <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $blog->body), 0, 100) }}...</h5>
-                                    </div>
-                              </div>
-                              <div class="content-footer">
-                                    <img src="{{url()}}/{{Sentry::findUserById($blog->user_id)->profileimage}}">
-                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($blog->user_id)->name}}</span>
-                                    <span class="pull-right">
-                                          <a href="#"><i class="fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comments"></i> 30</a>
-                                          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
-                                    </span>
-                              </div>
-                        </aside>
-                  </div>
+                  
                   
             @endforeach      
             </div>

@@ -164,6 +164,24 @@
     @yield('content')
  
     </div>
+    <script type="text/javascript">
+  $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
+
+ 
+  
+});
+</script>
+<style type="text/css">
+  @import url('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');
+
+.input-group .bootstrap-tagsinput {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+</style>
     
 <script type="text/javascript">
 

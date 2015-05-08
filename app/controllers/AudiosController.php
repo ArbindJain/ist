@@ -76,6 +76,10 @@ class AudiosController extends \BaseController {
 			$audiotrack->audiodescription = Input::get('audiodescription');
 			$audiotrack->user_id = Sentry::getUser()->id;
 			$audiotrack->save();
+			$lastinsertedid = $audiotrack->id;
+			$tagdata = Input::get('audiotag');
+			$addtag = Audio::find($lastinsertedid);
+			$addtag->tag($tagdata);
             // redirect
             return Response::json($audiotrack);
        

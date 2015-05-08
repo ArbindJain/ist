@@ -11,6 +11,13 @@ class BlogsController extends \BaseController {
 	public function index()
 	{
 		$blogs = Blog::orderBy('created_at','desc')->get();
+		foreach ($blogs as $key => $blogdata) {
+
+			$blogs[$key]->liked = Like::where('user_id','=',$blogdata->user_id)->where('likeable_id', '=', $blogdata->id)->where('likeable_type','=','Blog')->first();
+			# code...
+			$blogs[$key]->counted = Like::where('likeable_id','=',$blogdata->id)->count();
+
+		}
 		$sidebarblogs = Blog::orderBy('created_at','desc')->take(3)->get();
 		return View::make('blog.index')
 			->with('blogs',$blogs)
@@ -37,6 +44,12 @@ class BlogsController extends \BaseController {
 	 */
 	public function store()
 	{
+		$blogposter = Input::file('blogposter');
+		$sha1 = sha1($blogposter->getClientOriginalName());
+		$filenameblog = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+		Image::make($blogposter->getRealPath())
+				->resize(300,300)
+				->save('public/blogpostergallery/'. $filenameblog);
 		$sample = e(Input::get('bodydesc'));
 		$sample_text = strip_tags($sample);
 		$blogs = new Blog();
@@ -54,7 +67,14 @@ class BlogsController extends \BaseController {
 		$blogs->sports = Input::get('sports');
 		$blogs->unordinary = Input::get('unordinary');
 		$blogs->wanderer = Input::get('wanderer');
+		$blogs->blogposter = $filenameblog;
 		$blogs->save();
+		$tagdata = Input::get('blogtag');
+        $lastInsertedId = $blogs->id;
+       	$addtag = Blog::find($lastInsertedId);
+       	$addtag->tag($tagdata);
+		//save tags for the blog
+
 		 return Redirect::to('userProtected#blog');
 
 
@@ -74,16 +94,21 @@ class BlogsController extends \BaseController {
 		//$blogcomments = Blogcomment::where('blog_id','=',$id)->get();
 		
 		$blog = Blog::find($id);
-		$commented = Comment::where('commentable_id','=',$id)->where('commentable_type','=','Blog')->orderBy('id', 'desc')->get();
+		$commented = Comment::where('commentable_id','=',$id)->where('commentable_type','=','Blog')->orderBy('id', 'asc')->get();
 		//----- Like on blog ------//
+		$liked = Like::where('user_id','=',$blog->user_id)->where('likeable_id', '=', $blog->id)->where('likeable_type','=','Blog')->first();
+			
 		$likecount = Like::where('likeable_id','=',$blog->id)->count();
 
 		$sidebarblogs = Blog::orderBy('created_at','desc')->take(10)->get();
+		$tags = $blog->tags;
 			return View::make('blog.show')
 					->with('blog',$blog)
 					->with('commented',$commented)
+					->with('liked',$liked)
 					->with('likecount',$likecount)
-					->with('sidebarblogs',$sidebarblogs);
+					->with('sidebarblogs',$sidebarblogs)
+					->with('tags',$tags);
 
 				//	->with('blogcomments',$blogcomments);
 

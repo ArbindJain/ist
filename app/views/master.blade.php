@@ -186,7 +186,7 @@
 		@yield('content')
  
 		</div>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 
 $(document).ready(function(){
   $("body").on('submit', 'form[data-remote]', function(e){
@@ -234,7 +234,25 @@ $(document).ready(function(){
         
     });
 }); 
-</script>		
+</script>		-->
+<script type="text/javascript">
+  $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
+
+ 
+  
+});
+</script>
+<style type="text/css">
+  @import url('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');
+
+.input-group .bootstrap-tagsinput {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+</style>
 <script type="text/javascript">
 
 document.addEventListener("click", function(){
@@ -337,7 +355,18 @@ document.addEventListener("click", function(){
           url = '/likes';
         else url= '/diminish';
       }
-
+      else if(handle.data("model") == 'Blog') 
+      {
+        if (handle.data("action") == 'like')
+          url = '/likes';
+        else url= '/diminish';
+      }
+      else if(handle.data("model") == 'Scout') 
+      {
+        if (handle.data("action") == 'like')
+          url = '/likes';
+        else url= '/diminish';
+      }
 
       if (url.length < 1) return;
       url = '{{url()}}'+url;

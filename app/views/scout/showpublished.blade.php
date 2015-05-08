@@ -16,7 +16,15 @@
     <img src="{{url()}}/{{Sentry::findUserById($scoutview->user_id)->profileimage}}">
     <span class="text-capitalize footer-username">{{Sentry::findUserById($scoutview->user_id)->name}}</span>
     <span class="pull-right">
-          <a href="#"><i class="fa fa-thumbs-o-up" data-toggle="tooltip" data-placement="top" title="" data-original-title="Loved"></i> 20</a>
+              <!-- Like and Unlike Button For scout
+              ======================================-->
+              <a class="likebutton-{{$scoutview->id}}Scout like-button" data-realclass="likebutton-{{$scoutview->id}}Scout" data-model="Scout" data-id="{{$scoutview->id}}" data-iconclass="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($liked)?'unlike':'like'}}">
+                <i class="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
+                &nbsp;
+                <span class="btntext">{{isset($liked)?'Unlike':'Like'}}</span>
+              </a>
+              <!-- EndLike and Unlike Button For scout
+              ======================================-->    
     </span>
   </div>
   <div class="addressmap-block">
@@ -40,9 +48,11 @@
       </div>
       <div class="text-capitalize text-center butt-scout">
         <div class="button-block">
+
       <button type="button" class="btn btn-default btn-md pull-right text-uppercase" data-toggle="modal" data-target="#myModalapply">
           <i class="fa fa-plus"></i> Participate
         </button>
+
     </div>
         </div>
       
@@ -66,7 +76,53 @@
     <!-- end of belowtimer -->
 
   </div><!-- end of scout sidebar-->
+  <!-- Modal -->
+      <div class="modal fade" id="myModalapply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">attach some data</h4>
+            </div>
+            <div class="modal-body">
+                 {{ Form::open(['route' => 'scoutpublishedapply.store','files' => 'true' ,'class'=>'vid_form']) }}
+                      <fieldset>
+              {{ Form::hidden('scout_id', $scoutview->id) }}
+              {{ Form::hidden('applied', 'YES') }}
+
+              <div class="form-group">
+          Select any Image
+          {{Form::select('image', $image_list)}}
+        </div>
+
+        <div class="form-group">
+          Select any Video
+          {{Form::select('video', $video_list)}}
+        </div>
+
+        <div class="form-group">
+          Select any Audio
+          {{Form::select('audio', $audio_list)}}
+        </div>
+
+            
+
+
+
+              </fieldset>
+               
+
+            </div><!-- modal boxy end !-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-default">Apply now</button>
+            </div>
+             {{ Form::close() }}
+          </div>
+        </div>
+      </div><!-- video modal end !-->  
   <!-- tabs temp -->
+
     <div role="tabpanel">
 
   <!-- Nav tabs -->

@@ -1,8 +1,12 @@
 <?php
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
 
 
-class Blog extends Eloquent
+class Blog extends Eloquent implements TaggableInterface
     {
+            use TaggableTrait;
+            
     		protected $table = 'blogs';
 
     		//Relation between blog user and comments..

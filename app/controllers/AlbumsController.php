@@ -1,7 +1,9 @@
 <?php
 
-class AlbumsController extends \BaseController {
+class AlbumsController extends \BaseController{
 
+		
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -49,6 +51,10 @@ class AlbumsController extends \BaseController {
             $albums->albumname = Input::get('albumname');
             $albums->user_id = Sentry::getUser()->id;
             $albums->save();
+            $tagdata = Input::get('albumtag');
+            $lastInsertedId = $albums->id;
+           	$picturefeed = Album::find($lastInsertedId);
+           	$picturefeed->tag($tagdata);
 
 
             // redirect

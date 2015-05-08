@@ -10,6 +10,12 @@ class ScoutController extends \BaseController {
 	public function index()
 	{
 		$scouts = Scout::all();
+		foreach ($scouts as $key => $scoutvalue) {
+
+			$scouts[$key]->liked = Like::where('user_id','=',$scoutvalue->user_id)->where('likeable_id', '=', $scoutvalue->id)->where('likeable_type','=','Scout')->first();
+			
+			$scouts[$key]->counted = Like::where('likeable_id','=',$scoutvalue->id)->count();
+		}
 
 		return View::make('scout.index')
 				->with('scouts', $scouts);
@@ -84,6 +90,10 @@ class ScoutController extends \BaseController {
 		$scout->scoutposter = $scoutpostername;
 		$scout->user_id = Sentry::getUser()->id;
 		$scout->save();
+		$tagdata = Input::get('scouttag');
+        $lastInsertedId = $scout->id;
+       	$addtag = Scout::find($lastInsertedId);
+       	$addtag->tag($tagdata);
 
 		return Redirect::to('userProtected#findtalent');
 	}
@@ -100,7 +110,7 @@ class ScoutController extends \BaseController {
 		$scout = Scout::find($id);
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
-		$applicantscout =  Scoutadd::where('scout_id','=',$scout->id)->where('applied','=','1')->get();
+		$applicantscout =  Scoutadd::where('scout_id','=',$scout->id)->where('applied','=','YES')->get();
 
 		foreach ($applicantscout as $key => $applicant) 
 		{
@@ -178,6 +188,9 @@ class ScoutController extends \BaseController {
 	public function getscout($id)
 	{
 		$scoutview = Scout::find($id);
+		$liked = Like::where('user_id','=',$scoutview->user_id)->where('likeable_id', '=', $scoutview->id)->where('likeable_type','=','Scout')->first();
+			
+		$likecount = Like::where('likeable_id','=',$scoutview->id)->count();
 
 		/*$created = new Carbon\Carbon($scoutview->scoutdatetime);
 		$now = Carbon\Carbon::now();
@@ -194,7 +207,10 @@ class ScoutController extends \BaseController {
 			->with('scoutview',$scoutview)
 			->with('image_list',$image_list)
 			->with('video_list',$video_list)
-			->with('audio_list',$audio_list);
+			->with('audio_list',$audio_list)
+			->with('liked',$liked)
+			->with('likecount',$likecount);
+			
 	}
 
 

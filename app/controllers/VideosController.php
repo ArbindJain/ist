@@ -51,15 +51,18 @@ class VideosController extends \BaseController {
 		 
 			
         	
-            //$vidfile->move('public/galleryvideo/', $filename);
+            
 
         	$vidsnaps = new Video();
 			$vidsnaps->videosrc = $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');
-			$vidsnaps->thumbnail = Sonus::getThumbnails($file_in, 'foo-thumb' 1);;
 			$vidsnaps->user_id = Sentry::getUser()->id;
 			$vidsnaps->save();
+			$lastinsertedid = $vidsnaps->id;
+			$tagdata = Input::get('videotag');
+			$addtag = Video::find($lastinsertedid);
+			$addtag->tag($tagdata);
             // redirect To astral...
             //return Redirect::to('videogallery')
             //->withFlashMessage('video successfully uploaded!');

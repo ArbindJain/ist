@@ -49,6 +49,7 @@ class CommentsController extends \BaseController {
 		$owner = Sentry::findUserById($user->user_id)->name;
 		$commenttext = $user->comment;
 		$commentid = $user->id;
+		$commentuserpic = Sentry::findUserById($user->user_id)->profileimage;
 
 		$commentdata = array(
 				'created_at' => $postedtime,
@@ -56,6 +57,7 @@ class CommentsController extends \BaseController {
 				'comment' => $commenttext,
 				'comment_id' => $commentid,
 				'view_id' => $blogseries,
+				'user_image'=> $commentuserpic,
 			);
 		
 		return Response::json($commentdata);

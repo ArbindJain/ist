@@ -23,7 +23,7 @@ class StandardUserController extends \BaseController {
 		$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
 		$articles = Blog::where('user_id','=',$current_user)->get();
 		$scouts = Scout::where('user_id','=',$current_user)->get();
-		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','1')->get();
+		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','YES')->get();
 		
 		foreach ($scoutadds as $key => $make) 
 		{

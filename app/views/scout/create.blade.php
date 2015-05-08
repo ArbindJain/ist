@@ -433,6 +433,12 @@
                               {{ Form::text('artistdescription', null, ['placeholder' => 'Artist Description', 'class' => 'form-control', 'required' => 'required'])}}
                               {{ errors_for('artistdescription', $errors) }}                              
                             </div>
+                            <!-- tags for scout -->
+                            <div class="form-group col-md-12">
+                              {{ Form::label('scouttag', 'Tags',['class' => 'text-capitalize text-muted']) }}
+                            <input type="text" name="scouttag" value="puttagshere" data-role="tagsinput"> 
+                              {{ errors_for('scouttag', $errors) }}
+                          </div>
 
                             <!-- Scout agreement -->           
                             <div class="form-group col-md-12">

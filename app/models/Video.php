@@ -1,7 +1,11 @@
 <?php
 
-class Video extends Eloquent {
-	
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
+
+class Video extends Eloquent implements TaggableInterface
+ {
+	use TaggableTrait;	
 	protected $table = 'videos';
 
 	// Table relationship

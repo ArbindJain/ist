@@ -158,46 +158,7 @@
             No tutorial uploaded yet
             <!-- temp demo -->
 
-<script type="text/javascript">
-  $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
-
- 
-  
-});
-</script>
-
-<style type="text/css">
-  @import url('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');
-
-.input-group .bootstrap-tagsinput {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 100%;
-    margin-bottom: 1px;
-}
-
-</style>
-  
-  <input type="text" value="Amsterdam,Washington" data-role="tagsinput">
-  
-  <hr>
-  
-  <select multiple="multiple" data-role="tagsinput">
-    <option value="Amsterdam">Amsterdam</option>
-    <option value="Washington">Washington</option>
-    <option value="Sydney">Sydney</option>
-    <option value="Beijing">Beijing</option>
-    <option value="Cairo">Cairo</option>
-  </select>
-  
-  <hr>
-  
-  <div class="input-group">
-    <input type="text" value="Amsterdam,Washington" class="form-control" data-role="tagsinput">
-    <span class="input-group-addon">Go</span>
-  </div>
-    
-
+            </div>
             <!-- button for scout generation -->
             <div role="tabpanel" class="tab-pane " id="findtalent">
               
@@ -304,8 +265,14 @@
 
               <!-- Album name field -->
               <div class="form-group">
+                {{ Form::label('albumname', 'Album title',['class' => 'text-capitalize text-muted']) }}
                 {{ Form::text('albumname', null, ['placeholder' => 'Album Name', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('albumname', $errors) }}
+              </div>
+              <div class="form-group">
+                {{ Form::label('albumtag', 'Tags',['class' => 'text-capitalize text-muted']) }}<br>
+                <input type="text" name="albumtag" value="" class="form-control" data-role="tagsinput"> 
+                {{ errors_for('albumtag', $errors) }}
               </div>
 
               
@@ -369,15 +336,20 @@
                 {{ Form::text('picturedescription', null, ['placeholder' => 'Picture Description', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('picturedescription', $errors) }}
               </div>
-
-
-
+              <div class="form-group">
+                {{ Form::label('picturetag', 'Tags',['class' => 'text-capitalize text-muted']) }}<br>
+                <input type="text" name="picturetag" value="" data-role="tagsinput"> 
+                {{ errors_for('picturetag',$errors)}}
+              </div>
+              
+            
+              
+ 
               <!-- Submit field -->
               <div class="form-group">
                 
-      <button type="submit" class="btn btn-md btn-success btn-block">Upload Image</button>
+      <button type="submit" class="btn  btn-default">Upload Image</button>
               </div>
-
 
 
               </fieldset>
@@ -417,9 +389,10 @@
             </div>-->
                   
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-default">uplaod image</button>
             </div>
           </div>
         </div>
@@ -495,6 +468,8 @@
                       {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
                       {{ errors_for('commentbody', $errors) }}
                     </div>
+                    
+                    
                     <!-- Submit field -->
                     <div class="form-group">
                       {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
@@ -533,16 +508,25 @@
 
               <!-- Image title field -->
               <div class="form-group">
+                {{ Form::label('videotitle', 'Video title',['class' => 'text-capitalize text-muted']) }}
                 {{ Form::text('videotitle', null, ['placeholder' => 'Video Title', 'class' => 'form-control','id'=>'vidtitle', 'required' => 'required'])}}
                 {{ errors_for('videotitle', $errors) }}
               </div>
               <!-- Image Description field -->
               <div class="form-group">
+                {{ Form::label('videodescription', 'Video Description',['class' => 'text-capitalize text-muted']) }}
                 {{ Form::text('videodescription', null, ['placeholder' => 'Video Description', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('videodescription', $errors) }}
               </div>
+              <div class ="form-group">
+                {{ Form::label('videotag', 'Tags',['class' => 'text-capitalize text-muted']) }}<br>
+                <input type="text" name="videotag" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput"> 
+                {{errors_for('videotag',$errors)}}
+              </div>
 
               <div class="form-group">
+              
+              {{ Form::label('videosrc', 'upload Video',['class' => 'text-capitalize text-muted']) }}
               {{ Form::file('videosrc') }}
               </div>
 
@@ -602,7 +586,7 @@
                 <!-- End Audio like button -->
 
                 <span class="img-comment-wrapper comment-target">
-                  @foreach($uservid->commented as $comments)
+                  @foreach($useraud->commented as $comments)
                   <div class="img-comment comment-block-{{$comments->id}}">
                     <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
                     <span>{{$comments->comment}}<br></span><br>
@@ -655,14 +639,21 @@
 
               <!-- Image title field -->
               <div class="form-group">
+                {{ Form::label('audiotitle', 'Audio title',['class' => 'text-capitalize text-muted']) }}
                 {{ Form::text('audiotitle', null, ['placeholder' => 'Audio Title', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('audiotitle', $errors) }}
               </div>
 
               <!-- Image Description field -->
               <div class="form-group">
+                {{ Form::label('audiodescription', 'Audio Description',['class' => 'text-capitalize text-muted']) }}
                 {{ Form::text('audiodescription', null, ['placeholder' => 'Audio Description', 'class' => 'form-control', 'required' => 'required'])}}
                 {{ errors_for('audiodescription', $errors) }}
+              </div>
+              <div class ="form-group">
+                {{ Form::label('audiotag', 'Tags',['class' => 'text-capitalize text-muted']) }}<br>
+                <input type="text" name="audiotag" value="" data-role="tagsinput"> 
+                {{errors_for('audiotag',$errors)}}
               </div>
 
               <div class="form-group">
@@ -741,32 +732,32 @@
         <div class="col-md-8">
           <div class="col-md-6">
             <div class="about-details-block" >
-              <span class="about-title text-capitalize">Name</span>
-              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->name}}</span>
+              <span class="about-title text-capitalize text-muted">Name</span>
+              <span class="">{{Sentry::findUserById($abouts->user_id)->name}}</span>
             </div>
             <div class="about-details-block" >
-              <span class="about-title text-capitalize">DOB</span>
-              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->dob}}</span>
+              <span class="about-title text-capitalize text-muted">DOB</span>
+              <span class="">{{Sentry::findUserById($abouts->user_id)->dob}}</span>
             </div>
             <div class="about-details-block" >
-              <span class="about-title text-capitalize">Gender</span>
-              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->gender}}</span>
+              <span class="about-title text-capitalize text-muted">Gender</span>
+              <span class="">{{Sentry::findUserById($abouts->user_id)->gender}}</span>
             </div>
             <div class="about-details-block" >
-              <span class="about-title text-capitalize">Email</span>
-              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->email}}</span>
+              <span class="about-title text-capitalize text-muted">Email</span>
+              <span class="">{{Sentry::findUserById($abouts->user_id)->email}}</span>
             </div>
             <div class="about-details-block">
-              <span class="about-title text-capitalize">Title</span>
-              <span class="text-muted text-title text-capitalize">{{Sentry::findUserById($abouts->user_id)->title}}</span>
+              <span class="about-title text-capitalize text-muted">Title</span>
+              <span class=" text-title text-capitalize">{{Sentry::findUserById($abouts->user_id)->title}}</span>
             </div>
             <div class="about-details-block">
-              <span class="about-title text-capitalize">Phone</span>
-              <span class="text-muted">{{Sentry::findUserById($abouts->user_id)->phone}}</span>
+              <span class="about-title text-capitalize text-muted">Phone</span>
+              <span class="">{{Sentry::findUserById($abouts->user_id)->phone}}</span>
             </div>
             
             <div class="about-details-block">
-              <span class="about-title text-capitalize">talent fields</span><br>
+              <span class="about-title text-capitalize text-muted">talent fields</span><br>
               <div class="about-talent-field">
                 @if(isset(Sentry::findUserById($abouts->user_id)->art))
                 <span>Arts</span>
@@ -841,13 +832,48 @@
           <div class="col-md-12">
             <div class="profile-blocks">
               <div class="about-details-block" >
-                <span class="profile-title text-capitalize">About me</span><br>
-                <span class="text-muted">{{$abouts->about_us}}</span>
+                <span class="profile-title text-capitalize text-muted">About me</span><br>
+                <span class="">{{$abouts->about_us}}</span>
               </div>
               <div class="about-details-block" >
-                <span class="profile-title text-capitalize">Awards or Achievements</span><br>
+                <span class="profile-title text-capitalize text-muted">Awards or Achievements<span class="pull-right"><a type="button" data-toggle="modal" data-target="#myModalachievement">Add</a></span></span><br>
+                <!-- Modal -->
+                <div class="modal fade" id="myModalachievement" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel  ">Add Achievement</h4>
+                      </div>
+                      <div class="modal-body">
+                      {{ Form::open(['route' => 'achievements.store','files' => 'true','class'=>'award-form' ]) }}
+                      <fieldset>
+                      <!-- Achievements certificate -->
+                      <div class="form-group">
+                      {{ Form::file('achievement_certificate') }}
+                      </div>  
+
+                      <!-- Achievements title field -->
+                      <div class="form-group">
+                        {{ Form::text('achievements', null, ['placeholder' => 'Achievements', 'class' => 'form-control', 'required' => 'required'])}}
+                        {{ errors_for('achievements', $errors) }}
+                      </div>
+
+
+
+                      </fieldset>
+                      
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default">Add Achievement</button>
+                        {{ Form::close() }}
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- modal end here -->
                 @foreach($rewards as $reward)
-                <span class="text-muted">
+                <span class="">
                   {{$reward->achievements}}
                 </span><br>
                 @endforeach
@@ -869,7 +895,24 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
 
+ 
+  
+});
+</script>
+<style type="text/css">
+  @import url('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css');
+
+.input-group .bootstrap-tagsinput {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+</style>
 {{ HTML::script('/js/gallery-viewer.js')}}
             <script>
               window.GalleryViewer.settings.resource_path = "{{url('Images')}}";
