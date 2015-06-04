@@ -115,14 +115,12 @@
             </script>
 
 
-
           </div> 
         </div>
         <div class="col-md-4">
           User review block ----------------------
         </div>       
       </div>
-      div class="col-md-12">
 		 
 
 
@@ -130,6 +128,9 @@
 
 	</div>
 </div>
+
+</div>
+
 
 <script type="text/javascript">
 /*

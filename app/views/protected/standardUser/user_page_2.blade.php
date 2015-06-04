@@ -242,6 +242,7 @@
     </div><!-- tab content -->
   </div>
 </div>
+</div>
 <script type="text/javascript">
   Dropzone.autoDiscover = true;
 Dropzone.options.mydropzone = {

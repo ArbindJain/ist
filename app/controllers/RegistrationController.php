@@ -52,6 +52,8 @@ class RegistrationController extends \BaseController {
 			$year = Input::get('year');
 			$dob = $day.$month.$year;	
 			$input = array_add($input,'dob',$dob);
+			$product= 'profileimages/default.jpg';
+			$input = array_add($input, 'profileimage', $product);
 		}
 		elseif ($which_group == 'Audiences') {
 			$input = Input::only('email', 'password', 'password_confirmation', 'name','gender');
@@ -64,6 +66,8 @@ class RegistrationController extends \BaseController {
 			$year = Input::get('year');
 			$dob = $day.$month.$year;	
 			$input = array_add($input,'dob',$dob);
+			$product= 'profileimages/default.jpg';
+			$input = array_add($input, 'profileimage', $product);
 		}
 		elseif ($which_group == 'Promoters') {
 			$input = Input::only('email', 'password', 'password_confirmation', 'name','contact','address','city','country');
@@ -76,6 +80,8 @@ class RegistrationController extends \BaseController {
 			$year = Input::get('year');
 			$dob = $day.'-'.$month.'-'.$year;	
 			$input = array_add($input,'dob',$dob);
+			$product= 'profileimages/default.jpg';
+			$input = array_add($input, 'profileimage', $product);
 		}
 		
 		$input = array_add($input, 'activated', true);
