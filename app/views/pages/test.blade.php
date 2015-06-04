@@ -32,7 +32,7 @@
                 <div class="gallery-image-overlay"></div>
 
                 
-                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg" class="showcase-image">
+                <img src="{{url()}}/{{$albumimage->picturename}}-." class="showcase-image">
                 <div class="gallery-viewer-image-content" style="display: none;">
                   <!-- inserted as is -->
                   <div class="feed-container light-container">

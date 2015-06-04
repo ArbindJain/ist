@@ -46,9 +46,9 @@ class PicturesController extends \BaseController{
 	 */
 	public function store()
 	{
-		$types = array('-large.', '-medium.', '-small.', '-.');
+		$types = array('-original.', '-thumbnail.', '-.');
 // Width and height for thumb and resiged
-$sizes = array(  array('580', '480'),array('200', '200'), array('325', '230') );
+$sizes = array( array('325', '230'), array('400', '400') );
 $targetPath = 'public/galleryimages/';
 
 $file = Input::file('file');
@@ -58,15 +58,15 @@ $encriptedtext =  sha1($file->getClientOriginalName());
 
 $nameWithOutExt = str_replace('.' . $ext, '', $encriptedtext);
 
-$original = $nameWithOutExt . array_shift($types) . $ext;
+$original = $nameWithOutExt . array_shift($types);
 $file->move($targetPath, $original); // Move the original one first
 
 foreach ($types as $key => $type) {
     // Copy and move (thumb, resized)
-    $newName = $nameWithOutExt . $type . $ext;
+    $newName = $nameWithOutExt . $type;
     File::copy($targetPath . $original, $targetPath . $newName);
     Image::make($targetPath . $newName)
-          ->resize($sizes[$key][0], $sizes[$key][1], $sizes[$key][2])
+          ->resize($sizes[$key][0], $sizes[$key][1])
           ->save($targetPath . $newName);
 }
 

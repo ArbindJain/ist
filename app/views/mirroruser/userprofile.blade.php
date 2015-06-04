@@ -51,7 +51,7 @@ $(document).ready(function() {
              <a href="{{ URL::to('userprofilepicture', array('id' => $allalbum->id)) }}">
               @if(isset($allalbum->picture))
               <figure>
-                <img src="{{url()}}/{{$allalbum->picture->picturename}}-resiged.jpg" class="">
+                <img src="{{url()}}/{{$allalbum->picture->picturename}}-." class="">
                 <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
               </figure>
               @endif

@@ -455,7 +455,7 @@
 
              <a href="{{url()}}/userProtecte/{{$allalbum->id}}#photos">
               <figure>
-                <img src="{{url()}}/{{$allalbum->picture->picturename}}-resiged.jpg" class="">
+                <img src="{{url()}}/{{$allalbum->picture->picturename}}-." class="" style="height: 200px;">
                 <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
               </figure>
 

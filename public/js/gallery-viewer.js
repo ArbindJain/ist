@@ -16,7 +16,7 @@
 		'class_name': 				'lightbox-8675896',
 		'gallery_name': 			'gallery',
 		'apply_styles': 			true,
-		'large_image_suffix': 		'',
+		'large_image_suffix': 		'original',
 		'resource_path': 			false,
 		'previous_button_image': 	'previous_button.png',
 		'next_button_image': 		'next_button.png',

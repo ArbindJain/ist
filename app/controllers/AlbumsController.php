@@ -58,7 +58,7 @@ class AlbumsController extends \BaseController{
 
 
             // redirect
-            return Redirect::to('imagegallery')->withFlashMessage('Album successfully created!');
+            return Redirect::to('userProtected#photo')->withFlashMessage('Album successfully created!');
         }
 
 
