@@ -197,7 +197,7 @@
  
 		</div>
     <!--footer -->
-    <footer class="footer" style="padding-bottom: 0px;">
+    <footer class="footer" style="padding-bottom: 0px; margin-top: 40px;">
         <div class="container">
           <div class="">
             

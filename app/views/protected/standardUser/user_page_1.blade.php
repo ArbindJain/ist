@@ -1469,6 +1469,7 @@
 
   </div>
 </div>
+</div>
 <script type="text/javascript">
   $.getScript('http://timschlechter.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',function(){
 
