@@ -80,6 +80,13 @@ class AudiosController extends \BaseController {
 			$tagdata = Input::get('audiotag');
 			$addtag = Audio::find($lastinsertedid);
 			$addtag->tag($tagdata);
+			$pix = Audio::find($lastinsertedid);
+            $tags = $pix->tags;
+            foreach ($tags as $tag) {
+            		DB::table('tagged')
+            ->where('tag_id', $tag->id)
+            ->update(array('user_id' => Sentry::getUser()->id));
+            }
             // redirect
             return Response::json($audiotrack);
        

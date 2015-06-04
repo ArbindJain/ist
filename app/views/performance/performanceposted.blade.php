@@ -49,38 +49,24 @@
     <hr>
     <div class="performancelist">
     @foreach($performances as $performance)
-      <div class="feed-container" style="margin-bottom: 20px;">
-            <div class="feeduser_avatar">
-            <a href="#">
-              {{ HTML::image(Sentry::findUserById($performance->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'feediconsize')) }}
-            </a>
-            </div>
-            <div class="feeduser_name">
-              <a href="#">
-                {{Sentry::findUserById($performance->user_id)->name}}
-              </a>
-            </div>
-            <div class="feeduser_postedon">
-              <p class="text-muted">&nbsp;
-                {{$performance->created_at->diffForHumans()}}
-              </p>
-            </div>
-      
-      <div class="feed-block">
-        <div class="feedtimeadd-block">
-        <div class="feedtimer">
-        <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
-        </div>
-        <div class="feedvenue">
-        <p>
-        <i class="fa fa-map-marker"></i> &nbsp; {{$performance->venue}}
-        </p>  
-        </div>
-        </div>
-        <div class="feeddesc" >{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</div>
-      </div> 
-      </div> 
-      
+     <div class="col-md-4">
+                        <div class="performance-wrapper">
+
+                          <div class="performance-date"> <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}</div>
+
+                          <div class="performance-input">{{$performance->performancetext}}</div>
+                          <div class="performance-venue">
+                          <div class="map-icon pull-left"><i class="fa fa-map-marker"></i></div>
+                           <div class="venue-data pull-right">{{$performance->venue}}</div>
+                          </div>
+                          <div class="userinfo-performance">
+                            {{ HTML::image(Sentry::findUserById($performance->user_id)->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'feediconsize')) }}
+                            <a href="#">
+                              {{Sentry::findUserById($performance->user_id)->name}}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
 
     @endforeach 
       </div>

@@ -4,10 +4,11 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use basicAuth\Repo\UserRepositoryInterface;
 use basicAuth\formValidation\UsersEditForm;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface, RemindableInterface {
 
-	
+	use SearchableTrait;
 	/**
 	 * The database table used by the model.
 	 *
@@ -15,6 +16,30 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User implements UserInterface
 	 */
 	protected $table = 'users';
 
+	protected $searchable = [
+		'columns' => [
+			'email' => 10,
+			'users.name' => 10,
+			'users.titlea'=> 20,
+			'users.titleb'=> 20,
+			'users.titlec'=> 20,
+			'tags.name' =>10,
+			'videos.videotitle' => 10,
+			'audios.audiotitle' => 10,
+			'pictures.picturetitle'=>10,
+
+
+		],
+		'joins' => [
+		'pictures' => ['pictures.user_id','users.id'],
+		'videos' => ['videos.user_id','users.id'],
+		'audios' => ['audios.user_id','users.id'],
+		'tagged' => ['tagged.user_id','users.id'],
+		'tags' => ['tags.id','tagged.tag_id'],
+ 		],
+
+		
+	];
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

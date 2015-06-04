@@ -40,7 +40,7 @@ class PromoterEventsController extends \BaseController {
 		$sha1 = sha1($galleryimage->getClientOriginalName());
 		$filename = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
 		Image::make($galleryimage->getRealPath())
-				->resize(300,300)
+				->resize(400,400)
 				->save('public/postergallery/'. $filename);
 		$product = 'postergallery/'. $filename;
 		$event = new Promoterevent();
@@ -81,9 +81,32 @@ class PromoterEventsController extends \BaseController {
 	public function show($id)
 	{
 		//
-	    $eventdata = Promoterevent::find($id);
-	    return View::make('promoterevents.show')
-	    			->with('eventdata',$eventdata);
+	   // $eventdata = Promoterevent::find($id);
+	   // return View::make('promoterevents.show')
+	   // 			->with('eventdata',$eventdata);
+	   	$scoutview = Promoterevent::find($id);
+		$liked = Like::where('user_id','=',$scoutview->user_id)->where('likeable_id', '=', $scoutview->id)->where('likeable_type','=','Scout')->first();
+			
+		$likecount = Like::where('likeable_id','=',$scoutview->id)->count();
+
+		/*$created = new Carbon\Carbon($scoutview->scoutdatetime);
+		$now = Carbon\Carbon::now();
+		$differenceindays = ($created->diff($now)->days < 1)
+		    ? 'today'
+		    : $created->diffInDays($now);*/
+		//var_dump(Carbon\Carbon::createFromTimeStamp(0)->diffInDays());
+		$image_list = ['' => ''] + Picture::where('user_id','=',Sentry::getUser()->id)->lists('picturetitle','picturename');
+		$video_list = ['' => ''] + Video::where('user_id','=',Sentry::getUser()->id)->lists('videotitle','videosrc');
+		$audio_list = ['' => ''] + Audio::where('user_id','=',Sentry::getUser()->id)->lists('audiotitle','audiosrc');
+		
+
+		return View::make('promoterevents.show')
+			->with('scoutview',$scoutview)
+			->with('image_list',$image_list)
+			->with('video_list',$video_list)
+			->with('audio_list',$audio_list)
+			->with('liked',$liked)
+			->with('likecount',$likecount);
 	}
 
 

@@ -76,6 +76,35 @@
 	display: none;
 }
 
+.orange-circle-button {
+	box-shadow: 2px 4px 0 2px rgba(0,0,0,0.1);
+	border: .5em solid #E84D0E;
+	font-size: 1em;
+	line-height: 1.1em;
+	color: #ffffff;
+	background-color: #e84d0e;
+	margin: auto;
+	border-radius: 50%;
+	height: 7em;
+	width: 7em;
+	position: relative;
+}
+.orange-circle-button:hover {
+	color:#ffffff;
+    background-color: #e84d0e;
+	text-decoration: none;
+	border-color: #ff7536;
+	
+}
+.orange-circle-button:visited {
+	color:#ffffff;
+    background-color: #e84d0e;
+	text-decoration: none;
+	
+}
+.orange-circle-link-greater-than {
+    font-size: 1em;
+}
 </style>
 
 		<div class="container">
@@ -83,23 +112,29 @@
 			<div class="col-md-12 ">
 			<div class="text-center into-text"><strong>What would you like to sign up as?</strong></div>
 			<div class="col-md-4 text-center outerbox-a" >
-				<span class="star-button " >
+				<!--<span class="star-button " >
 					<a href="#" class="btn btn-default form-handler btn-circle" data-usertype="star">Star</a>
-					</span>
+					</span>-->
+					<button class="btn btn-default orange-circle-button form-handler" data-usertype="star" href="">star</button>
+	
 					<p class="s-btn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
 				
 			</div>
 			<div class="col-md-4 text-center outerbox-b">
-				<span class="audience-button ">
+				<!--<span class="audience-button ">
 					<a href="#" class="btn btn-default form-handler-a btn-circle" data-usertypea="audience">Audience</a><br>
-					</span>
+					</span>-->
+					<button class="btn btn-default orange-circle-button form-handler-a" data-usertypea="audience" href="">Audience</button>
+	
 					<p class="s-btn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
 				
 			</div>
 			<div class="col-md-4 text-center outerbox-c">
-				<span class="promoter-button ">
+				<!--<span class="promoter-button ">
 					<a href="#" class="btn btn-default form-handler-b btn-circle" data-usertypeb="promoter">Promoter</a>
-					</span>
+					</span>-->
+					<button class="btn btn-default orange-circle-button form-handler-b" data-usertypeb="promoter" href="">Promoter</button>
+	
 					<p class="s-btn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
 				
 			</div>
@@ -628,6 +663,7 @@
 			</div>
 	</div>
 
+</div>
 
 <script type="text/javascript">
    

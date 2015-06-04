@@ -20,6 +20,7 @@ class CreateNewsfeedsTable extends Migration {
 	        $table->integer('newsfeedable_id');
 	        $table->string('newsfeedable_type');
 			$table->string('grouptype')->nullable();
+	        $table->integer('count');
 			$table->timestamps();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         	

@@ -9,7 +9,7 @@ class NewsfeedsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$news_feeds = Newsfeed::all();
+		$news_feeds = Newsfeed::orderby('count','desc')->get();
 		foreach($news_feeds as $newsFeed)
 		{
 			
@@ -17,25 +17,30 @@ class NewsfeedsController extends \BaseController {
 			$userName = Sentry::findUserById($newsFeed->user_id)->name;
 			$postedOn = $newsFeed->created_at->diffForHumans();
 			$postmodel = $newsFeed->newsfeedable_type;
+			$newsfeedid = $newsFeed->id;
 			$postid = $newsFeed->newsfeedable_id;
+
 			
 			if($postmodel == 'Picture')
 			{
 				$postedimage = Picture::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->picturename;
 				$postedTitle = $postedimage->picturetitle;
+				$postedDesc = $postedimage->picturedescription;
 			}
 			elseif($postmodel == 'Video')
 			{
 				$postedimage = Video::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->videosrc;
 				$postedTitle = $postedimage->videotitle;
+				$postedDesc = $postedimage->videodescription;
 			}
 			elseif($postmodel == 'Audio')
 			{
 				$postedimage = Audio::find($newsFeed->newsfeedable_id);
 				$postedImage = $postedimage->audiosrc;
 				$postedTitle = $postedimage->audiotitle;
+				$postedDesc = $postedimage->videodescription;
 			}
 			
 			$newfeed = new stdClass;
@@ -46,12 +51,15 @@ class NewsfeedsController extends \BaseController {
 			$newfeed->postedon = $postedOn;
 			$newfeed->postedimage = $postedImage;
 			$newfeed->postedtitle = $postedTitle;
+			$newfeed->posteddesc = $postedDesc;
+			$newfeed->id = $newsfeedid;
 			
 			$newarray[] = json_decode(json_encode($newfeed));
 			foreach ($newarray as $key => $image) {
 				
 				$newarray[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->postid)->where('likeable_type','=',$image->model)->first();
-				$newarray[$key]->commented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->take(3)->get()->reverse();
+				$newarray[$key]->commented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->take(2)->get()->reverse();
+				$newarray[$key]->outcommented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->get()->reverse();
 					
 			}
 			
@@ -142,6 +150,6 @@ class NewsfeedsController extends \BaseController {
 	{
 		//
 	}
-
+	
 
 }

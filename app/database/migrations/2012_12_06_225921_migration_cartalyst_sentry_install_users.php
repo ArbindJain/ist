@@ -35,7 +35,9 @@ class MigrationCartalystSentryInstallUsers extends Migration {
 			$table->string('email');
 			$table->string('password');
 			$table->string('name')->nullable();
-			$table->string('title')->nullable();
+			$table->string('titlea')->nullable();
+			$table->string('titleb')->nullable();
+			$table->string('titlec')->nullable();
 			$table->string('dob')->nullable();
 			$table->string('gender')->nullable();
 			$table->string('contact')->nullable();

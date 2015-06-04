@@ -45,6 +45,9 @@ class CommentsController extends \BaseController {
 		$user->comment = Input::get('commentbody');
 		$user->user_id =Sentry::getUser()->id;
 		$users->comments()->save($user);
+		$newsfeed_count = Newsfeed::where('newsfeedable_id','=',$blogseries)->where('newsfeedable_type','=',$model)->first();
+		$newsfeed_count->count = $newsfeed_count->count + 1;
+		$newsfeed_count->save();
 		$postedtime = $user->created_at->diffForHumans();
 		$owner = Sentry::findUserById($user->user_id)->name;
 		$commenttext = $user->comment;

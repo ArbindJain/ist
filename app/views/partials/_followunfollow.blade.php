@@ -4,12 +4,12 @@
           
           {{ Form::open(array('route'=>'followuser' ,'id' => 'follow' ,'class'=>'add')) }} 
           {{Form::hidden('follow_id',$userprofile->id)}}
-          <a class="attach"><i class="fa fa-star-o"></i> Follow </a>
+          <a class="attach"><i class="fa fa-user-plus"></i> Follow </a>
           {{ Form::close()}}
 
           {{ Form::open(array('route' => 'unfollowuser','id'=> 'unfollow-mirror','class'=>'sub')) }}
           {{Form::hidden('userfollow_id',$userprofile->id)}}
-          <a class="detach" ><i class="fa fa-star-o"></i> unFollow</a>
+          <a class="detach" ><i class="fa fa-user"></i> unFollow</a>
           {{ Form::close()}}
           @endif
 
@@ -20,12 +20,12 @@
            @if($userprofile->id != Sentry::getuser()->id)
           {{ Form::open(array('route' => 'unfollowuser','id'=> 'unfollow','class'=>'sub')) }}
           {{Form::hidden('userfollow_id',$userprofile->id)}}
-          <a class="detach" ><i class="fa fa-star-o"></i> unFollow</a>
+          <a class="detach" ><i class="fa fa-user"></i> unFollow</a>
           {{ Form::close()}}
 
           {{ Form::open(array('route'=>'followuser' ,'id' => 'follow-mirror','class'=>'add')) }} 
           {{Form::hidden('follow_id',$userprofile->id)}}
-          <a class="attach"><i class="fa fa-star-o"></i> Follow </a>
+          <a class="attach"><i class="fa fa-user-plus"></i> Follow </a>
           {{ Form::close()}}
           
           @endif

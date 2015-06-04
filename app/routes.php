@@ -25,6 +25,10 @@ Route::group(['before' => 'guest'], function()
 {
 	Route::get('/register', 'RegistrationController@create');
 	Route::post('/register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
+	Route::get('userprofile/{id}', array('as'=> 'userprofile','uses'=> 'mirroruserController@getusermirror'));
+	Route::get('userprofilepicture/{id}', array('as'=> 'userprofilepicture','uses'=> 'mirroruserController@getausermirror_pictures'));
+	Route::get('categories_mirror_type/{name}', array('as'=> 'grouptype','uses'=> 'categoriesmirrorController@index'));
+	
 });
 
 # Authentication
@@ -42,7 +46,10 @@ Route::group(['before' => 'guest'], function()
 });
 
 
-# Standard User Routes
+
+# Standard Audience Routes
+
+# Standard Star Routes
 Route::group(['before' => 'auth|standardUser'], function()
 {
 	Route::get('userProtected', 'StandardUserController@getUserProtected');
@@ -59,6 +66,8 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('scout','ScoutController');
 	Route::resource('scoutpublishedapply','ScoutapplyController');
 	Route::get('scoutpublished/{id}', array('as'=> 'scoutpublished','uses'=> 'ScoutController@getscout'));
+	Route::get('scoutresult/{id}', array('as'=> 'scoutresult','uses'=> 'ScoutController@getresults'));
+	
 	Route::resource('audiencereviews','AudiencereviewsController');
 	Route::resource('userperformances','PerformanceController');
 	Route::resource('userfeeds','FeedsController');
@@ -68,7 +77,17 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::get('categories_type/{name}', array('as'=> 'group','uses'=> 'CategoriesController@index'));
 	
 	Route::resource('achievements','AchievementController');
-	
+	Route::resource('usersearch','usersearchController');
+	Route::resource('scoutsearch','ScoutsearchController');
+	Route::Post('/blog_search', array('as'=> 'blogsearch','uses'=> 'BlogsearchController@search'));
+	Route::Post('/blog_filters', array('as'=> 'blogfilters','uses'=> 'BlogsearchController@filters'));
+	//Route::get('/scoutfilters', ['as' => 'scout_filters', 'uses' => 'ScoutsearchController@filters']);
+	Route::Post('/scout_filters', array('as'=> 'scoutfilters','uses'=> 'ScoutsearchController@filters'));
+	Route::Post('/scout_search', array('as'=> 'scoutsearch','uses'=> 'ScoutsearchController@search'));
+
+	Route::resource('connect','ConnectController');
+	Route::Post('/connectaccept', array('as'=> 'connectaccept','uses'=> 'ConnectController@acceptconnect'));
+	Route::Post('/connectdelete', array('as'=> 'connectdelete','uses'=> 'ConnectController@deleteconnect'));
 
 
 

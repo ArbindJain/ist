@@ -46,9 +46,9 @@ class PicturesController extends \BaseController{
 	 */
 	public function store()
 	{
-		$types = array('-original.', '-thumbnail.', '-resiged.');
+		$types = array('-large.', '-medium.', '-small.', '-.');
 // Width and height for thumb and resiged
-$sizes = array( array('60', '60'), array('200', '200') );
+$sizes = array(  array('580', '480'),array('200', '200'), array('325', '230') );
 $targetPath = 'public/galleryimages/';
 
 $file = Input::file('file');
@@ -66,7 +66,7 @@ foreach ($types as $key => $type) {
     $newName = $nameWithOutExt . $type . $ext;
     File::copy($targetPath . $original, $targetPath . $newName);
     Image::make($targetPath . $newName)
-          ->resize($sizes[$key][0], $sizes[$key][1])
+          ->resize($sizes[$key][0], $sizes[$key][1], $sizes[$key][2])
           ->save($targetPath . $newName);
 }
 
@@ -84,6 +84,20 @@ foreach ($types as $key => $type) {
             $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);
             $picturefeed->tag($picturetag);
+            $pix = Picture::find($lastInsertedId);
+            $tags = $pix->tags;
+            foreach ($tags as $tag) {
+            		DB::table('tagged')
+            ->where('tag_id', $tag->id)
+            ->update(array('user_id' => Sentry::getUser()->id));
+            }
+            
+            
+
+          //  $tagid = $picturefeed->id;
+         //   $usertagdata = IlluminateTagged::find($tagid);
+           // $usertagdata->user_id = Sentry::getuser()->id;
+            //$usertagdata->save();
             // last inserted id
          /*   $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);

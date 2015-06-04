@@ -105,8 +105,7 @@ body{
     margin-left: 60px;
   }
   .comment-box{
-  margin-left: 59px;
-  width: 470px;
+    padding: 0px 10px;
   
 }
 .comment-box-blog {
@@ -128,7 +127,7 @@ body{
   display: block;
   margin-top: 20px;
 }
-  
+
 
 
 /*  SIDEBAR
@@ -523,45 +522,44 @@ margin-left: 50px;
   text-decoration: none;
 }
 
-.feed-block {
+.performance-wrapper{
   display: block;
-  position: relative;
-  margin-left: 54px;
   border: 1px solid #f2f2f2;
+  border-top: 2px solid #f18c1c;
 }
-.feedtimeadd-block {
-  display: block;
-  width: 100%;
-
-  padding: 10px 5px;
-
+.performance-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  padding: 5px 10px;
 }
-.feedtimer {
-  display: block;
-  width: 30%;
-  float: left;
-  text-align: center;
-
-}
-.feedvenue {
-  display: block;
-  width: 100%;
+.performance-venue {
   
-}
-.feedvenue p{
-  display: block;
-  margin-bottom: 0px;
-  padding-right: 10px;
-  
-}
+  padding: 5px 10px;
+  height: 50px;
 
-.feeddesc {
-  display: block;
-  width: 100%;
-  background-color: #515151;
-  color: #fff;
-  padding: 20px 20px;
-  margin-bottom: 0px;
+}
+.map-icon {
+  width: 7%;
+}
+.venue-data {
+  width: 93%;
+}
+.performance-date {
+  font-size: 10px;
+  padding: 5px 10px;
+}
+.userinfo-performance {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  padding: 5px 6px;
+  background-color: #f2f2f2;
+}
+.userinfo-performance a{
+  padding-left: 5px;
 }
 
 /******** --- scout page ---------**********/
@@ -940,7 +938,7 @@ figcaption {
   text-align: center;
   color: #fff;
   background-color: rgba(0,0,0,0);
-  transition: background-color .3s ease;
+  transition: background-color .8s ease;
   line-height: 1.33em;
 }
 
@@ -1100,34 +1098,36 @@ figure:hover figcaption {
 .feed-container {
   display: block;
   overflow: hidden;
-  margin-bottom: 2px;
+  padding: 6px 10px;
 }
 #feediconsize{
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 .feeduser_avatar img {
   margin: 0px 8px 0px 0px;
 }
 .feeduser_name {
-  display: block;
-  padding-top: 10px; 
+  display: block; 
 
 }
 .feeduser_name a{
   text-decoration: none;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
 }
 .feeduser_postedon{
   display: block;
-  padding-top: 2px;
+  font-size: 10px;
+}
+.feeduser_postedon p{
+  margin-bottom: 0px;
 }
 #postedimage {
-  margin-left: 59px;
-  width: 470px;
-  height: 245px;
+  width: 100%;
+  height: 230px;
 }
+
 .videobackground {
   background-color: #3c3c3c;
 }
@@ -1137,10 +1137,55 @@ figure:hover figcaption {
   margin-left: 59px;
 }
 .postedaudio {
-  margin-left: 59px;
-  width: 470px !important;
-  height: 245px;
+  width: 100%;
+  height: 230px;
 }
+.feedcont {
+   -moz-column-width: 3em;
+ -webkit-column-width: 3em;
+ -moz-column-gap: 1em;
+ -webkit-column-gap:1em; 
+}
+.feedbox {
+  display: inline-block;
+  border: 1px solid #f1f1f1;
+  width: 100%;
+ 
+}
+.feedbox img {
+  position: relative;
+}
+.post-title span{
+  position: relative;
+  padding: 10px 10px;
+
+}
+
+.feedbx:hover {
+  background-color: #f2f2f2;
+  -o-transition:color .2s ease-out, background 2s ease-in;
+  -ms-transition:color .2s ease-out, background 2s ease-in;
+  -moz-transition:color .2s ease-out, background 2s ease-in;
+  -webkit-transition:color .2s ease-out, background 2s ease-in;
+  /* ...and now for the proper property */
+  transition:color .2s ease-out, background .2s ease-in
+}
+
+.post-title span{
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #f1f1f1;
+}
+.time-wrapper {
+  font-size: 10px;
+}
+.comment-container {
+  word-wrap: break-word;
+}
+.feed-container {
+}
+
 
 /*************-------------Menu Bar Code Only--------------*******************/
 .dropdown-menu-notification{
@@ -1186,6 +1231,7 @@ figure:hover figcaption {
   border: none;
   cursor: pointer;
   margin-top:12px;
+  color: black;
 }
 
 .search-box + label .search-icon {
@@ -1225,6 +1271,19 @@ figure:hover figcaption {
 .search-box:not(:focus) {
   text-indent: -5000px;
 }
+.search-icon {
+  color: #515151!important;
+}
+.tt-dataset {
+  padding:  0px 0px!important;
+}
+.tt-suggestion {
+  padding: 6px 10px!important;
+  border-bottom: 1px solid #d8d6d6;
+}
+#sear-box:focus {
+  background-color: orange!important;
+}
 
 #search-submit {
   position: relative;
@@ -1263,9 +1322,7 @@ figure:hover figcaption {
   margin-top: 27px;
   margin-left: 30px;
 }
-.com-time-container{
-  text-align: left;
-}
+
 /*
 .centered-pills { text-align:center; }
 .centered-pills ul.nav-pills { display:inline-block; }
@@ -1407,4 +1464,413 @@ a:hover{
   padding:  30px 20px;
   background-color: #f9f9f9;
 
+}
+/* searchpage css =====================
+=======================================*/
+.personal-info {
+  display: block;
+  border: 1px solid #f2f2f2;
+  padding: 20px 0px 0px 0px;
+  border-top: 2px solid #4fc1e9;
+}
+
+
+.search-avatar{
+  width: 80px;
+  height: 80px;
+  border: 2px solid #515151;
+
+}
+.center{
+  display: block;
+  margin: 0 auto;
+}
+.cityinfo {
+  margin-top: 15px;
+  letter-spacing: 0.8px;
+  font-size: 11px;
+
+}
+.usernametext {
+  margin-top: 0px;
+  color: #515151;
+}
+.personal-footer {
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #f2f2f2;
+  border-right: 0px;
+  border-top: 0px;
+  margin-bottom: 10px;
+
+}
+.footertext-btn {
+
+  margin: 0 auto;
+  display: block;
+  float: left;
+  width: 33.33%;
+  border-right: 1px solid #f2f2f2;
+}
+
+.footertext-btn:hover{
+  background-color: #f2f2f2;
+  -o-transition:color .1s ease-out, background 1s ease-in;
+  -ms-transition:color .1s ease-out, background 1s ease-in;
+  -moz-transition:color .1s ease-out, background 1s ease-in;
+  -webkit-transition:color .1s ease-out, background 1s ease-in;
+  /* ...and now for the proper property */
+  transition:color .1s ease-out, background .1s ease-in
+}
+.footertext-btn h3 {
+  text-align: center;
+  color: #515151;
+}
+.footertext-btn p{
+  text-align: center;
+
+}
+
+.personal-info:hover  {
+    color: #f18c1c;
+    border-top: 2px solid #f18c1c;
+    -o-transition:color .8s ease-out, background 8s ease-in;
+  -ms-transition:color .8s ease-out, background 8s ease-in;
+  -moz-transition:color .8s ease-out, background 8s ease-in;
+  -webkit-transition:color .8s ease-out, background 8s ease-in;
+  /* ...and now for the proper property */
+  transition:color .8s ease-out, background .8s ease-in
+
+}
+.personal-info:hover .heff {
+    color: #f18c1c;
+    -o-transition:color .8s ease-out, background 8s ease-in;
+  -ms-transition:color .8s ease-out, background 8s ease-in;
+  -moz-transition:color .8s ease-out, background 8s ease-in;
+  -webkit-transition:color .8s ease-out, background 8s ease-in;
+  /* ...and now for the proper property */
+  transition:color .8s ease-out, background .8s ease-in
+
+}
+/******* ========== lightbox ui setting ==============
+=============================================*********/
+.lightcom-comment p {
+  margin-bottom: 0px;
+}
+.light-container {
+  padding 20px;
+}
+.light-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.light-name {
+  padding-top: 4px;
+  text-transform: capitalize;
+}
+.comment-wrapper {
+  display: block;
+  padding: 10px 15px 0px 15px;
+}
+
+/*----==================================
+==========Scout search block ============*****/
+.sort-button {
+  padding-right: 20px;
+}
+.scout-search-block {
+  display: block;
+  overflow: hidden;
+  padding: 20px 15px;
+}
+.filters {
+  text-decoration: none;
+  color: #515151;
+  padding-right:15px; 
+  padding-top: 6px;
+  cursor: pointer;
+}
+.filters:hover {
+  text-decoration: none;
+  color: #f18c1c;
+}
+.filter-scout-block{
+  padding:  0px 15px;
+}
+.margin-left15 {
+  margin-left: -15px;
+}
+.filterbutton {
+  margin-top: 20px;
+  cursor: pointer;
+}
+.eventhid {
+  cursor: pointer;
+}
+
+/* +++++++++++++++++++++++
+COnnect page css ========
+========================*/
+.connect-block {
+  border: 1px solid #f2f2f2;
+  margin-bottom: 15px;
+}
+.connect-header {
+  background-color: #f2f2f2;
+  padding: 10px 10px;
+  overflow: hidden;
+
+
+}
+.connect-header img {
+  border: 2px solid #515151;
+  width: 40px;
+  height: 40px;
+  float: left;
+
+}
+.connect-info-block {
+  float: left;
+  padding: 0px 0px 0px 10px;
+
+}
+.connect-name {
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding-top: 4px;
+  color: #f18c1c;
+}
+.connect-title {
+  font-size: 12px;
+}
+.connect-date{
+  float: right;
+  font-size: 12px;
+}
+
+.connect-footer {
+  display: block;
+  overflow: hidden;
+}
+.connect-text {
+  width: 80%;
+  float: left;
+  text-align: left;
+  padding: 10px 4px;
+  font-size: 12px;
+  padding-left: 15px;
+}
+.connect-yes {
+  width: 10%;
+  float: left;
+  text-align: center;
+  padding: 10px 4px;
+  border-left: 1px solid #f2f2f2;
+  color: #515151;
+  cursor: pointer;
+
+}
+.connect-yes:hover {
+  background-color: #f18c1c;
+  color: #ffffff;
+}
+.connect-yes a:hover {
+  color: #515151;
+}
+.connect-no {
+  width: 10%;
+  float: right;
+  text-align: center;
+  padding: 10px 4px;
+  border-left: 1px solid #f2f2f2;
+  cursor: pointer;
+}
+.connect-no:hover {
+  background-color: #f18c1c;
+  color: #ffffff;
+}
+.connect-no a:hover {
+  color: #515151;
+}
+.connect-success{
+  display: block;
+  padding: 6px 15px;
+  background-color: #f18c1c;
+}
+.connect-success a{
+  display: block;
+  padding: 4px 5px;
+  color: #fff;
+}
+
+
+/* =Footer
+-------------------------------------------------------------- */
+.footer { 
+  padding:40px 0 30px 0;
+  background-color:#f2f2f2;
+  color:#8F8F8F;
+  vertical-align:bottom;
+}
+
+
+
+.footer-light { 
+  padding:40px 0 30px 0;
+  background-color:#fafafa;
+  color:#8F8F8F;
+  vertical-align:bottom;
+  border-top:1px dotted #d2d2d2;
+}
+
+.footer-light p {
+  margin:0 0 5px;
+}
+
+.footer-light a {
+  font-weight:400;
+}
+
+.footer-light .thumbnail {
+  padding:0;
+  border:0;
+  border-radius:0px;
+  margin-bottom:0;
+}
+
+.footer-light .thumbnail:hover {
+  outline:5px solid #ff7454;
+}
+
+.footer-light .heading-footer h2, .footer-light .heading-footer h3, .footer-light .heading-footer h4 {
+  margin:0 0 -2px 0;
+  padding-bottom:20px;
+  display:inline-block;
+  font-weight:400;
+  border-bottom:2px solid #ff7454;
+  font-family:'Open Sans', sans-serif;
+  color:#A5A5A5;
+  font-size:14px;
+}
+
+.footer-light .heading-footer {
+  display:block;
+  margin:0 0 25px 0;
+  border-bottom:1px dotted #C3C3C3;
+  font-size:12px;
+}
+
+.footer-light .address {
+  color:#5e5e5e;
+  font-weight:400;
+  margin-top:20px;
+}
+
+.footer-light .copyright {
+  color:#B1B1B1;
+  font-size:12px;
+  font-weight:400;
+  padding: 20px 0px;
+}
+
+.footer-light .footer-scrolltop-holder {
+  height:30px;
+  width:30px;
+  background-color:#CECECE;
+  text-align:center;
+  float:right;
+}
+
+.footer-light .footer-info-icons {
+  padding-right:15px;
+  color:#8B8B8B;
+}
+
+.address {
+  color:#5e5e5e;
+  font-weight:400;
+  margin-top:20px;
+}
+
+.copyright {
+  color:#646464;
+  font-size:12px;
+  font-weight:400;
+  color: #fff;
+  font-size: 12px;  
+}
+
+footer p {
+  margin:20px 0px;
+}
+
+footer a {
+  font-weight:400;
+}
+
+.footer-info-icons {
+  padding-right:15px;
+  color:#fff;
+}
+
+.heading-footer h2, .heading-footer h3, .heading-footer h4 {
+  margin:0 0 -2px 0;
+  padding-bottom:10px;
+  display:inline-block;
+  font-weight:400;
+  border-bottom:2px solid #ff7454;
+  color:#515151;
+  font-size:14px;
+}
+
+.heading-footer {
+  display:block;
+  margin:0 0 15px 0;
+  border-bottom:1px slid #f18c1c;
+  font-size:12px;
+}
+
+.recent-work-padding {
+  padding-left:0;
+  padding-right:5px;
+}
+
+.footer .thumbnail {
+  padding:0;
+  border:0;
+  border-radius:0px;
+  margin-bottom:0;
+}
+
+.footer .thumbnail:hover {
+  outline:5px solid #ff7454;
+}
+
+.footer-scrolltop-holder {
+  height:30px;
+  width:30px;
+  background-color:#353535;
+  text-align:center;
+  float:right;
+}
+
+.footer-scrolltop {
+  font-size:16px;
+  color:#fff;
+  line-height:30px !important;
+}
+
+.footer-scrolltop-holder:hover {
+  background-color:#ff7454;
+  -webkit-transition:all 0.2s ease-in;
+  -moz-transition:all 0.2s ease-in;
+  -o-transition:all 0.2s ease-in;
+  -ms-transition:all 0.2s ease-in;
+  transition:all 0.2s ease-in;  
+}
+
+.footer-plus-icon {
+  font-size:28px;
+  color:#fff;
 }

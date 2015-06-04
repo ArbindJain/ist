@@ -63,6 +63,13 @@ class VideosController extends \BaseController {
 			$tagdata = Input::get('videotag');
 			$addtag = Video::find($lastinsertedid);
 			$addtag->tag($tagdata);
+			$pix = Video::find($lastinsertedid);
+            $tags = $pix->tags;
+            foreach ($tags as $tag) {
+            		DB::table('tagged')
+            ->where('tag_id', $tag->id)
+            ->update(array('user_id' => Sentry::getUser()->id));
+            }
             // redirect To astral...
             //return Redirect::to('videogallery')
             //->withFlashMessage('video successfully uploaded!');

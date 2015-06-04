@@ -1,35 +1,277 @@
-  @extends('master')
+@extends('master')
 
-@section('title', '')
+@section('title', 'Profile')
 
 @section('content')
-	<style>
-.users-block{
-	display: block;
-	padding: 20px;
-	background-color: #eae8e8;
-	margin:5px;
-}
-	
 
-</style>
-<div class="row">
-	<div class="col-md-12">
-	Event Name : <c class="text-muted">{{$eventdata->eventname}}</c><br><br>
-	{{ HTML::image($eventdata->poster , 'Event Poster', array('class' => 'img-responsive ')) }}<br>
-	Event Location : <c class="text-muted">{{$eventdata->location}}</c><br>
-	Event Date & Time : <c class="text-muted">{{Carbon\Carbon::parse($eventdata->eventdatetime)->toDayDateTimeString()}}</c><br>
-	Event Duration : <c class="text-muted">{{$eventdata->eventduration}}</c><br>
-	Event Details : <c class="text-muted">{{$eventdata->details}}</c><br>
-	Hosted By :<c class="text-muted"> {{$eventdata->user->name}}</c><br>
+                                  
 
-	<a href="/events/{{$eventdata->id}}/edit" class="btn btn-success">edit</a>
 
-	{{ Form::open(['route' => ['events.destroy', $eventdata->id], 'method' => 'delete']) }}
-	  <button type="submit" class="btn btn-danger">Delete</button>
-	{{ Form::close() }}
-	</div>
+<div class="col-md-4">
+  <div class="singlescout-poster">
+    {{ HTML::image($scoutview->scoutposter , 'profile picture', array('class' => 'imgscout pull-left','id'=>'largepostersize')) }}  
+    
+  </div><!-- end of singlescout-poster -->
+  <div class="content-footerscout">
+    <img src="{{url()}}/{{Sentry::findUserById($scoutview->user_id)->profileimage}}">
+    <span class="text-capitalize footer-username">{{Sentry::findUserById($scoutview->user_id)->name}}</span>
+    <span class="pull-right">
+              <!-- Like and Unlike Button For scout
+              ======================================-->
+              <a class="likebutton-{{$scoutview->id}}Scout like-button" data-realclass="likebutton-{{$scoutview->id}}Scout" data-model="Scout" data-id="{{$scoutview->id}}" data-iconclass="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($liked)?'unlike':'like'}}">
+                <i class="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
+                &nbsp;
+                <span class="btntext">{{isset($liked)?'Unlike':'Like'}}</span>
+              </a>
+              <!-- EndLike and Unlike Button For scout
+              ======================================-->    
+    </span>
+  </div>
+  <div class="addressmap-block">
+    <div class="s-address"><c class="text-muted">Venue</c><br><i class="fa fa-map-marker"></i>&nbsp; {{$scoutview->venue}},&nbsp;{{$scoutview->city}},&nbsp;{{$scoutview->country}}</div>
+    <div class="s-map"><img width="348px" height="348px" src="https://www.sheffield.ac.uk/polopoly_fs/1.108478!/image/staticmap.gif"></div>
+  </div>
+  <div class="rights-block">
+  <h3>Disclaimer</h3>
+    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+  </div>
+</div><!-- end of col-8 -->
+
+<div class="col-md-8">
+
+
+  <div class="scout-sidebar">
+    <!-- titlebar -->
+    <div class="title-bar ">
+      <div class="text-capitalize tit-scout"><p>{{$scoutview->scouttitle}}</p>
+       
+      </div>
+      <div class="text-capitalize text-center butt-scout">
+        <div class="button-block">
+
+      <button type="button" class="btn btn-default btn-md pull-right text-uppercase" data-toggle="modal" data-target="#myModalapply">
+          <i class="fa fa-plus"></i> Participate
+        </button>
+
+    </div>
+        </div>
+      
+    </div>
+
+    <p class="lastdate-on"> <i class="fa fa-clock-o"></i> Submission</p>
+    <!-- end of titlebar -->
+    {{--*/ $created = new Carbon\Carbon($scoutview->applydatetime); /*--}}
+  {{--*/ $now = Carbon\Carbon::now(); /*--}}
+
+    <div id="CountDownTimer" data-timer="{{$created->diffInSeconds($now)}}" style="background-color:#ffffff;" ></div>
+    <!-- below timer --> 
+    <div class="prize-block">
+      <span class="p-title">remuneration</span>
+      @if($scoutview->renumerationmin == null && $scoutview->renumerationmax != null)
+      <span class="p-value"><i class="fa fa-inr"></i>&nbsp;{{$scoutview->renumerationmax}}</span>
+      @else
+      <span class="p-value"><i class="fa fa-inr"></i>&nbsp;{{$scoutview->renumerationmin}} - <i class="fa fa-inr"></i>&nbsp;{{$scoutview->renumerationmax}}</span>
+      @endif
+    </div>  
+    <!-- end of belowtimer -->
+
+  </div><!-- end of scout sidebar-->
+  <!-- Modal -->
+      <div class="modal fade" id="myModalapply" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">attach some data</h4>
+            </div>
+            <div class="modal-body">
+                 {{ Form::open(['route' => 'scoutpublishedapply.store','files' => 'true' ,'class'=>'vid_form']) }}
+                      <fieldset>
+              {{ Form::hidden('scout_id', $scoutview->id) }}
+              {{ Form::hidden('applied', 'YES') }}
+
+              <div class="form-group">
+          Select any Image
+          {{Form::select('image', $image_list)}}
+        </div>
+
+        <div class="form-group">
+          Select any Video
+          {{Form::select('video', $video_list)}}
+        </div>
+
+        <div class="form-group">
+          Select any Audio
+          {{Form::select('audio', $audio_list)}}
+        </div>
+
+            
+
+
+
+              </fieldset>
+               
+
+            </div><!-- modal boxy end !-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-default">Apply now</button>
+            </div>
+             {{ Form::close() }}
+          </div>
+        </div>
+      </div><!-- video modal end !-->  
+  <!-- tabs temp -->
+
+    <div role="tabpanel">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#event" aria-controls="home" role="tab" data-toggle="tab">Event Details</a></li>
+    <li role="presentation"><a href="#artist" aria-controls="profile" role="tab" data-toggle="tab">Artist Details</a></li>
+    <li role="presentation"><a href="#key" aria-controls="messages" role="tab" data-toggle="tab">Key Dates</a></li>
+    <li role="presentation"><a href="#agree" aria-controls="settings" role="tab" data-toggle="tab">Agreements</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content scout-contenttab">
+    <div role="tabpanel" class="tab-pane fade in active" id="event">
+   
+      <p class="p-desc">{{$scoutview->scoutdescription}}</p>
+      
+      <ul class="ul-type-a">
+      @if($scoutview->audiencesizemin == null && $scoutview->audiencesizemax != null)
+        <li><span class="x-label">Audience Size</span><span class="x-content"><i class="fa fa-users"></i><span class="x-content-inner"> {{$scoutview->audiencesizemax}} &nbsp;&nbsp;<span class="text-muted">People</span></span></span></li>
+      @else
+      <li><span class="x-label">Audience Size</span><span class="x-content"><i class="fa fa-users"></i><span class="x-content-inner">{{$scoutview->audiencesizemin}} - {{$scoutview->audiencesizemax}} &nbsp;&nbsp;<span class="text-muted">People</span></span></span></li>
+      @endif    
+          
+      </ul>
+      <hr style="margin:0px;">
+
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="artist">
+    
+      <p class="p-desc">{{$scoutview->artistdescription}}</p>
+      <ul class="ul-type-a">
+    <li><span class="x-label">Skills</span><span class="x-content"><i class="fa fa-wrench"></i><span class="x-content-inner">{{$scoutview->skills}} &nbsp;&nbsp;</span></span></li>
+    @if($scoutview->agerangemin == null && $scoutview->agerangemax != null)
+    <li><span class="x-label">Age-Group</span><span class="x-content"><i class="fa fa-child"></i><span class="x-content-inner"> {{$scoutview->agerangemax}} &nbsp;&nbsp;<span class="text-muted">(years)</span></span></span></li>
+    @else
+    <li><span class="x-label">Age-Group</span><span class="x-content"><i class="fa fa-child"></i><span class="x-content-inner"> {{$scoutview->agerangemin}} - {{$scoutview->agerangemax}} &nbsp;&nbsp;<span class="text-muted">(years)</span></span></span></li>
+    @endif
+    @if($scoutview->gender == 'NULL')
+    <li><span class="x-label">Gender</span><span class="x-content"><i class="fa fa-venus-mars"></i><span class="x-content-inner">Not Specified</span></span></li>
+    @else
+    <li><span class="x-label">Gender</span><span class="x-content"><i class="fa fa-venus-mars"></i><span class="x-content-inner">{{$scoutview->gender}}</span></span></li>
+    
+    @endif
+   <li>
+        <span class="x-label">Category</span>
+        <span class="x-content">
+            <i class="fa fa-tags"></i>
+            <span class="x-content-inner">
+                @if(isset(Sentry::findUserById($scoutview->user_id)->art))
+                <span>Arts,&nbsp;</span>
+
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->collection))
+                <span>Collection,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->cooking))
+                <span>Cooking,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->dance))
+                <span>Dance,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->fashion))
+                <span>Fashion,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->moviesandtheatre))
+                <span>Movies&Theatre,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->music))
+                <span>Music,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->sports))
+                <span>Sports,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->unordinary))
+                <span>Unordinary,&nbsp;</span>
+                @else
+                 
+                @endif
+                @if(isset(Sentry::findUserById($scoutview->user_id)->wanderer))
+                <span>Wanderer,&nbsp;</span>
+                @else
+                 
+                @endif
+            </span>
+        </span>
+    </li>
+</ul>
+      
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="key"><ul class="ul-type-a">
+    <li><span class="x-label">Submission</span><span class="x-content"><i class="fa fa-calendar-o"></i><span class="x-content-inner">{{Carbon\Carbon::parse($scoutview->applydatetime)->toDayDateTimeString()}} &nbsp;&nbsp;</span></span></li>
+    <li><span class="x-label">Event</span><span class="x-content"><i class="fa fa-calendar-o"></i><span class="x-content-inner">{{Carbon\Carbon::parse($scoutview->scoutdatetime)->toDayDateTimeString()}}</span></span></li>
+    <li><span class="x-label">Posted On</span><span class="x-content"><i class="fa fa-calendar-o"></i><span class="x-content-inner">{{Carbon\Carbon::parse($scoutview->created_at)->toDayDateTimeString()}}</span></span></li>
+    
+</ul>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="agree">
+      
+
+    
+     <i class="fa fa-download"></i> Download Documents
+      
+    </div><!-- agree tab -->
+  </div>
+
+</div>
+    <!-- end tabs -->
+  
+   
+
+   
+    
+    </div>
+ 
 		
-</div>	
+     <script type="text/javascript">
+            $("#CountDownTimer").TimeCircles
+            ({ 
 
+              time: 
+              { 
+                Days: 
+                { 
+                  show: false 
+                }, 
+                Hours: 
+                { 
+                  show: false 
+                } 
+              },
+              circle_bg_color: "#f2f2f2",
+              use_background: true,
+            });
+            
+        </script> 
 @stop

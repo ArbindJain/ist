@@ -14,14 +14,14 @@
               <div class="tag">
               <p id="bloglike">
               <!-- Like and Unlike Button For blog
-======================================-->
-  <a class="likebutton-{{$blog->id}}Blog like-button" data-realclass="likebutton-{{$blog->id}}Blog" data-model="Blog" data-id="{{$blog->id}}" data-iconclass="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($liked)?'unlike':'like'}}">
-    <i class="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
-    &nbsp;
-    <span class="btntext">{{isset($liked)?'Unlike':'Like'}}</span>
-  </a>
-<!-- EndLike and Unlike Button For blog
-======================================-->
+              ======================================-->
+                <a class="likebutton-{{$blog->id}}Blog like-button" data-realclass="likebutton-{{$blog->id}}Blog" data-model="Blog" data-id="{{$blog->id}}" data-iconclass="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($liked)?'unlike':'like'}}">
+                  <i class="{{isset($liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
+                  &nbsp;
+                  <span class="btntext">{{isset($liked)?'Unlike':'Like'}}</span>
+                </a>
+              <!-- EndLike and Unlike Button For blog
+              ======================================-->
                 <a href=""><i class="ca fa fa-comments"></i> Comments</a>
               </p>
                 <p> 

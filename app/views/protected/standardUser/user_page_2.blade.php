@@ -52,9 +52,26 @@
                 <div class="gallery-image-overlay"></div>
 
                 
-                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg">
+                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg" class="showcase-image">
                 <div class="gallery-viewer-image-content" style="display: none;">
                   <!-- inserted as is -->
+                  <div class="feed-container light-container">
+                  <div class="feeduser_avatar">
+                  <a href="#">
+                    <img src="{{url()}}/{{Sentry::findUserById($albumimage->user_id)->profileimage}}" class="img-circle light-avatar pull-left">
+                  </a>
+                  </div>
+                  <div class="feeduser_name light-name" >
+                    <a href="#">
+                      {{Sentry::findUSerById($albumimage->user_id)->name}}
+                    </a>
+                  </div>
+                  <div class="feeduser_postedon text-muted">
+                    <p>
+                      {{$albumimage->created_at->diffForHumans()}}
+                    </p>
+                  </div>
+                </div>
                   <div class="img-title">{{$albumimage->picturetitle}}</div>
                   <div class="img-description">{{$albumimage->picturedescription}}</div>
                  <!-- like button -->
@@ -64,17 +81,23 @@
 
                    <span class="img-comment-wrapper comment-target">
                     @foreach($albumimage->commented as $comments)
-                    <div class="img-comment comment-block-{{$comments->id}}">
-                      <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
-                      <span>{{$comments->comment}}<br></span><br>
-                      <div class="com-details">
-                        <div class="com-time-container">
-                          {{ $comments->created_at->diffForHumans() }} ·
-                          
-                        </div>
-                      </div>
-                    </div>
-                    </span>
+                    <div class="comment-block-{{$comments->id}} comment-wrapper">
+                  <div class="lightcom-info pull-left">
+                    <a href="#"><b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  </div>
+                  @if(strlen($comments->comment) >= 30)
+                  <br>
+                  @else
+                  @endif
+                  <div class="lightcom-comment">
+                    
+                  <p class="comment-container" style="">{{$comments->comment}}</p>
+
+                  <p class="text-muted"> {{ $comments->created_at->diffForHumans() }} </p>
+                  </div>
+                  
+                </div>
+                <div class="clearfix"></div>
                     @endforeach
                   </span>
                 </div>
@@ -312,51 +335,6 @@ $(document).ready(function() {
 });
 </script>
 
-
-<script type="text/javascript">
-  
-  var form = document.querySelector('.vid_form');
-  var request = new XMLHttpRequest();
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-
-    var formdata = new FormData(form);
-    request.open('post','videogallery');
-    request.send(formdata);
-    request.onload = test;
-
-    function test(var1) {
-      var respObj = JSON.parse(this.response);
-      console.log(respObj);
-      window.location.hash = 'video';
-            window.location.reload();
-    }
-    
-     });
-  
-</script>
-<script type="text/javascript">
-  
-    var audform = document.querySelector('.aud_form');
-  var requestaud = new XMLHttpRequest();
-  audform.addEventListener('submit',function(e){
-    e.preventDefault();
-
-    var formdata1 = new FormData(audform);
-    requestaud.open('post','audiogallery');
-    requestaud.send(formdata1);
-    requestaud.onload = test;
-
-    function test(var2) {
-      var respObj = JSON.parse(this.response);
-      console.log(respObj);
-      window.location.hash = 'audio';
-            window.location.reload();
-    }
-    
-     });
-  
-</script>
 
 
 

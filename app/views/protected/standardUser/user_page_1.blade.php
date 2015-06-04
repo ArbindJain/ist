@@ -9,8 +9,9 @@
               $('.performance-form').hide();
               $('.button').click(function(){
                   var target = '.'+$(this).data("target");
-                  $(".performance-form").not(target).hide();
+                 // $(".performance-form").not(target).hide();
                   //$(target).css({opacity: 1 });
+                  $(target).animate({ height: 'toggle' }, 'slow');
                   $(target).fadeIn();
                   
               });
@@ -28,7 +29,7 @@
                   
                  // $(target).animate({ height: 0, opacity: 0 }, 'slow');
 
-                  $(target).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+                  $(target).animate({ height: 'toggle' }, 'slow');
                  $(target).fadeOut();
 
               });
@@ -41,8 +42,9 @@
     <span>
       <ul class="list-unstyled pull-left name-block text-capitalize">
         <li class="name-space "><h3>{{$active_user->name}}</h3></li>
-        <li class="title-space ">{{$active_user->title}}</li>
+        <li class="title-space ">{{$active_user->titlea}}&nbsp;{{$active_user->titleb}}&nbsp;{{$active_user->titlec}}</li>
         <li class="address-space">{{$active_user->city}},{{ $active_user->country}}</li>
+       
       </ul>
     </span>
     
@@ -54,6 +56,7 @@
   <div class="col-md-12">
     <div class="sub-nav-block">
     <ul class="nav nav-pills centertab">
+    @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
       <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
       <li role="navigation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Photos</a></li>
       <li role="navigation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a></li>
@@ -61,24 +64,54 @@
       <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
       <li role="navigation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
       <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+    @elseif(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Audiences')))
+
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
+      <li role="navigation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
+      <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+    @else(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Promoters')))
+
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
+      <li role="navigation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
+      <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+      <li role="navigation"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+          
+    @endif
     </ul>
     </div>
     <div class="tab-content">
       <div class="clearfix"></div>
-      <div role="tabpanel" class="tab-pane active" id="yourfeedwall">
+      <div role="tabpanel" class="tab-pane fade in active" id="yourfeedwall">
 
          
             <ul class="centertab  nav nav-pills">
+            @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
               <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
               <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
               <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
+            @elseif(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Audiences')))
+              <li role="navigation" class="active"><a href="#performance" aria-controls="performance" role="tab" data-toggle="tab">Performance</a></li>
+              <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
+              <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
+     
+            @else(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Promoters')))
+
+              <li role="navigation"><a href="#tutorial" aria-controls="tutorial" role="tab" data-toggle="tab">Tutorial</a></li>
+              <li role="navigation"><a href="#findtalent" aria-controls="findtalent" role="tab" data-toggle="tab">Find-Talent</a></li>
+     
+            @endif
+              
             </ul> 
 
           <div class="tab-content" style="margin: 10px 0px;">
-            <div role="tabpanel" class="tab-pane active" id="performance">
+
+            <div role="tabpanel" class="tab-pane fade in active" id="performance">
                 <div class="col-md-8 perf">
-                    <a href="#" style="text-decoration:none;" class="performance-button button text-capitalize" data-target = "performance-form">Performing some where?</a>
-                    
+                <div class="row">
+                    <a href="#" style="text-decoration:none;" class="button btn bnt-md btn-link text-capitalize" data-target = "performance-form">Performing</a>
+                    <div class="clearfix"></div>
                     <div class="performance-form">
                     
                     <div class="clearfix"></div>
@@ -126,82 +159,273 @@
                         </div>
                     </div>
                     @foreach($performances as $performance)
-                      <div class="performance-list">
-                          <div class="feed-blocka">
-                              <div class="feedtimeadd-block">
-                              <div class="feedtimer">
-                                <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}
-                              </div>
-                              <div class="feedvenue">
-                                <p>
-                                  <i class="fa fa-map-marker"></i> &nbsp; {{$performance->venue}}
-                                </p>  
-                              </div>
-                            </div>
-                            <div class="feeddesc" >{{$performance->performancetext}} Live at ocean indian Live at ocean indian Live at ocean indian</div>
-                         <!-- Delete the performance entry -->
-                              {{ Form::model($performance, ['method' => 'DELETE', 'files' => true , 'route' => ['userperformances.destroy',$performance->id]]) }}
-                              <a><button type="submit" style="border: 0; background: transparent; " class="pull-right">
-                              <i class="fa fa-trash-o"></i>
-                              </button></a>
-                              {{ Form::close() }}
+                      <div class="col-md-4">
+                        <div class="performance-wrapper">
+
+                          <div class="performance-date"> <i class="fa fa-clock-o"></i> {{Carbon\Carbon::parse($performance->performancedatetime)->toDayDateTimeString()}}</div>
+
+                          <div class="performance-input">{{$performance->performancetext}}</div>
+                          <div class="performance-venue">
+                          <div class="map-icon pull-left"><i class="fa fa-map-marker"></i></div>
+                           <div class="venue-data pull-right">{{$performance->venue}}</div>
                           </div>
-                          
-                      </div> 
+                        </div>
+                      </div>
+
                     @endforeach
-                </div>
+                    </div>
+                </div><!-- end of col md -->
                   <div class="col-md-4">
                     @include('partials._audiencereview')
                   </div>
             </div>
-            <div role="tabpanel" class="tab-pane " id="tutorial">
+
+            <div role="tabpanel" class="tab-pane fade " id="tutorial">
             No tutorial uploaded yet
             <!-- temp demo -->
 
             </div>
+            
             <!-- button for scout generation -->
-            <div role="tabpanel" class="tab-pane " id="findtalent">
-              
-              {{ HTML::linkRoute('scout.create','Scout') }}<br> 
+            <div role="tabpanel" class="tab-pane fade" id="findtalent">
               <div class="col-md-8">
-                  @foreach($scouts as $scout)
-                  <div class="col-md-4">
-                  <span class="scoutevent">
-                  <a href="/scout/{{$scout->id}}" class="scoutposterblock">
-                    {{ HTML::image($scout->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
-                    {{$scout->scouttitle}}
-                  </a>
-                  </span>
+                <div class="row">
 
-                  </div>
+              <a type="button" href="{{url()}}/scout/create" class="btn btn-md btn-link">Create</a>
+              <a type="button" href="#" class="btn btn-md btn-link sbutton">Scout</a>
+              <a type="button" href="#" class="btn btn-md btn-link abutton">Applied Scout</a>
+              <div id="content-scout" class="alls">
+            @foreach($scouts as $scout)
+             @if(Sentry::findUserByID($scout->user_id)->inGroup(Sentry::findGroupByName('Promoters')))
+                        {{--*/ $usergroupe = 'Chide'; /*--}}
+                        {{--*/ $usergroup = 'Corporate'; /*--}}
+                        @elseif(Sentry::findUserByID($scout->user_id)->inGroup(Sentry::findGroupByName('Stars')))
+                        {{--*/ $usergroupe = 'Phide'; /*--}}
+                        {{--*/ $usergroup = 'Private'; /*--}}
+                        @endif
 
-                  @endforeach
+                  <div class="col-lg-6 col-md-6 {{$usergroupe}} {{$scout->city}}">
+                        
+                        <aside>
+                              <div class="headerscout-block {{$usergroup}}">
+                                <span class="posted-date">
+                                  {{--*/ $created = new Carbon\Carbon($scout->applydatetime); /*--}}
+                                  {{--*/ $now = Carbon\Carbon::now(); /*--}}
+                                  {{--*/$difference = ($created->diff($now)->days < 1)
+                                  ? 'today'
+                                  : $created->diffInDays($now); /*--}} 
+
+                                  
+                                  @if($difference == 'today')
+                                   <b class= "timeleft"> Last day to apply! </b>
+                                  @else
+                                   <b class="timeleft">{{$difference}} days to go!</b>
+                                  @endif
+                                  
+                                </span>
+
+                                <span class="posted-type pull-right"> {{$usergroup}} Event</span> 
+                              </div>
+                              <a href="{{url()}}/scout/{{$scout->id}}">
+                              <img src="{{url()}}/{{$scout->scoutposter}}" class="img-responsive">
+                              </a>
+                              <div class="content-title">
+                                    <div class="">
+                                    <h3><a href="{{url()}}/scoutpublished/{{$scout->id}}">{{ substr($scout->scouttitle, 0, 25) }}</a></h3>
+                                    @if($scout->renumerationmin == null && $scout->renumerationmax != null)
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmax}}</h5>
+                                    @else
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmin}} - <i class="fa fa-inr"></i>&nbsp;{{$scout->renumerationmax}}</h5>
+                                    @endif
+                                    <h5><b>Venue :</b> {{$scout->city}}&nbsp;,{{$scout->country}}</h5>
+                                    <h5><b>Category: </b>
+                                    @if(isset($scout->art))
+                                    <span>Arts</span>
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->collection))
+                                    <span>Collection</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->cooking))
+                                    <span>Cooking</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->dance))
+                                    <span>Dance</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->fashion))
+                                    <span>Fashion</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->moviesandtheatre))
+                                    <span>Movies&Theatre</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->music))
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->sports))
+                                    <span>Sports</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->unordinary))
+                                    <span>Unordinary</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scout->wanderer))
+                                    <span>Wanderer</span>
+                                    @else
+                                     
+                                    @endif
+                                    </h5>
+
+                                    </div>
+                              </div>
+                              <div class="content-footer">
+                                    <img src="{{url()}}/{{Sentry::findUserById($scout->user_id)->profileimage}}">
+                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($scout->user_id)->name}}</span>
+                                    <span class="pull-right">
+                                         <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$scout->counted}}</a>
+                                    </span>
+                              </div>
+                        </aside>
+                  </div>   
+            @endforeach  
+            </div> 
+            <!-- temp -->
+                
+<div id="content-scout" class="applieds" style="display:none;">
+            @foreach($scoutadds as $scoutadd)
+              @foreach($scoutadd->scouted as $scoutinfo)
+             @if(Sentry::findUserByID($scoutinfo->user_id)->inGroup(Sentry::findGroupByName('Promoters')))
+                        {{--*/ $usergroupe = 'Chide'; /*--}}
+                        {{--*/ $usergroup = 'Corporate'; /*--}}
+                        @elseif(Sentry::findUserByID($scoutinfo->user_id)->inGroup(Sentry::findGroupByName('Stars')))
+                        {{--*/ $usergroupe = 'Phide'; /*--}}
+                        {{--*/ $usergroup = 'Private'; /*--}}
+                        @endif
+
+                  <div class="col-lg-6 col-md-6 {{$usergroupe}} {{$scoutinfo->city}}">
+                        
+                        <aside>
+                              <div class="headerscout-block {{$usergroup}}">
+                                <span class="posted-date">
+                                  {{--*/ $created = new Carbon\Carbon($scoutinfo->applydatetime); /*--}}
+                                  {{--*/ $now = Carbon\Carbon::now(); /*--}}
+                                  {{--*/$difference = ($created->diff($now)->days < 1)
+                                  ? 'today'
+                                  : $created->diffInDays($now); /*--}} 
+
+                                  
+                                  @if($difference == 'today')
+                                   <b class= "timeleft"> Last day to apply! </b>
+                                  @else
+                                   <b class="timeleft">{{$difference}} days to go!</b>
+                                  @endif
+                                  
+                                </span>
+
+                                <span class="posted-type pull-right"> {{$usergroup}} Event</span> 
+                              </div>
+                              <a href="{{url()}}/scoutresult/{{$scoutinfo->id}}">
+                              <img src="{{url()}}/{{$scoutinfo->scoutposter}}" class="img-responsive">
+                              </a>
+                              <div class="content-title">
+                                    <div class="">
+                                    <h3><a href="{{url()}}/scoutresult/{{$scoutinfo->id}}">{{ substr($scoutinfo->scouttitle, 0, 25) }}</a></h3>
+                                    @if($scoutinfo->renumerationmin == null && $scoutinfo->renumerationmax != null)
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scoutinfo->renumerationmax}}</h5>
+                                    @else
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$scoutinfo->renumerationmin}} - <i class="fa fa-inr"></i>&nbsp;{{$scoutinfo->renumerationmax}}</h5>
+                                    @endif
+                                    <h5><b>Venue :</b> {{$scoutinfo->city}}&nbsp;,{{$scoutinfo->country}}</h5>
+                                    <h5><b>Category: </b>
+                                    @if(isset($scoutinfo->art))
+                                    <span>Arts</span>
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->collection))
+                                    <span>Collection</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->cooking))
+                                    <span>Cooking</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->dance))
+                                    <span>Dance</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->fashion))
+                                    <span>Fashion</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->moviesandtheatre))
+                                    <span>Movies&Theatre</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->music))
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->sports))
+                                    <span>Sports</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->unordinary))
+                                    <span>Unordinary</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($scoutinfo->wanderer))
+                                    <span>Wanderer</span>
+                                    @else
+                                     
+                                    @endif
+                                    </h5>
+
+                                    </div>
+                              </div>
+                              <div class="content-footer">
+                                    <img src="{{url()}}/{{Sentry::findUserById($scoutinfo->user_id)->profileimage}}">
+                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($scoutinfo->user_id)->name}}</span>
+                                    <span class="pull-right">
+                                         <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$scoutinfo->counted}}</a>
+                                    </span>
+                              </div>
+                        </aside>
+                  </div>   
+            @endforeach  
+            @endforeach
+            
+            </div>
+            <!-- end of temp -->   
+                </div>
+                 
                   
-                  <br><br>
-                  <div class="clearfix"></div>
-                  <div class="event-applied ">
-                  <br><br>
-                    <h4 class="pull-left"> <b>Applied Scout List </b></h4><br><br><br><br>
                  
-                  @foreach($scoutadds as $amma)
-                    @foreach($amma->scouted as $bhairu)
-                   
-                      <div class="col-md-4">
-                  <span class="scoutevent">
-                  <a href="/scoutpublished/{{$amma->scout_id}}" class="scoutposterblock">
-                    {{ HTML::image($bhairu->scoutposter , 'profile picture', array('class' => 'img-thumbnail pull-left')) }}
-                    {{$bhairu->scouttitle}}
-
-
-                  </a>
-                  </span>
-
-                  </div>
-                    @endforeach
-                  @endforeach
-                 
-
-                  </div>
 
 
               </div>     
@@ -212,7 +436,7 @@
             </div>          
       </div>
     </div>
-      <div role="tabpanel" class="tab-pane " id="photo">
+      <div role="tabpanel" class="tab-pane fade " id="photo">
         <div class="col-md-8">
         <div class="row">
             <!-- create album Button trigger modal -->
@@ -413,7 +637,7 @@
         
                
       </div><!-- photo tabpanel end !-->
-      <div role="tabpanel" class="tab-pane" id="video">
+      <div role="tabpanel" class="tab-pane fade" id="video">
         <div class="col-md-8">
           <div class="row">
             <a type="button" class=" btn btn-link text-capitalize" data-toggle="modal" data-target="#myModalvideo">
@@ -437,26 +661,50 @@
               </span>
               <div class="gallery-viewer-image-content" style="display: none;">
                 <!-- inserted as is -->
+                <div class="feed-container light-container">
+                  <div class="feeduser_avatar">
+                  <a href="#">
+                    <img src="{{url()}}/{{Sentry::findUserById($uservid->user_id)->profileimage}}" class="img-circle light-avatar pull-left">
+                  </a>
+                  </div>
+                  <div class="feeduser_name light-name" >
+                    <a href="#">
+                      {{Sentry::findUSerById($uservid->user_id)->name}}
+                    </a>
+                  </div>
+                  <div class="feeduser_postedon text-muted">
+                    <p>
+                      {{$uservid->created_at->diffForHumans()}}
+                    </p>
+                  </div>
+                </div>
                 <div class="img-title">{{$uservid->videotitle}}</div>
                 <div class="img-description">{{$uservid->videodescription}}</div>
                 <!-- // -->
                 <!-- video like button -->
                 @include('partials._videolikebutton')
                 <!-- End video like button -->
-                <span class="img-comment-wrapper comment-target">
+                <span class="img-comment-wrapper">
                   @foreach($uservid->commented as $comments)
-                  <div class="img-comment comment-block-{{$comments->id}}">
-                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
-                    <span>{{$comments->comment}}<br></span><br>
-                      <div class="com-details">
-                        <div class="com-time-container">
-                          {{ $comments->created_at->diffForHumans() }} ·
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </span>
+                  <div class="comment-block-{{$comments->id}} comment-wrapper">
+                  <div class="lightcom-info pull-left">
+                    <a href="#"><b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  </div>
+                  @if(strlen($comments->comment) >= 30)
+                  <br>
+                  @else
+                  @endif
+                  <div class="lightcom-comment">
+                    
+                  <p class="comment-container" style="">{{$comments->comment}}</p>
+
+                  <p class="text-muted"> {{ $comments->created_at->diffForHumans() }} </p>
+                  </div>
+                  
+                </div>
+                <div class="clearfix"></div>
                   @endforeach
+                  <div class="comment-target"></div>
                 </span>
                 </div>
                 <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
@@ -557,7 +805,7 @@
         </div>
         
       </div><!-- video tabpanel end !-->
-      <div role="tabpanel" class="tab-pane" id="audio">
+      <div role="tabpanel" class="tab-pane fade" id="audio">
         <div class="col-md-8">
           <div class="row ">
             <a type="button" class="btn btn-link text-capitalize" data-toggle="modal" data-target="#myModalaudio">
@@ -577,6 +825,23 @@
               </span>
               <div class="gallery-viewer-image-content" style="display: none;">
                 <!-- inserted as is -->
+                <div class="feed-container light-container">
+                  <div class="feeduser_avatar">
+                  <a href="#">
+                    <img src="{{url()}}/{{Sentry::findUserById($useraud->user_id)->profileimage}}" class="img-circle light-avatar pull-left">
+                  </a>
+                  </div>
+                  <div class="feeduser_name light-name" >
+                    <a href="#">
+                      {{Sentry::findUSerById($useraud->user_id)->name}}
+                    </a>
+                  </div>
+                  <div class="feeduser_postedon text-muted">
+                    <p>
+                      {{$useraud->created_at->diffForHumans()}}
+                    </p>
+                  </div>
+                </div>
                 <div class="img-title">{{$useraud->videotitle}}</div>
                 <div class="img-description">{{$useraud->videodescription}}</div>
                <!-- // -->
@@ -585,19 +850,27 @@
                 @include('partials._audiolikebutton')
                 <!-- End Audio like button -->
 
-                <span class="img-comment-wrapper comment-target">
+                <span class="img-comment-wrapper">
                   @foreach($useraud->commented as $comments)
-                  <div class="img-comment comment-block-{{$comments->id}}">
-                    <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
-                    <span>{{$comments->comment}}<br></span><br>
-                      <div class="com-details">
-                        <div class="com-time-container">
-                          {{ $comments->created_at->diffForHumans() }} ·
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </span>
+                  <div class="comment-block-{{$comments->id}} comment-wrapper">
+                  <div class="lightcom-info pull-left">
+                    <a href="#"><b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  </div>
+                  @if(strlen($comments->comment) >= 30)
+                  <br>
+                  @else
+                  @endif
+                  <div class="lightcom-comment">
+                    
+                  <p class="comment-container" style="">{{$comments->comment}}</p>
+
+                  <p class="text-muted"> {{ $comments->created_at->diffForHumans() }} </p>
+                  </div>
+                  
+                </div>
+                <div class="clearfix"></div>
+
+                  <div class="comment-target"></div>
                   @endforeach
                 </span>
                 </div>
@@ -687,39 +960,210 @@
 
 
       </div>
-      <div role="tabpanel" class="tab-pane" id="recent">
-      No data
-      </div>
-      <div role="tabpanel" class="tab-pane" id="blog">
+      <div role="tabpanel" class="tab-pane fade" id="recent">
+     <!-- recent activity start -->
+     <div class="col-md-8">
+     @if($newarray == 'NULL')
 
-        <div class="col-md-8 ">
-          {{ HTML::linkRoute('blog.create','Create New Post',['class'=>'btn btn-link text-capitalize']) }}
-          @foreach($articles as $article)
-            
-            <div class="media">
-              <div class="media-left">
+     @else
+        @foreach($newarray as $new)
+    <div class="">
+        <div class="col-md-6"> 
+          <div class="feedbox gallery-image gallery-viewer-image" data-image-id="{{$new->postid}}" style="width: 100%; height: 100%; background-color:#fff; border-color:#f2f2f2;">
+            <div class="feed-container" style="background-color: #515151; color:#fff;">
+              <div class="feeduser_avatar">
                 <a href="#">
-                  <img class="media-object" src="{{url()}}/blogposter/{{$article->blogposter}}.jpg" style="width: 64px; height: 64px;">
+                  {{ HTML::image($new->userpicture , 'profile picture', array('class' => 'img-circle pull-left','id' => 'feediconsize')) }}
                 </a>
               </div>
-              <div class="media-body text-left">
-                <h4 class="media-heading" id="top-aligned-media">{{$article->title}}<a class="anchorjs-link" href="#top-aligned-media"><span class="anchorjs-icon"></span></a></h4>
-                <p class="text-left">
-                  {{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $article->body), 0, 200) }}
-                </p>
-           {{ link_to_route('blog.show', 'Read More', $article->id, ['class' => 'btn btn-default']) }}
-             
-          {{ link_to_route('blog.edit', 'edit', $article->id, ['class' => 'btn btn-default pull-right']) }}
-          {{ Form::model($article, ['method' => 'DELETE', 'files' => true , 'route' => ['blog.destroy',$article->id]]) }}
-          {{ Form::submit('Delete', array('class' => 'btn btn-default  pull-right')) }}
-          {{ Form::close() }}
+            <div class="feeduser_name">
+              <a href="#" style="color:#fff;">
+                {{$new->username}}
+              </a>
+            </div>
+            <div class="feeduser_postedon">
+              <p>
+                {{$new->postedon}}
+              </p>
+            </div>
+          </div><!-- feed box -->
+          <div class="gallery-image-overlay"></div>
+          @if($new->model == 'Picture')
+          <img src="{{url()}}/{{$new->postedimage}}-resiged.jpg" class="showcase-image img pull-left" id="postedimage">
+          <div class="post-title">
+            <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
+          </div>
+          @elseif($new->model == 'Video')
+          <img src="{{url()}}/Images/audio.jpg" class="showcase-image img pull-left" id="postedimage">
+          <span class="gv-video" style="display:none">
+          <div class="flowplayer videobackground" id="postedimage">
+            <video>
+                <source type="video/webm" src="{{url()}}/galleryvideo/webm/{{$new->postedimage}}.webm">
+                <source type="video/mp4"   src="{{url()}}/galleryvideo/mp4/{{$new->postedimage}}.mp4">
+                <source type="video/flash" src="{{url()}}/galleryvideo/flv/{{$new->postedimage}}.flv">
+            </video>
+          </div>
+          </span>
+          <div class="post-title">
+            <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
+          </div>
+          @elseif($new->model == 'Audio')
+          <img src="{{url()}}/Images/audio.jpg" class="showcase-image img pull-left" id="postedimage">
+          <span class="gv-audio" style="display:none">
+            <div id="player" style="background-color:#000"  class="flowplayer postedaudio fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+            <video preload="none">
+              <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/{{$new->postedimage}}.ogg">
+            </video>
+            </div>
+          </span>
+          <div class="post-title">
+            <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
+
+          </div>
+          @endif
+          <div class="clearfix"></div>
+          <div class ="comment-feedblk">
+            <div class="comment-box"> 
+                @foreach($new->commented as $comments)
+                <div class="comment-block-{{$comments->id}}">
+                  <a href="#">{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</a>
+                  <div class="time-wrapper text-muted"> {{ $comments->created_at->diffForHumans() }} </div>
+                  <p class="comment-container" style="">{{$comments->comment}}</p>
+                </div>
+                <hr style="margin-bottom: 4px; margin-top: 4px;">
+                @endforeach
+                <div class="clearfix"></div>
+                <p class="text-center text-muted" style="font-size: 11px; margin-bottom: 4px; cursor:pointer;"><a>see more</a> </p>
+              
+            </div><!--end of commnet box -->
+          </div><!--end of feeblk box -->
+          
+                <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
+                  <div class="img-newcomment">
+                    {{ Form::open(['data-remote' => $new->id,'route' => 'comments.store','class'=>'commentform' ]) }}
+                    {{Form::hidden('blog_id',$new->postid)}}
+                    {{Form::hidden('model',$new->model)}}
+                    <div class="form-group">
+                      {{ Form::textarea('commentbody', null, ['placeholder' => 'Write a comment... ','rows' => '4', 'class' => 'form-control text-shift', 'required' => 'required'])}}
+                      {{ errors_for('commentbody', $errors) }}
+                    </div>
+                    <!-- Submit field -->
+                    <div class="form-group">
+                      {{ Form::submit('comment', ['class' => 'btn btn-md btn-default btn-block']) }}
+
+                    </div>
+                    {{ Form::close() }}
+                  </div><!-- /img-newcomment -->
+                </div>
+                
+          <!-- temp -->
+          <div class="gallery-viewer-image-content" style="display: none;">
+                  <!-- inserted as is -->
+                  
+                  <div class="feed-container light-container" >
+                  <div class="feeduser_avatar">
+                  <a href="#">
+                    <img src="{{$new->userpicture}}" class="img-circle light-avatar pull-left">
+                  </a>
+                  </div>
+                  <div class="feeduser_name light-name" >
+                    <a href="#">
+                      {{$new->username}}
+                    </a>
+                  </div>
+                  <div class="feeduser_postedon text-muted">
+                    <p>
+                      {{$new->postedon}}
+                    </p>
+                  </div>
+                </div>
+                  <div class="img-title text-capitalize">{{$new->postedtitle}}</div>
+                  <div class="img-description text-muted">{{$new->posteddesc}}</div>
+                 <!-- like button -->
+                
+                <div class="img-like">
+  <a class="likebutton-{{$new->postid}}{{$new->model}} like-button" data-realclass="likebutton-{{$new->postid}}{{$new->model}}" data-model="{{$new->model}}" data-id="{{$new->postid}}" data-iconclass="{{isset($new->liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($new->liked)?'unlike':'like'}}">
+    <i class="{{isset($new->liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
+    &nbsp;
+    <span class="btntext">{{isset($new->liked)?'Unlike':'Like'}}</span>
+  </a>
+</div>
+                 <!-- end like button --->
+                 <!-- // -->
 
 
-              </div>
+                   <span class="img-comment-wrapper">
+                    @foreach($new->outcommented as $commentz)
+                    <div class="comment-block-{{$commentz->id}} comment-wrapper">
+                  <div class="lightcom-info pull-left">
+                    <a href="#"><b>{{Sentry::findUserById($commentz->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  </div>
+                  @if(strlen($commentz->comment) >= 30)
+                  <br>
+                  @else
+                  @endif
+                  <div class="lightcom-comment">
+                    
+                  <p class="comment-container" style="">{{$commentz->comment}}</p>
 
-            </div>  
+                  <p class="text-muted"> {{ $commentz->created_at->diffForHumans() }} </p>
+                  </div>
+                  
+                </div>
+                <div class="clearfix"></div>
+                    @endforeach
+                    <div class="comment-target" style="display:block; padding: 10px 15px 10px 15px;"></div>
+                  </span>
+                </div>
+          <!-- temp -->
+                
+        </div><!-- end of feedbox -->
+        </div><!-- end of well -->
+    </div><!--end of item -->
+    @endforeach
+    @endif
+     </div><!-- end col-md 8  -->
+     <div class="col-md-4"></div><!-- end col-md 4  -->
+     <!-- recent activity ends -->
+      </div>
+      <div role="tabpanel" class="tab-pane fade" id="blog">
 
-          @endforeach         
+        <div class="col-md-8">
+        
+            <div class="row">
+            <a type="button" href="{{url()}}/blog/create" class=" btn btn-link text-capitalize">
+         Create Post
+           </a>
+
+            <div id="content">
+
+          @foreach($articles as $article) 
+            
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                        <aside>
+                             <a href="{{url()}}/blog/{{$article->id}}"> <img src="{{url()}}/blogpostergallery/{{$article->blogposter}}" class="img-responsive"></a>
+                              <span class="posted-date"><i class="fa fa-calendar"></i> {{$article->created_at->toFormattedDateString()}}</span>
+                              <div class="content-title">
+                                    <div class="text-left">
+                                    <h3><a href="{{url()}}/blog/{{$article->id}}">{{ $article->title}}</a></h3>
+                                    <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $article->body), 0, 100) }}...</h5>
+                                    </div>
+                              </div>
+                              <div class="content-footer">
+                                    <img src="{{url()}}/{{Sentry::findUserById($article->user_id)->profileimage}}">
+                                    <a href="{{url()}}/user/{{$article->user_id}}"><span class="text-capitalize footer-username">{{Sentry::findUserById($article->user_id)->name}}</span></a>
+                                    <span class="pull-right">
+                                          <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$article->counted}}</a>
+                                    </span>
+                              </div>
+                        </aside>
+                  </div>
+                   
+                  
+            @endforeach 
+            </div>
+            </div> 
+
         </div>
         <div class="col-md-4">
 
@@ -728,7 +1172,7 @@
         </div>
       
       </div>
-      <div role="tabpanel" class="tab-pane" id="about">
+      <div role="tabpanel" class="tab-pane fade" id="about">
         <div class="col-md-8">
           <div class="col-md-6">
             <div class="about-details-block" >
@@ -892,7 +1336,137 @@
 
         </div>
       </div>
+       @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Promoters')))
+           <div role="tabpanel" class="tab-pane fade " id="events">
+              <div class="col-md-8">
+                <div class="row">
+
+              <a type="button" href="{{url()}}/events/create" class="btn btn-md btn-link">Create</a>
+                  <div id="content-scout">
+            @foreach($events as $event)
+             @if(Sentry::findUserByID($event->user_id)->inGroup(Sentry::findGroupByName('Promoters')))
+                        {{--*/ $usergroupe = 'Chide'; /*--}}
+                        {{--*/ $usergroup = 'Corporate'; /*--}}
+                        @elseif(Sentry::findUserByID($event->user_id)->inGroup(Sentry::findGroupByName('Stars')))
+                        {{--*/ $usergroupe = 'Phide'; /*--}}
+                        {{--*/ $usergroup = 'Private'; /*--}}
+                        @endif
+
+                  <div class="col-lg-6 col-md-6 {{$usergroupe}} {{$event->city}}">
+                        
+                        <aside>
+                              <div class="headerscout-block {{$usergroup}}">
+                                <span class="posted-date">
+                                  {{--*/ $created = new Carbon\Carbon($event->applydatetime); /*--}}
+                                  {{--*/ $now = Carbon\Carbon::now(); /*--}}
+                                  {{--*/$difference = ($created->diff($now)->days < 1)
+                                  ? 'today'
+                                  : $created->diffInDays($now); /*--}} 
+
+                                  
+                                  @if($difference == 'today')
+                                   <b class= "timeleft"> Last day to apply! </b>
+                                  @else
+                                   <b class="timeleft">{{$difference}} days to go!</b>
+                                  @endif
+                                  
+                                </span>
+
+                                <span class="posted-type pull-right"> {{$usergroup}} Event</span> 
+                              </div>
+                              <a href="{{url()}}/events/{{$event->id}}">
+                              <img src="{{url()}}/{{$event->poster}}" class="img-responsive"></a>
+                              
+                              <div class="content-title">
+                                    <div class="">
+                                    <h3><a href="{{url()}}/events/{{$event->id}}">{{ substr($event->eventname, 0, 25) }}</a></h3>
+                                    @if($event->renumerationmin == null && $event->renumerationmax != null)
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$event->renumerationmax}}</h5>
+                                    @else
+                                    <h5><b>Renumeration:</b> <i class="fa fa-inr"></i>&nbsp;{{$event->renumerationmin}} - <i class="fa fa-inr"></i>&nbsp;{{$event->renumerationmax}}</h5>
+                                    @endif
+                                    <h5><b>Venue :</b> {{$event->city}}&nbsp;,{{$event->country}}</h5>
+                                    <h5><b>Category: </b>
+                                    @if(isset($event->art))
+                                    <span>Arts</span>
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->collection))
+                                    <span>Collection</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->cooking))
+                                    <span>Cooking</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->dance))
+                                    <span>Dance</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->fashion))
+                                    <span>Fashion</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->moviesandtheatre))
+                                    <span>Movies&Theatre</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->music))
+
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->sports))
+                                    <span>Sports</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->unordinary))
+                                    <span>Unordinary</span>
+                                    @else
+                                     
+                                    @endif
+                                    @if(isset($event->wanderer))
+                                    <span>Wanderer</span>
+                                    @else
+                                     
+                                    @endif
+                                    </h5>
+
+                                    </div>
+                              </div>
+                              <div class="content-footer">
+                                    <img src="{{url()}}/{{Sentry::findUserById($event->user_id)->profileimage}}">
+                                    <span class="text-capitalize footer-username">{{Sentry::findUserById($event->user_id)->name}}</span>
+                                    <span class="pull-right">
+                                         <a href="#"><i class="fa fa-thumbs-o-up"></i> {{$event->counted}}</a>
+                                    </span>
+                              </div>
+                        </aside>
+                  </div>   
+            @endforeach  
+            </div>     
+                </div>
+                 
+                  
+                 
+
+
+              </div>     
+              <div class="col-md-4">
+                
+              </div>     
+            </div><!-- end of events -->
+          @endif
     </div>
+
   </div>
 </div>
 <script type="text/javascript">
@@ -913,6 +1487,32 @@
 }
 
 </style>
+<script type="text/javascript">
+   
+   
+  $(document).ready( function(){
+   $('.abutton').click(function(e){
+        e.preventDefault();
+        $('.applieds').fadeIn('slow');
+        $('.alls').fadeOut('slow');
+       
+    
+      });
+   $('.sbutton').click(function(e){
+        e.preventDefault();
+        $('.alls').fadeIn('slow');
+        $('.applieds').fadeOut('slow');
+       
+    
+      });
+  
+
+
+  });
+  
+
+ 
+</script>
 {{ HTML::script('/js/gallery-viewer.js')}}
             <script>
               window.GalleryViewer.settings.resource_path = "{{url('Images')}}";

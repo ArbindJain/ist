@@ -63,9 +63,9 @@ Route::filter('standardUser', function()
     $users = Sentry::findGroupByName('Users');
     $stars = Sentry::findGroupByName('Stars');
     $audiences = Sentry::findGroupByName('Audiences');
-    $audiences = Sentry::findGroupByName('Promoters');
+    $promoters = Sentry::findGroupByName('Promoters');
 
-    if (!$user->inGroup($users) && !$user->inGroup($stars) && !$user->inGroup($audiences) && !$user->inGroup($audiences))
+    if (!$user->inGroup($users) && !$user->inGroup($stars) && !$user->inGroup($audiences) && !$user->inGroup($promoters))
     {
     	return Redirect::to('login');
     }
@@ -104,7 +104,7 @@ Route::filter('guest', function()
 
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	    elseif ($user->inGroup($users)) return Redirect::intended('/');
-	    elseif ($user->inGroup($stars)) return Redirect::intended('/');
+	    elseif ($user->inGroup($stars)) return Redirect::intended('/newsfeeds');
 	    elseif ($user->inGroup($audiences)) return Redirect::intended('/');
 	    elseif ($user->inGroup($Promoters)) return Redirect::intended('/');
 	}
@@ -125,6 +125,19 @@ Route::filter('redirectAdmin', function()
 	    if ($user->inGroup($admin)) return Redirect::intended('admin');
 	}
 }); 
+
+//route filter Audiences
+
+Route::filter('accessAudience', function()
+{
+	if(Sentry::check())
+	{
+		$user::getUser();
+		$Audience = Sentry::findGroupByName('Audiences');
+
+		if ($user->inGroup($Audience)) return Redirect::to('/');
+	}
+});
 
 
 

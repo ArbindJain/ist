@@ -22,15 +22,31 @@ class StandardUserController extends \BaseController {
 		$active_user = User::find($current_user);
 		$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
 		$articles = Blog::where('user_id','=',$current_user)->get();
+		foreach ($articles as $key => $blogdata) {
+
+			$articles[$key]->liked = Like::where('user_id','=',$blogdata->user_id)->where('likeable_id', '=', $blogdata->id)->where('likeable_type','=','Blog')->first();
+			# code...
+			$articles[$key]->counted = Like::where('likeable_id','=',$blogdata->id)->count();
+
+		}
 		$scouts = Scout::where('user_id','=',$current_user)->get();
-		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','YES')->get();
+
+		foreach ($scouts as $key => $scoutvalue) {
+
+			$scouts[$key]->liked = Like::where('user_id','=',$scoutvalue->user_id)->where('likeable_id', '=', $scoutvalue->id)->where('likeable_type','=','Scout')->first();
+			
+			$scouts[$key]->counted = Like::where('likeable_id','=',$scoutvalue->id)->count();
+		}
 		
+		$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','YES')->get();
 		foreach ($scoutadds as $key => $make) 
 		{
 			
 			$scoutadds[$key]->scouted = Scout::where('id','=',$make->scout_id)->get();
+
 			
 		}
+
 		
 		
 		$aud_review = Audiencereview::where('user_id','=',$current_user)->get();
@@ -42,13 +58,8 @@ class StandardUserController extends \BaseController {
 		$user_videos = Video::where('user_id','=',$current_user)->get();
 		foreach ($user_videos as $key => $image) {
 
-
 			$user_videos[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Video')->first();
-			
-
 			$user_videos[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Video')->orderBy('id','asc')->get();
-			
-			# code...
 			$likedcount = Like::where('likeable_id', '=', $image->id)->where('likeable_type','=','Video')->count();
 
 		}
@@ -57,22 +68,80 @@ class StandardUserController extends \BaseController {
 		$user_audios = Audio::where('user_id','=',$current_user)->get();
 		foreach ($user_audios as $key => $image) {
 
-
-			$user_audios[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Video')->first();
+			$user_audios[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Audio')->first();
+			$user_audios[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Audio')->orderBy('id','asc')->get();
 			
+		}
+		$rewards = Achievement::where('user_id','=',$current_user)->get();
 
-			$user_audios[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Video')->orderBy('id','asc')->get();
+		$events = Promoterevent::where('user_id','=',$current_user)->get();
+		foreach ($events as $key => $eventsvalue) {
+
+			$events[$key]->liked = Like::where('user_id','=',$eventsvalue->user_id)->where('likeable_id', '=', $eventsvalue->id)->where('likeable_type','=','Promoterevent')->first();
+			$events[$key]->counted = Like::where('likeable_id','=',$eventsvalue->id)->count();
+		}
+		// recentactivity code 
+		
+		$news_feeds = Newsfeed::where('user_id','=',$current_user)->get();
+		foreach($news_feeds as $newsFeed)
+		{
 			
-			# code...
+			$userAvatar = Sentry::findUserById($newsFeed->user_id)->profileimage;
+			$userName = Sentry::findUserById($newsFeed->user_id)->name;
+			$postedOn = $newsFeed->created_at->diffForHumans();
+			$postmodel = $newsFeed->newsfeedable_type;
+			$newsfeedid = $newsFeed->id;
+			$postid = $newsFeed->newsfeedable_id;
+
+			
+			if($postmodel == 'Picture')
+			{
+				$postedimage = Picture::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->picturename;
+				$postedTitle = $postedimage->picturetitle;
+				$postedDesc = $postedimage->picturedescription;
+			}
+			elseif($postmodel == 'Video')
+			{
+				$postedimage = Video::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->videosrc;
+				$postedTitle = $postedimage->videotitle;
+				$postedDesc = $postedimage->videodescription;
+			}
+			elseif($postmodel == 'Audio')
+			{
+				$postedimage = Audio::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->audiosrc;
+				$postedTitle = $postedimage->audiotitle;
+				$postedDesc = $postedimage->videodescription;
+			}
+			
+			$newfeed = new stdClass;
+			$newfeed->postid = $postid;
+			$newfeed->userpicture = $userAvatar;
+			$newfeed->model = $postmodel;
+			$newfeed->username = $userName;
+			$newfeed->postedon = $postedOn;
+			$newfeed->postedimage = $postedImage;
+			$newfeed->postedtitle = $postedTitle;
+			$newfeed->posteddesc = $postedDesc;
+			$newfeed->id = $newsfeedid;
+			
+			$newarray[] = json_decode(json_encode($newfeed));
+			foreach ($newarray as $key => $image) {
+				
+				$newarray[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->postid)->where('likeable_type','=',$image->model)->first();
+				$newarray[$key]->commented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->take(2)->get()->reverse();
+				$newarray[$key]->outcommented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->get()->reverse();
+					
+			}
+			
 			
 
 		}
-		$rewards = Achievement::where('user_id','=',$current_user)->get();
-		/*
-		echo "<pre>";
-		var_dump($rewards);
-		echo "</pre>";*/
-		
+		if(!isset($newarray)){
+			$newarray = 'NULL';
+		}
 
 
 		
@@ -88,7 +157,9 @@ class StandardUserController extends \BaseController {
 					->with('all_albums',$all_albums)
 					->with('user_videos',$user_videos)
 					->with('rewards',$rewards)
-					->with('user_audios',$user_audios);
+					->with('user_audios',$user_audios)
+					->with('events',$events)
+					->with('newarray',$newarray);
 	}	
 	public function getUserProtecte($id)
 	{

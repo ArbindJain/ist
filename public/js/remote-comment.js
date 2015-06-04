@@ -39,13 +39,16 @@
 
 	function load_rc() {
 		// settings to local
+		
 		var l = win.RemoteComment.settings;
 		var comment_proto = 
 			'<div class=\"' + l.comment_box_prefix + '{COMMENT_ID}\">\
-				<a href="#"><b>{USER_ID}</b>&nbsp;&nbsp;&nbsp;</a>\
-				<span>{COMMENT}<br></span><br>\
-				<div class="com-details">\
-					<div class="com-time-container">{CREATED_AT}</div>\
+				<div class="lightcom-info pull-left">\
+					<a href="#"><b>{USER_ID}</b>&nbsp;&nbsp;&nbsp;</a>\
+				</div>\
+				<div class="lightcom-comment">\
+				<p class="comment-container">{COMMENT}</p>\
+				<p class="text-muted">{CREATED_AT}</p>\
 				</div>\
 			</div>\
 			';
@@ -109,7 +112,6 @@
 	$(document).ready(load_rc); // end of window ready
 
 })((typeof jQuery != 'undefined'? jQuery : null), window);
-
 
 
 

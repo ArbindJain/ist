@@ -48,7 +48,7 @@ class BlogsController extends \BaseController {
 		$sha1 = sha1($blogposter->getClientOriginalName());
 		$filenameblog = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
 		Image::make($blogposter->getRealPath())
-				->resize(300,300)
+				->resize(400,400)
 				->save('public/blogpostergallery/'. $filenameblog);
 		$sample = e(Input::get('bodydesc'));
 		$sample_text = strip_tags($sample);
@@ -73,6 +73,13 @@ class BlogsController extends \BaseController {
         $lastInsertedId = $blogs->id;
        	$addtag = Blog::find($lastInsertedId);
        	$addtag->tag($tagdata);
+       	$pix = Picture::find($lastInsertedId);
+            $tags = $pix->tags;
+            foreach ($tags as $tag) {
+            		DB::table('tagged')
+            ->where('tag_id', $tag->id)
+            ->update(array('user_id' => Sentry::getUser()->id));
+            }
 		//save tags for the blog
 
 		 return Redirect::to('userProtected#blog');
@@ -102,6 +109,7 @@ class BlogsController extends \BaseController {
 
 		$sidebarblogs = Blog::orderBy('created_at','desc')->take(10)->get();
 		$tags = $blog->tags;
+
 			return View::make('blog.show')
 					->with('blog',$blog)
 					->with('commented',$commented)

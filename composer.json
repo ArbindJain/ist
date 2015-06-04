@@ -5,7 +5,9 @@
 		"laracasts/validation": "~1.0",
 		"intervention/image": "1.*",
 		"closca/sonus": "dev-master",
-		"cartalyst/tags": "~1.0"
+		"cartalyst/tags": "~1.0",
+		"nicolaslopezj/searchable": "1.*"
+
 	},
 	"require-dev": {
 		"way/generators": "2.*"

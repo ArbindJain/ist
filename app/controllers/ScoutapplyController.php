@@ -98,7 +98,7 @@ class ScoutapplyController extends \BaseController {
 			$selectlisting->save();
 
 		}
-		return Redirect::to('/');
+		return Redirect::back();
 	}
 
 

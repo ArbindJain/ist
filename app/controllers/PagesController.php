@@ -17,6 +17,13 @@ class PagesController extends \BaseController {
 		$userprofile = User::find($id);
 			
 		$articles = Blog::where('user_id','=',$id)->get();
+		foreach ($articles as $key => $blogdata) {
+
+			$articles[$key]->liked = Like::where('user_id','=',$blogdata->user_id)->where('likeable_id', '=', $blogdata->id)->where('likeable_type','=','Blog')->first();
+			# code...
+			$articles[$key]->counted = Like::where('likeable_id','=',$blogdata->id)->count();
+
+		}
 		$abouts = Profile::where('user_id','=',$id)->first();
 		
 		$user_videos = Video::where('user_id','=',$id)->get();
@@ -62,6 +69,90 @@ class PagesController extends \BaseController {
 		$reviewaudis = Audiencereview::where('user_id','=',$userprofile->id)->get();
 		$rewards = Achievement::where('user_id','=',$id)->get();
 
+		$news_feeds = Newsfeed::where('user_id','=',$id)->get();
+		foreach($news_feeds as $newsFeed)
+		{
+			
+			$userAvatar = Sentry::findUserById($newsFeed->user_id)->profileimage;
+			$userName = Sentry::findUserById($newsFeed->user_id)->name;
+			$postedOn = $newsFeed->created_at->diffForHumans();
+			$postmodel = $newsFeed->newsfeedable_type;
+			$newsfeedid = $newsFeed->id;
+			$postid = $newsFeed->newsfeedable_id;
+
+			
+			if($postmodel == 'Picture')
+			{
+				$postedimage = Picture::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->picturename;
+				$postedTitle = $postedimage->picturetitle;
+				$postedDesc = $postedimage->picturedescription;
+			}
+			elseif($postmodel == 'Video')
+			{
+				$postedimage = Video::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->videosrc;
+				$postedTitle = $postedimage->videotitle;
+				$postedDesc = $postedimage->videodescription;
+			}
+			elseif($postmodel == 'Audio')
+			{
+				$postedimage = Audio::find($newsFeed->newsfeedable_id);
+				$postedImage = $postedimage->audiosrc;
+				$postedTitle = $postedimage->audiotitle;
+				$postedDesc = $postedimage->videodescription;
+			}
+			
+			$newfeed = new stdClass;
+			$newfeed->postid = $postid;
+			$newfeed->userpicture = $userAvatar;
+			$newfeed->model = $postmodel;
+			$newfeed->username = $userName;
+			$newfeed->postedon = $postedOn;
+			$newfeed->postedimage = $postedImage;
+			$newfeed->postedtitle = $postedTitle;
+			$newfeed->posteddesc = $postedDesc;
+			$newfeed->id = $newsfeedid;
+			
+			$newarray[] = json_decode(json_encode($newfeed));
+			foreach ($newarray as $key => $image) {
+				
+				$newarray[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->postid)->where('likeable_type','=',$image->model)->first();
+				$newarray[$key]->commented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->take(2)->get()->reverse();
+				$newarray[$key]->outcommented = Comment::where('commentable_id','=',$image->postid)->where('commentable_type','=',$image->model)->orderBy('id','desc')->get()->reverse();
+					
+			}
+			
+			
+
+		}
+		if(!isset($newarray)){
+			$newarray = 'NULL';
+		}
+		$connect_request = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','1')
+							->first();
+							
+		$connected = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','2')
+							->first();
+
+		if(!isset($connect_request)){
+			$connect_request ='NULL';
+		}
+
+		if(!isset($connected)){
+			$connected ='NULL';
+		}
+		$connected_ornot= Connect::where('connect_id','=',$id)
+								 ->where('user_id','=',Sentry::getUser()->id)
+								 ->where('status','=','2')
+								 ->first();
+
+
+
 		return View::make('pages.profile')
 			->with('userprofile',$userprofile)
 			->with('followings',$followings)
@@ -73,7 +164,10 @@ class PagesController extends \BaseController {
 			->with('reviewaudis',$reviewaudis)
 			->with('articles',$articles)
 			->with('abouts',$abouts)
-			->with('rewards',$rewards);
+			->with('rewards',$rewards)
+			->with('newarray',$newarray)
+			->with('connect_request',$connect_request)
+			->with('connected',$connected);
 		 
 		
 
@@ -106,6 +200,29 @@ class PagesController extends \BaseController {
 			
 
 		}
+		$connect_request = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','1')
+							->first();
+							
+		$connected = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','2')
+							->first();
+
+		if(!isset($connect_request)){
+			$connect_request ='NULL';
+		}
+
+		if(!isset($connected)){
+			$connected ='NULL';
+		}
+		$connected_ornot= Connect::where('connect_id','=',$id)
+								 ->where('user_id','=',Sentry::getUser()->id)
+								 ->where('status','=','2')
+								 ->first();
+
+
 		//foreach ($album_images as $key => $commentz) $album_images[$key]->commented = Comment::where('commentable_id','=',$commentz->id)->where('commentable_type','=','Picture')->orderBy('id','desc')->get();
 				
 		
@@ -120,7 +237,9 @@ class PagesController extends \BaseController {
 			->with('followings',$followings)
 			->with('followingcount',$followingcount)
 			->with('followedbycount',$followedbycount)
-			->with('album_images',$album_images);
+			->with('album_images',$album_images)
+			->with('connect_request',$connect_request)
+			->with('connected',$connected);
 
 	}
 	

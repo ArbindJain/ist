@@ -71,7 +71,7 @@ class UsersController extends \BaseController {
 		if ( Input::file('profileimage') == 0 )
 		{
 			// save only details without images
-			$input = Input::only('email', 'name' ,'title', 'dob' , 'gender' , 'contact' , 'country' , 'city' , 'email' , 'art' ,  'collection' ,'cooking','dance' , 'fashion' , 'moviesandtheatre' , 'music' , 'sports' , 'unordinary','wanderer','address');
+			$input = Input::only('email', 'name' ,'titlea','titleb','titlec', 'dob' , 'gender' , 'contact' , 'country' , 'city' , 'email' , 'art' ,  'collection' ,'cooking','dance' , 'fashion' , 'moviesandtheatre' , 'music' , 'sports' , 'unordinary','wanderer','address');
 			$this->usersEditForm->excludeUserId($user->id)->validate($input);
 			$user->fill($input)->save();
 			return Redirect::route('profiles.edit', $user->id)->withFlashMessage('User has been updated successfully!');
@@ -83,7 +83,7 @@ class UsersController extends \BaseController {
 				{
 					$filename = date('Y-m-d-H:i:s')."-".rand(1,100);
 					Image::make($image->getRealPath())
-								->resize(200,200)
+								->resize(300,300)
 								->save('public/profileimages/'. $filename);
 					$product = 'profileimages/'. $filename;
 				}
@@ -92,7 +92,7 @@ class UsersController extends \BaseController {
 					$product= 'profileimages/default.jpg';
 				}
 				//once image is processed we update the image along with option to update other information also
-			$input = Input::only('email', 'name' ,'title', 'dob' , 'gender' , 'contact' , 'country' , 'city' , 'email' , 'art' ,  'collection' ,'cooking','dance' , 'fashion' , 'moviesandtheatre' , 'music' , 'sports' , 'unordinary','wanderer','address');
+			$input = Input::only('email', 'name' ,'titlea','titleb','titlec', 'dob' , 'gender' , 'contact' , 'country' , 'city' , 'email' , 'art' ,  'collection' ,'cooking','dance' , 'fashion' , 'moviesandtheatre' , 'music' , 'sports' , 'unordinary','wanderer','address');
 			$input = array_add($input, 'profileimage', $product);
 			$this->usersEditForm->excludeUserId($user->id)->validate($input);
 			$user->fill($input)->save();

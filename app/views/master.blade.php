@@ -45,11 +45,12 @@
 	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-	    
+	  <style type="text/css">
+
+    </style>  
 
 	</head>
-	<body>
-		<header>
+  <header>
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		  	<div class="container">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -60,7 +61,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="/">IST IST IST</a>
+		      <a class="navbar-brand" style="padding-top: 0px;" href="/">{{HTML::image('logo/istlogo.png')}}</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,7 +71,7 @@
 		      	</ul>
 			      	<ul class="nav navbar-nav navbar-right">
 			      	 @if (Sentry::check())
-			      	 	<li class="{{ set_active('/') }}"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+			      	 	<li class="{{ set_active('/newsfeeds') }}"><a href="/newsfeeds"><i class="fa fa-home"></i> Home</a></li>
 			      	 	<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
 				          <ul class="dropdown-menu dropdown-menu-edited" role="menu">
@@ -99,16 +100,23 @@
 				        </li>
 				        
 				        <li> 
-				        	<form class="search-container" action="#">
-							  <input id="search-box" type="text" class="search-box" name="q" />
-							  <label for="search-box"><i class="fa fa-search search-icon"></i></label>
+                {{ Form::open(['route' => 'usersearch.index','method' =>'get','class'=>'search-container' ]) }}   
+                
+                
+                <input id="search-box" type="text" class="typeahead search-box" name="term" />
+                <label classfor="search-box"><i class="fa fa-search search-icon "></i></label>
+
+
+							  
 							  <input type="submit" id="search-submit" />
-							</form>
+                 <!-- Submit field -->
+                
+							{{Form::close()}}
 						</li>
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 				          	
-							  <i class="fa fa fa-bolt"></i>
+							  <i class="fa fa-globe" style="font-size: 12pt;"></i>
 							
 				          </a>
 
@@ -130,7 +138,9 @@
 				            <li><a href="{{url()}}/userProtected">Your Profile</a></li>
 				            <li><a href="#">Invite a Friend</a></li>
 				            <li><a href="{{url()}}/profiles/{{Sentry::getUser()->id}}/edit">Account Settings</a></li>
-				            <li><a href="#">Connect</a></li>
+				            @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
+                    <li><a href="{{url()}}/connect">Connect</a></li>
+                    @endif
 				            <li><a href="#">Help</a></li>
 				            <li><a href="{{url()}}/logout">Signout</a></li>
 				          </ul>
@@ -142,25 +152,25 @@
 			      	 	<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
-				            <li><a href="#">Dance</a></li>
-				            <li><a href="#">Art</a></li>
-				            <li><a href="#">Music</a></li>
-				            <li><a href="#">Sports</a></li>
-				            <li><a href="#">Fashion</a></li>
-				            <li><a href="#">Wanderer</a></li>
-				            <li><a href="#">Cooking</a></li>
-				            <li><a href="#">Unordinary</a></li>
-				            <li><a href="#">Movies & Theater</a></li>
+				            <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.dance')) }}">Dance</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.art')) }}">Art</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.music')) }}">Music</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.sports')) }}">Sports</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.fashion')) }}">Fashion</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.wanderer')) }}">Wanderer</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.cooking')) }}">Cooking</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.unordinary')) }}">Unordinary</a></li>
+                    <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.moviesandtheatre')) }}">Movies & Theater</a></li>
 				          </ul>
 				        </li>
 				        <li class="{{ set_active('/') }}"><a href="{{url()}}/register">Signup</a></li>
 				        <li class="{{ set_active('/') }}"><a href="{{url()}}/login">Login</a></li>
 				        <li> 
-				        	<form class="search-container" action="#">
-							  <input id="search-box" type="text" class="search-box" name="q" />
+				        	 {{ Form::open(['route' => 'usersearch.index','class'=>'search-container' ]) }}
+							  <input id="search-box" type="text" class="search-box" name="term" />
 							  <label for="search-box"><i class="fa fa-search search-icon"></i></label>
 							  <input type="submit" id="search-submit" />
-							</form>
+							{{Form::close()}}
 						</li>
 					@endif
 
@@ -186,6 +196,98 @@
 		@yield('content')
  
 		</div>
+    <!--footer -->
+    <footer class="footer" style="padding-bottom: 0px;">
+        <div class="container">
+          <div class="">
+            
+             <!-- talent hub -->
+            <div class="col-sm-2">
+              <div class="heading-footer"><h4>Talent Hub</h4></div>
+              <ul class="list-unstyled">
+                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Contest</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Performances</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Events</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Tutorial</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Blog</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Trending</a></li>
+              </ul>
+            </div>
+            <!-- Legal -->
+            <div class="col-sm-2">
+              <div class="heading-footer"><h4>Legal</h4></div>
+              <ul class="list-unstyled">
+                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Terms & Condition</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Promoter Agreement</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Online harrasment</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Copyright policy</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Blog</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Trending</a></li>
+              </ul>
+            </div>
+            <!-- Help Centre-->
+            <div class="col-sm-2">
+              <div class="heading-footer"><h4>Help Centre</h4></div>
+              <ul class="list-unstyled">
+                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">FAQ'S</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Contact us</a></li>
+              </ul>
+            </div>
+            <!-- About us-->
+            <div class="col-sm-2">
+              <div class="heading-footer"><h4>About us</h4></div>
+              <ul class="list-unstyled">
+                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">About Itsshowtime</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Promoters</a></li>
+              </ul>
+              <!-- Social -->
+              <br>
+              <div class="heading-footer"><h4>Follow us on</h4></div>
+              <a class="btn btn-social-icon btn-twitter btn-lg">
+                <i class="fa fa-twitter"></i>
+              </a>
+              <a class="btn btn-social-icon btn-facebook btn-lg">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </div>
+            
+            
+            
+            
+
+            <!-- Categories -->
+            <div class="col-sm-4">
+              <div class="heading-footer"><h4 style="width: 80%;">Categories</h4></div>
+              <ul class="list-unstyled col-md-6">
+                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Dance</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Art</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Music</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Sports</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Fashion</a></li>
+              </ul>
+              <ul class="list-unstyled pull-left col-md-6">
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Wanderer</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.cooking')) }}">Cooking</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.unordinary')) }}">Unordinary</a></li>
+                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.moviesandtheatre')) }}">Movies & Theater</a></li>
+              </ul>
+            </div>
+
+
+          </div>
+        </div><!-- /container -->
+        <!-- Copyright -->
+          <div class="row" style="background-color:#acacac;">
+            <div class="container">
+              <div class="col-sm-11 col-xs-10">
+                <p class="copyright">© 2015 ItsShowTime. All rights reserved.</p>
+              </div>
+              <div class="col-sm-1 col-xs-2 text-right">
+              </div>
+            </div>
+          </div><!-- /row -->
+      </footer>
+    <!-- footer end -->
 <!--<script type="text/javascript">
 
 $(document).ready(function(){
@@ -253,12 +355,7 @@ $(document).ready(function(){
 }
 
 </style>
-<script type="text/javascript">
 
-document.addEventListener("click", function(){
-    document.getElementById("search-submit")},true);
-
-	    </script>
 	   
        
        <script type="text/javascript">
@@ -315,6 +412,121 @@ document.addEventListener("click", function(){
           },
           error: function(xhr, textStatus, thrownError) {
               alert('ops Errore');
+          }
+       });
+    
+      });
+  
+
+
+  });
+  
+
+ 
+</script>
+<script type="text/javascript">
+   
+   
+  $(document).ready( function(){
+
+  
+
+   $('.connect').click(function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+          url: '{{url()}}/connect',
+          type: 'post',
+          cache: false,
+          data: $('form.connector').serialize(),
+          dataType: 'json',
+          beforeSend: function() { 
+
+          },
+          success: function(data) {  
+
+            $('.connect-real').hide();
+            $('.connect-mirror').show();
+            $('.connect-feedback').delay(4000).fadeOut('slow');
+
+          
+
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+    
+      });
+  
+
+
+  });
+  
+
+ 
+</script>
+<script type="text/javascript">
+   
+   
+  $(document).ready( function(){
+   $('.connectnow').click(function(e){
+        e.preventDefault();
+        var dataid = $(this).children('.connect-yes').data("id");
+        var target_id = ".connect-block-"+dataid;
+        var foot_id = "#connect-footer-"+dataid;
+        $.ajax({
+          url: "{{url()}}/connectaccept",
+          type: 'post',
+          cache: false,
+          data: $('form.connectyes').serialize(),
+          dataType: 'json',
+          beforeSend: function() { 
+          },
+          success: function(data) { 
+
+            $(foot_id).empty().append("<div class='connect-success text-center'><a class=''>Thank you for connecting</a></div>");
+            $(target_id).delay(4000).fadeOut('slow');
+
+          
+
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+    
+      });
+   $('.close-now').click(function(e){
+        e.preventDefault();
+        var dataid = $(this).children('.connect-no').data("id");
+        var token = $(this).children('.connect-no').data("token");
+        var target_id = ".connect-block-"+dataid;
+        var foot_id = "#connect-footer-"+dataid;
+        var data={_method:'delete',_token:token,id:dataid};
+        $.ajax({
+          url: "{{ URL::route('connect.destroy')}}",
+          type: 'Post',
+          cache: false,
+          data: data,
+          dataType: 'json',
+          beforeSend: function() { 
+            //console.log($('form.'+dataid).serialize());
+          },
+          success: function(data) { 
+
+         // $(foot_id).empty().append("<div class='connect-success text-center'><a class=''>Thank you for connecting</a></div>");
+          $(target_id).delay(1000).fadeOut('slow');
+
+          
+
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+             
           }
        });
     
@@ -427,6 +639,8 @@ document.addEventListener("click", function(){
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
   {{ HTML::script('/js/audio.js') }}
+  {{HTML::script('/js/typeahead.jquery.js')}}
+  @include('usersearch.temp')
   <script type="text/javascript">
             $(function () {
             $('#datetimepicker1').datetimepicker({

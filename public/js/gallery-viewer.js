@@ -81,7 +81,16 @@
 			.gallery-image .gv-video, .gallery-image .gv-audio {\
 				display: none;\
 			}\
-			.img-title, .img-description, .img-like, .img-comment {\
+			.img-title {\
+				text-transform: capitalize;\
+			}\
+			.img-title, .img-description, .img-like {\
+				position: relative;\
+				float: none;\
+				padding: 6px 15px 0px 15px; \
+				word-break: break-all;\
+			}\
+			.img-comment {\
 				position: relative;\
 				float: none;\
 				padding: 10px 15px;\
@@ -91,12 +100,10 @@
 				font-size: 16px;\
 			}\
 			.img-description {\
-				font-size: 14;\
+				font-size: 14px;\
 				color: #888;\
 			}\
 			.img-comment {\
-				background-color: #eee;\
-				font-size: 14px;\
 			}\
 			.img-newcomment {\
 				width: 99%;\
@@ -396,14 +403,14 @@
 				var tbi_wrapper = main_content.hasClass('gv-video') ? 
 					'gv-video' : main_content.hasClass('gv-audio') ? 'gv-audio' : '';
 				$tbi.prop('data-wrapper', tbi_wrapper);
-				popup.find('.image-area-image')
+				popup.find('.image-area-image').css({'background-image':''})
 					.empty().append($tbi);
 
 			} else {
 				// load image
 				popup.find(".image-area-image").css({
 					'background-image': "url('" + 
-						elem.find("img").prop("src")
+						elem.find("img.showcase-image").prop("src")
 							.replace(/(\.[^\s\r\n\t\.]*)$/, 
 								l.large_image_suffix + "$1") + "')",
 				}).empty();

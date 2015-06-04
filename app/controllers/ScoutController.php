@@ -47,13 +47,13 @@ class ScoutController extends \BaseController {
 		$sha1 = sha1($agreementfile->getClientOriginalName());
 		$filename = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
 		Image::make($agreementfile->getRealPath())
-				->resize(300,300)
+				->resize(400,400)
 				->save('public/scoutagreement/'. $filename);
 		$scoutposter = Input::file('scoutposter');
 		$sha1 = sha1($scoutposter->getClientOriginalName());
 		$filenamescout = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
 		Image::make($scoutposter->getRealPath())
-				->resize(300,300)
+				->resize(400,400)
 				->save('public/scoutpostergallery/'. $filenamescout);
 		$agreefilename = 'scoutagreement/'.$filename;
 		$scoutpostername = 'scoutpostergallery/'.$filenamescout;
@@ -131,13 +131,25 @@ class ScoutController extends \BaseController {
 			$selectedscout[$key]->selectlist = Scout::where('id','=',$selectlist->scout_id)->get();
 			
 		}
+		$check_selected = Scoutadd::where('user_id','=',Sentry::getUser()->id)
+								  ->where('scout_id','=',$id)
+								  ->where('applied','=','YES')
+								  ->where('selected','=','1')
+								  ->first();
+		$check_shortlisted = Scoutadd::where('user_id','=',Sentry::getUser()->id)
+								  ->where('scout_id','=',$id)
+								  ->where('applied','=','YES')
+								  ->where('shortlist','=','1')
+								  ->first();
 		
 		return View::make('scout.show')
 			->with('scout',$scout)
 			->with('active_user',$active_user)
 			->with('applicantscout',$applicantscout)
 			->with('shortlistscout',$shortlistscout)
-			->with('selectedscout',$selectedscout);
+			->with('selectedscout',$selectedscout)
+			->with('check_selected',$check_selected)
+			->with('check_shortlisted',$check_shortlisted);
 	}
 
 
@@ -210,6 +222,54 @@ class ScoutController extends \BaseController {
 			->with('audio_list',$audio_list)
 			->with('liked',$liked)
 			->with('likecount',$likecount);
+			
+	}
+	public function getresults($id)
+	{
+		
+		$scout = Scout::find($id);
+		$current_user = Sentry::getUser()->id;
+		$active_user = User::find($current_user);
+		$applicantscout =  Scoutadd::where('scout_id','=',$scout->id)->where('applied','=','YES')->get();
+
+		foreach ($applicantscout as $key => $applicant) 
+		{
+			$applicantscout[$key]->applieduser = Scout::where('id','=',$applicant->scout_id)->get();
+			
+		}
+
+
+		$shortlistscout =  Scoutadd::where('scout_id','=',$scout->id)->where('user_id','=',Sentry::getUser()->id)->where('shortlist','=','1')->get();
+		foreach ($shortlistscout as $key => $shortlisted) 
+		{
+			$shortlistscout[$key]->shlisted = Scout::where('id','=',$shortlisted->scout_id)->get();	
+
+		}
+		$selectedscout =  Scoutadd::where('scout_id','=',$scout->id)->where('user_id','=',Sentry::getUser()->id)->where('selected','=','1')->get();
+		foreach ($selectedscout as $key => $selectlist) {
+
+			$selectedscout[$key]->selectlist = Scout::where('id','=',$selectlist->scout_id)->get();
+			
+		}
+		$check_selected = Scoutadd::where('user_id','=',Sentry::getUser()->id)
+								  ->where('scout_id','=',$id)
+								  ->where('applied','=','YES')
+								  ->where('selected','=','1')
+								  ->first();
+		$check_shortlisted = Scoutadd::where('user_id','=',Sentry::getUser()->id)
+								  ->where('scout_id','=',$id)
+								  ->where('applied','=','YES')
+								  ->where('shortlist','=','1')
+								  ->first();
+		
+		return View::make('scout.showresults')
+			->with('scout',$scout)
+			->with('active_user',$active_user)
+			->with('applicantscout',$applicantscout)
+			->with('shortlistscout',$shortlistscout)
+			->with('selectedscout',$selectedscout)
+			->with('check_selected',$check_selected)
+			->with('check_shortlisted',$check_shortlisted);
 			
 	}
 

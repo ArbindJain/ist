@@ -32,9 +32,26 @@
                 <div class="gallery-image-overlay"></div>
 
                 
-                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg">
+                <img src="{{url()}}/{{$albumimage->picturename}}-resiged.jpg" class="showcase-image">
                 <div class="gallery-viewer-image-content" style="display: none;">
                   <!-- inserted as is -->
+                  <div class="feed-container light-container">
+                  <div class="feeduser_avatar">
+                  <a href="#">
+                    <img src="{{url()}}/{{Sentry::findUserById($albumimage->user_id)->profileimage}}" class="img-circle light-avatar pull-left">
+                  </a>
+                  </div>
+                  <div class="feeduser_name light-name" >
+                    <a href="#">
+                      {{Sentry::findUSerById($albumimage->user_id)->name}}
+                    </a>
+                  </div>
+                  <div class="feeduser_postedon text-muted">
+                    <p>
+                      {{$albumimage->created_at->diffForHumans()}}
+                    </p>
+                  </div>
+                </div>
                   <div class="img-title">{{$albumimage->picturetitle}}</div>
                   <div class="img-description">{{$albumimage->picturedescription}}</div>
                   <!-- like button -->
@@ -42,20 +59,27 @@
                   <!-- like button end -->
                   <!-- // -->
 
-                   <span class="img-comment-wrapper comment-target">
+                   <span class="img-comment-wrapper">
                     @foreach($albumimage->commented as $comments)
-                    <div class="img-comment comment-block-{{$comments->id}}">
-                      <a href="#"> <b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
-                      <span>{{$comments->comment}}<br></span><br>
-                      <div class="com-details">
-                        <div class="com-time-container">
-                          {{ $comments->created_at->diffForHumans() }} ·
-                          
-                        </div>
-                      </div>
-                    </div>
-                    </span>
+                    <div class="comment-block-{{$comments->id}} comment-wrapper">
+                  <div class="lightcom-info pull-left">
+                    <a href="#"><b>{{Sentry::findUserById($comments->user_id)->name}}&nbsp;&nbsp;&nbsp;</b></a>
+                  </div>
+                  @if(strlen($comments->comment) >= 30)
+                  <br>
+                  @else
+                  @endif
+                  <div class="lightcom-comment">
+                    
+                  <p class="comment-container" style="">{{$comments->comment}}</p>
+
+                  <p class="text-muted"> {{ $comments->created_at->diffForHumans() }} </p>
+                  </div>
+                  
+                </div>
+                <div class="clearfix"></div>
                     @endforeach
+                    <div class="comment-target"></div>
                   </span>
                 </div>
                 <div class="gallery-viewer-image-content-bottom" style="display: none;"> 
