@@ -7,8 +7,10 @@ Route::when('*', 'csrf', ['POST', 'PUT', 'PATCH', 'DELETE']);
 Route::group(['before' => 'redirectAdmin'], function()
 {
 	Route::get('/', ['as' => 'home', 'uses' => 'PagesController@getHome']);
+	Route::get('invite_friend', ['as' => 'invite_friend', 'uses' => 'PagesController@invitefriend']);
 	Route::get('user/{name}', array('as'=> 'user','uses'=> 'PagesController@getprofile'));
 	Route::get('real/{id}', array('as'=> 'real','uses'=> 'PagesController@getalbum_pictures'));
+	Route::get('defaultalbum/{id}', array('as'=> 'defaultalbum','uses'=> 'PagesController@getalbumdefault_pictures'));
 	Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@getAbout']);
 	Route::get('/contact', ['as' => 'contact', 'uses' => 'PagesController@getContact']);
 	Route::Post('followuser', ['as' => 'followuser', 'uses' => 'FollowersController@follow']);
@@ -54,6 +56,7 @@ Route::group(['before' => 'auth|standardUser'], function()
 {
 	Route::get('userProtected', 'StandardUserController@getUserProtected');
 	Route::get('userProtecte/{id}', array('as'=> 'userProtecte','uses'=> 'StandardUserController@getUserProtecte'));
+	Route::get('userProtect/{id}', array('as'=> 'userProtect','uses'=> 'StandardUserController@getUserProtect'));
 	Route::resource('profiles', 'UsersController', ['only' => ['show', 'edit', 'update']]);
 	Route::resource('about', 'ProfilesController');
 	Route::resource('imagegallery', 'PicturesController');
@@ -71,6 +74,9 @@ Route::group(['before' => 'auth|standardUser'], function()
 	Route::resource('audiencereviews','AudiencereviewsController');
 	Route::resource('userperformances','PerformanceController');
 	Route::resource('userfeeds','FeedsController');
+	Route::resource('feedview','FeedviewController');
+	// added by @aravindanve
+	Route::get('userfeeds2','FeedsController@feeds2');
 	Route::resource('newsfeeds','NewsfeedsController');
 	//Route::resource('group','CategoriesController');
 

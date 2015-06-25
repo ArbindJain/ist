@@ -46,15 +46,17 @@ class ScoutController extends \BaseController {
 		$agreementfile = Input::file('agreement');
 		$sha1 = sha1($agreementfile->getClientOriginalName());
 		$filename = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+		$path = public_path('scoutagreement/'. $filename);
 		Image::make($agreementfile->getRealPath())
 				->resize(400,400)
 				->save('public/scoutagreement/'. $filename);
 		$scoutposter = Input::file('scoutposter');
 		$sha1 = sha1($scoutposter->getClientOriginalName());
 		$filenamescout = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+		$pathscout = public_path('scoutpostergallery/'. $filenamescout);
 		Image::make($scoutposter->getRealPath())
 				->resize(400,400)
-				->save('public/scoutpostergallery/'. $filenamescout);
+				->save($pathscout);
 		$agreefilename = 'scoutagreement/'.$filename;
 		$scoutpostername = 'scoutpostergallery/'.$filenamescout;
 		$scout = new Scout();
@@ -94,6 +96,18 @@ class ScoutController extends \BaseController {
         $lastInsertedId = $scout->id;
        	$addtag = Scout::find($lastInsertedId);
        	$addtag->tag($tagdata);
+       	$lastInsertedId = $scout->id;
+            $picturefeed = Scout::find($lastInsertedId);
+            $insert_feed = new Feed();
+            $insert_feed->user_id = Sentry::getUser()->id;
+            $insert_feed->grouptype ='NULL';
+            $insert_feed->story ='have created a scout post';
+            $picturefeed->feedable()->save($insert_feed);
+            //last inserted feed id
+            $lastInsertedFeedId = $insert_feed->id;
+            $feedread = new Readfeed();
+            $feedread->feed_id = $lastInsertedFeedId;
+            $feedread->save();
 
 		return Redirect::to('userProtected#findtalent');
 	}

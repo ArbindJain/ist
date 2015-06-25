@@ -1,4 +1,4 @@
-(function($, win) {
+	(function($, win) {
 	// exit if jquery not available
 	if (typeof $ != 'function') {
 		console.log("Error: jQuery Required");
@@ -122,7 +122,7 @@
 												slug.id + '" data-type="' + 
 												slug.type + '" data-read="' + 
 												slug.read + '" href="' + 
-												slug.link + '">' + 
+												slug.link + '" data-toggle="modal" data-target="#noti-modal">' + 
 												markup + '</a>';
 
 											$('.' + l.target_class_name).prepend(markup);

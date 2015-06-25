@@ -63,9 +63,10 @@ class AudiosController extends \BaseController {
 
 			//$file_out_ogg = 'public/galleryaudio/ogg/'.$filename.'.ogg';
 
-			$output = '/home/arbind/ist/public/galleryaudio/ogg/'.$filename.'.ogg';
+			$output = public_path().'/galleryaudio/ogg/'.$filename.'.ogg';
+			Sonus::convert()->input($file_in)->output($output)->go(' -acodec libvorbis -aq 50');
 			// inside nohup and & will do the job
-			passthru("nohup /usr/bin/ffmpeg -i $file_in -acodec libvorbis $output 1> /home/arbind/ist/public/logfile.txt 2>&1 &");
+			//passthru("nohup /usr/bin/ffmpeg -i $file_in -acodec libvorbis $output 1> /home/arbind/ist/public/logfile.txt 2>&1 &");
 	
 
 			//Sonus::convert()->input($file_in)->output($file_out_mp3)->go();
@@ -87,6 +88,28 @@ class AudiosController extends \BaseController {
             ->where('tag_id', $tag->id)
             ->update(array('user_id' => Sentry::getUser()->id));
             }
+
+            // last inserted id
+            //$lastInsertedId = $vidsnaps->id;
+            $audiofeed = Audio::find($lastinsertedid);
+            $insert_feed = new Feed();
+            $insert_feed->user_id = Sentry::getUser()->id;
+            $insert_feed->grouptype ='NULL';
+            $insert_feed->story ='added a Audio';
+            $audiofeed->feedable()->save($insert_feed);
+
+            // last inserted id
+            //$lastInsertedNewsId = $vidsnaps->id;
+            $audioNewsfeed = Audio::find($lastinsertedid);
+            $insert_newsfeed = new Newsfeed();
+            $insert_newsfeed->user_id = Sentry::getUser()->id;
+            $audioNewsfeed->newsfeedable()->save($insert_newsfeed);
+
+            //last inserted feed id
+            $lastInsertedFeedId = $insert_feed->id;
+            $feedread = new Readfeed();
+            $feedread->feed_id = $lastInsertedFeedId;
+            $feedread->save();
             // redirect
             return Response::json($audiotrack);
        

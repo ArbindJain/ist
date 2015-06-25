@@ -12,6 +12,7 @@ class PicturesController extends \BaseController{
 	public function index()
 	{
 		//
+
 		$pictures = Picture::all();
 
 		//Album Model to convert into list laravel TRICKS awesome!! loved it!!
@@ -49,7 +50,7 @@ class PicturesController extends \BaseController{
 		$types = array('-original.', '-thumbnail.', '-.');
 // Width and height for thumb and resiged
 $sizes = array( array('325', '230'), array('400', '400') );
-$targetPath = 'public/galleryimages/';
+$targetPath = public_path().'/galleryimages/';
 
 $file = Input::file('file');
 $fname = $file->getClientOriginalName();
@@ -94,12 +95,12 @@ foreach ($types as $key => $type) {
             
             
 
-          //  $tagid = $picturefeed->id;
-         //   $usertagdata = IlluminateTagged::find($tagid);
-           // $usertagdata->user_id = Sentry::getuser()->id;
-            //$usertagdata->save();
+           /* $tagid = $picturefeed->id;
+            $usertagdata = IlluminateTagged::find($tagid);
+            $usertagdata->user_id = Sentry::getuser()->id;
+            $usertagdata->save()*/
             // last inserted id
-         /*   $lastInsertedId = $pictures->id;
+            $lastInsertedId = $pictures->id;
             $picturefeed = Picture::find($lastInsertedId);
             $insert_feed = new Feed();
             $insert_feed->user_id = Sentry::getUser()->id;
@@ -116,7 +117,7 @@ foreach ($types as $key => $type) {
             $lastInsertedFeedId = $insert_feed->id;
             $feedread = new Readfeed();
             $feedread->feed_id = $lastInsertedFeedId;
-            $feedread->save();*/
+            $feedread->save();
 
             // redirect To astral...
            // return Redirect::to('imagegallery')->withFlashMessage('image successfully uploaded!');

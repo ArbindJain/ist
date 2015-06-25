@@ -43,8 +43,9 @@ word-break: break-all;
   font-size: 16px;
 
 }
-.img-description {http://localhost:8000/newsfeeds
+.img-description {
   font-size: 14px;
+
 }
 .hid {
   display: none!important;
@@ -88,7 +89,7 @@ word-break: break-all;
           </div><!-- feed box -->
           <div class="gallery-image-overlay"></div>
           @if($new->model == 'Picture')
-          <img src="{{url()}}/{{$new->postedimage}}-resiged.jpg" class="showcase-image img pull-left" id="postedimage">
+          <img src="{{url()}}/{{$new->postedimage}}-." class="showcase-image img pull-left" id="postedimage">
           <div class="post-title">
             <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
           </div>
@@ -181,8 +182,6 @@ word-break: break-all;
                  <!-- like button -->
                 
                 <div class="img-like">
-  }
-  }
   <a class="likebutton-{{$new->postid}}{{$new->model}} like-button" data-realclass="likebutton-{{$new->postid}}{{$new->model}}" data-model="{{$new->model}}" data-id="{{$new->postid}}" data-iconclass="{{isset($new->liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}" data-action="{{isset($new->liked)?'unlike':'like'}}">
     <i class="{{isset($new->liked)?'fa fa-thumbs-down':'fa fa-thumbs-up'}}"></i>
     &nbsp;

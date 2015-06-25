@@ -30,21 +30,21 @@
 
 		<!-- Title Field -->
 		<div class="form-group col-md-4">
-			{{ Form::label('titlea', 'TitleA',['class' => 'text-capitalize text-muted']) }}
+			{{ Form::label('titlea', 'Title-1',['class' => 'text-capitalize text-muted']) }}
 			{{ Form::text('titlea', null, ['class' => 'form-control']) }}
 			{{ errors_for('titlea', $errors) }}
 		</div>
 
 		<!-- Title Field -->
 		<div class="form-group col-md-4">
-			{{ Form::label('titleb', 'TitleB',['class' => 'text-capitalize text-muted']) }}
+			{{ Form::label('titleb', 'Title-2',['class' => 'text-capitalize text-muted']) }}
 			{{ Form::text('titleb', null, ['class' => 'form-control']) }}
 			{{ errors_for('titleb', $errors) }}
 		</div>
 
 		<!-- Title Field -->
 		<div class="form-group col-md-4">
-			{{ Form::label('titlec', 'TitleC',['class' => 'text-capitalize text-muted']) }}
+			{{ Form::label('titlec', 'Title-3',['class' => 'text-capitalize text-muted']) }}
 			{{ Form::text('titlec', null, ['class' => 'form-control']) }}
 			{{ errors_for('titlec', $errors) }}
 		</div>
@@ -67,6 +67,7 @@
 											<select class="form-control" name="gender" id="gendera">
 												<option checked="{{$user->gender}}" value="Male">Male</option>
 												<option checked="{{$user->gender}}" value="Female">Female</option>
+												<option checked="{{$user->gender}}" value="Pangender">Pangender</option>
 											</select>
 										</div>
 
@@ -417,6 +418,7 @@
 
 		<!-- profile image field -->
 		<div class="form-group col-md-12">
+			{{ Form::label('profileimage', 'Change Profile Picture',['class' => 'text-capitalize text-muted']) }}
 			{{ Form::file('profileimage') }}
 		</div>
 
@@ -424,7 +426,7 @@
 
 		<!-- Update Profile Field -->
 		<div class="form-group col-md-12">
-			{{ Form::submit('Update Profile', ['class' => 'btn btn-primary']) }}
+			{{ Form::submit('Update Profile', ['class' => 'btn btn-default']) }}
 		</div>
 	{{ Form::close() }}	
 			</div>	

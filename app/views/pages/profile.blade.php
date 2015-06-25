@@ -35,19 +35,32 @@ $(document).ready(function() {
         <div class="col-md-8">
           <div class="row">
           @foreach($all_albums as $allalbum)
-            <div class="col-md-4">
-             <a href="{{ URL::to('real', array('id' => $allalbum->id)) }}">
               @if(isset($allalbum->picture))
+            <div class="col-md-4" style="padding-bottom: 10px;">
+             <a href="{{ URL::to('real', array('id' => $allalbum->id)) }}">
               <figure>
                 <img src="{{url()}}/{{$allalbum->picture->picturename}}-." class=""  style="height: 200px;">
                 <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
               </figure>
-              @endif
+              
                </a>       
             </div>
+            @endif
              
 
           @endforeach
+
+              @if(isset($default_albums))
+            <div class="col-md-4" style="padding-bottom: 10px;">
+             <a href="{{ URL::to('defaultalbum', array('id' => $default_albums->id)) }}">
+              <figure>
+                <img src="{{url()}}/{{$default_albums->picturename}}-." class=""  style="height: 200px;">
+                <figcaption>Default Album</figcaption>
+              </figure>
+               </a>       
+            </div>
+             
+              @endif
           </div>
          
           
@@ -289,7 +302,7 @@ $(document).ready(function() {
           </div><!-- feed box -->
           <div class="gallery-image-overlay"></div>
           @if($new->model == 'Picture')
-          <img src="{{url()}}/{{$new->postedimage}}-resiged.jpg" class="showcase-image img pull-left" id="postedimage">
+          <img src="{{url()}}/{{$new->postedimage}}-." class="showcase-image img pull-left" id="postedimage">
           <div class="post-title">
             <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
           </div>

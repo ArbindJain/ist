@@ -125,7 +125,10 @@
                                                                   <img src="{{url()}}/blogposter/{{$sidebarblog->blogposter}}.jpg" class="img-responsive">
                                                             </div>
                                                             <a href="{{url()}}/blog/{{$sidebarblog->id}}"><h5>{{$sidebarblog->title}}</h5></a>
-                                                            <p><small><i class="fa fa-calendar"></i> {{$sidebarblog->created_at->toFormattedDateString()}}</small></p>
+                                                            <p><small><i class="fa fa-calendar"></i> {{$sidebarblog->created_at->toFormattedDateString()}}</small>
+                                                            <br>
+                                                            <small>by {{Sentry::findUserById($sidebarblog->user_id)->name}}</small>
+                                                            </p>
                                                       </li>
                                                       <hr>
                                                 @endforeach

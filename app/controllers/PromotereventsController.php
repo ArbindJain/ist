@@ -39,9 +39,11 @@ class PromoterEventsController extends \BaseController {
 		$galleryimage = Input::file('posterimage');
 		$sha1 = sha1($galleryimage->getClientOriginalName());
 		$filename = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+
+		$path = public_path('scoutagreement/'. $filename);
 		Image::make($galleryimage->getRealPath())
 				->resize(400,400)
-				->save('public/postergallery/'. $filename);
+				->save($path);
 		$product = 'postergallery/'. $filename;
 		$event = new Promoterevent();
 		$event->eventname = Input::get('eventname');
@@ -160,9 +162,11 @@ class PromoterEventsController extends \BaseController {
 			$galleryimage = Input::file('posterimage');
 			$sha1 = sha1($galleryimage->getClientOriginalName());
 			$filename = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+
+		$path = public_path('scoutagreement/'. $filename);
 			Image::make($galleryimage->getRealPath())
 					->resize(300,300)
-					->save('public/postergallery/'. $filename);
+					->save($path);
 			$product = 'postergallery/'. $filename;
 			$event->eventname = Input::get('eventname');
 			$event->eventdatetime = Input::get('eventdatetime');

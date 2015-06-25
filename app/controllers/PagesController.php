@@ -57,6 +57,7 @@ class PagesController extends \BaseController {
 		
 		//retriving all picture id by using album id
 		$all_albums = Album::where('user_id','=',$id)->with('image')->get();
+		$default_albums = Picture::where('user_id','=',$id)->where('album_id','=','0')->first();
 		foreach ($all_albums as $key => $album) $all_albums[$key]->picture = Picture::where('album_id', '=', $album->id)->first();
 		
 		$followings = null;
@@ -167,7 +168,8 @@ class PagesController extends \BaseController {
 			->with('rewards',$rewards)
 			->with('newarray',$newarray)
 			->with('connect_request',$connect_request)
-			->with('connected',$connected);
+			->with('connected',$connected)
+			->with('default_albums',$default_albums);
 		 
 		
 
@@ -241,6 +243,83 @@ class PagesController extends \BaseController {
 			->with('connect_request',$connect_request)
 			->with('connected',$connected);
 
+	}
+
+
+
+		public function getalbumdefault_pictures($id)
+	{
+		
+		$allalbum = Picture::find($id);
+		$currentuser = $allalbum->user_id;
+		$userprofile = User::find($currentuser);
+		$followings = null;
+		if(Sentry::check()){
+		$followings = (Follower::where('user_id','=', $userprofile->id)->where('following_id', '=', Sentry::getUser()->id)->first()); 
+		
+		}
+		$followingcount = Follower::where('following_id','=',$userprofile->id)->count();
+		$followedbycount = Follower::where('user_id','=',$userprofile->id)->count();
+		$album_images = Picture::where('album_id','=','0')->where('user_id','=',$currentuser)->get();
+
+		//foreach ($album_images as $key => $image) $album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+		foreach ($album_images as $key => $image) {
+
+			$album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+			
+
+			$album_images[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Picture')->orderBy('id','asc')->get();
+			
+			# code...
+			
+
+		}
+		$connect_request = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','1')
+							->first();
+							
+		$connected = Connect::where('user_id','=',Sentry::getUser()->id)
+							->where('connect_id','=',$id)
+							->where('status','=','2')
+							->first();
+
+		if(!isset($connect_request)){
+			$connect_request ='NULL';
+		}
+
+		if(!isset($connected)){
+			$connected ='NULL';
+		}
+		$connected_ornot= Connect::where('connect_id','=',$id)
+								 ->where('user_id','=',Sentry::getUser()->id)
+								 ->where('status','=','2')
+								 ->first();
+
+
+		//foreach ($album_images as $key => $commentz) $album_images[$key]->commented = Comment::where('commentable_id','=',$commentz->id)->where('commentable_type','=','Picture')->orderBy('id','desc')->get();
+				
+		
+		//$comments = Comment::where('commentable_id','=',$id)->orderBy('id', 'desc')->get();
+		//foreach ($album_images as $key => $pic_comment) $album_images[$key]->commented =Comment::where('commentable_id','=',$pic_comment->id)->orderBy('id', 'desc')->get();
+		
+		
+		
+		
+		return View::make('pages.testalbum')
+			->with('userprofile',$userprofile)
+			->with('followings',$followings)
+			->with('followingcount',$followingcount)
+			->with('followedbycount',$followedbycount)
+			->with('album_images',$album_images)
+			->with('connect_request',$connect_request)
+			->with('connected',$connected);
+
+	}
+
+	public function invitefriend(){
+
+	 return View::make('invite');
 	}
 	
 

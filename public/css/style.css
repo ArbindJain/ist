@@ -986,13 +986,14 @@ figure:hover figcaption {
 .notif-block{
   display: block;
   width: 100%;
-  padding: 0px 8px;
+  padding: 4px 12px;
   border-bottom: 1px solid #e5e5e5;
   text-decoration: none;
+  overflow: hidden;
 }
 .notif-icon{
   display: block;
-  padding-right: 8px;
+  margin-right: 8px;
   float: left;
   
 }
@@ -1001,14 +1002,22 @@ figure:hover figcaption {
   height: 50px;
 
 }
+.notif-text-wrapper {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+
 .notif-user {
+  clear: both;
+  float: left;
   display: block;
   padding-top: 8px;
-  float: left;
   padding-right: 8px;
    
 
 }
+
 .notif-user a {
   font-weight: bold;
   text-decoration: none;
@@ -1017,6 +1026,7 @@ figure:hover figcaption {
 .notif-story {
   display: block;
   padding-top: 8px;
+  float: left;
   
 
 }
@@ -1026,12 +1036,25 @@ figure:hover figcaption {
   text-decoration: none;
 }
 .notif-timestamp {
+  clear: both;
   display: block;
   padding-bottom: 9px;
 }
 .notif-timestamp i {
 }
 
+.notif-datathumb{
+  display: block;
+  float: left;
+
+}
+.notif-datathumb img {
+  width: 40px;
+  height: 40px;
+  padding-top: 10px;
+  margin-left: 16px;
+
+}
 .see-more-block{
   display: block;
   background-color: #f2f2f2;
@@ -1873,4 +1896,41 @@ footer a {
 .footer-plus-icon {
   font-size:28px;
   color:#fff;
+}
+
+/** notification data viewer **/
+
+
+.blockboxholder-picture {
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+overflow: hidden;
+background-size: contain;
+background-position: 50% 50%;
+background-repeat: no-repeat no-repeat;
+}
+.blockbocholder-video{
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+overflow: hidden;
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
+}
+.blockboxholder-audio {
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+overflow: hidden;
+background-repeat: no-repeat;
+background-position: center;
+background-size: contain;
 }

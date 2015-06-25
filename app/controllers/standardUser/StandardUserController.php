@@ -18,9 +18,14 @@ class StandardUserController extends \BaseController {
 
 	public function getUserProtected()
 	{
+		
 		$current_user = Sentry::getUser()->id;
 		$active_user = User::find($current_user);
 		$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+		//default album accum...
+		$default_album_picture = Picture::where('user_id','=',Sentry::getUser()->id)->where('album_id','=','0')->first();
+
+
 		$articles = Blog::where('user_id','=',$current_user)->get();
 		foreach ($articles as $key => $blogdata) {
 
@@ -159,7 +164,8 @@ class StandardUserController extends \BaseController {
 					->with('rewards',$rewards)
 					->with('user_audios',$user_audios)
 					->with('events',$events)
-					->with('newarray',$newarray);
+					->with('newarray',$newarray)
+					->with('default_album_picture',$default_album_picture);
 	}	
 	public function getUserProtecte($id)
 	{
@@ -215,5 +221,58 @@ class StandardUserController extends \BaseController {
 					->with('album_images',$album_images);
 	}	
 
+	public function getUserProtect($id)
+		{
+			$allalbum = Album::find($id);
+			$current_user = Sentry::getUser()->id;
+			$active_user = User::find($current_user);
+			$albums = ['0' => 'default'] + Album::where('user_id','=',Sentry::getUser()->id)->lists('albumname','id');
+			$articles = Blog::where('user_id','=',$current_user)->get();
+			$scouts = Scout::where('user_id','=',$current_user)->get();
+			$scoutadds =  Scoutadd::where('user_id','=',$current_user)->where('applied','=','1')->get();
+			
+			foreach ($scoutadds as $key => $make) 
+			{
+				
+				$scoutadds[$key]->scouted = Scout::where('id','=',$make->scout_id)->get();
+				
+			}
+			
+			
+			$aud_review = Audiencereview::where('user_id','=',$current_user)->get();
+			$performances = Performance::where('user_id','=',$current_user)->get();
+			$abouts = Profile::where('user_id','=',$current_user)->first();
+
+			$album_images = Picture::where('album_id','=',$id)->where('user_id','=',Sentry::getUser()->id)->get();
+
+			//foreach ($album_images as $key => $image) $album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+			foreach ($album_images as $key => $image) {
+
+				$album_images[$key]->liked = Like::where('user_id', '=', Sentry::getUser()->id)->where('likeable_id', '=', $image->id)->where('likeable_type','=','Picture')->first();
+				
+
+				$album_images[$key]->commented = Comment::where('commentable_id','=',$image->id)->where('commentable_type','=','Picture')->orderBy('id','asc')->get();
+				
+				# code...
+				
+
+			}
+
+			
+			
+
+
+			
+			return View::make('protected.standardUser.user_page_3')
+						->with('active_user',$active_user)
+						->with('albums',$albums)
+						->with('articles',$articles)
+						->with('scouts',$scouts)
+						->with('scoutadds',$scoutadds)
+						->with('aud_review',$aud_review)
+						->with('performances',$performances)
+						->with('abouts',$abouts)
+						->with('album_images',$album_images);
+		}	
 
 }

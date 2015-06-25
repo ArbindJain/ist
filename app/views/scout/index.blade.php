@@ -133,8 +133,9 @@
 
                                 <span class="posted-type pull-right"> {{$usergroup}} Event</span> 
                               </div>
+                              <a href="{{url()}}/scoutpublished/{{$scout->id}}">
                               <img src="{{url()}}/{{$scout->scoutposter}}" class="img-responsive">
-                              
+                              </a>
                               <div class="content-title">
                                     <div class="">
                                     <h3><a href="{{url()}}/scoutpublished/{{$scout->id}}">{{ substr($scout->scouttitle, 0, 35) }}</a></h3>

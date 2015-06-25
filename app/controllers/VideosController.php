@@ -39,11 +39,11 @@ class VideosController extends \BaseController {
             $sha1 = sha1($vidfile->getClientOriginalName());
             $filename=date('Y-m-d-h-i-s').".".$sha1;
 		$file_in  = Input::file('videosrc')->getRealPath();
-		$file_out_webm = 'public/galleryvideo/webm/'.$filename.'.webm'; 
+		$file_out_webm = public_path().'/galleryvideo/webm/'.$filename.'.webm'; 
 
-		$file_out_mp4 = 'public/galleryvideo/mp4/'.$filename.'.mp4';
+		$file_out_mp4 = public_path().'/galleryvideo/mp4/'.$filename.'.mp4';
 
-		$file_out_flv = 'public/galleryvideo/flv/'.$filename.'.flv'; 
+		$file_out_flv = public_path().'/galleryvideo/flv/'.$filename.'.flv'; 
 
 		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_webm)->go();
 		Sonus::convert()->input($file_in)->bitrate(750, 'video')->output($file_out_mp4)->go();
@@ -54,6 +54,7 @@ class VideosController extends \BaseController {
             
 
         	$vidsnaps = new Video();
+        	
 			$vidsnaps->videosrc = $filename;
 			$vidsnaps->videotitle = Input::get('videotitle');
 			$vidsnaps->videodescription = Input::get('videodescription');
@@ -70,6 +71,28 @@ class VideosController extends \BaseController {
             ->where('tag_id', $tag->id)
             ->update(array('user_id' => Sentry::getUser()->id));
             }
+
+            // last inserted id
+            //$lastInsertedId = $vidsnaps->id;
+            $videofeed = Video::find($lastinsertedid);
+            $insert_feed = new Feed();
+            $insert_feed->user_id = Sentry::getUser()->id;
+            $insert_feed->grouptype ='NULL';
+            $insert_feed->story ='added a Video';
+            $videofeed->feedable()->save($insert_feed);
+
+            // last inserted id
+            //$lastInsertedNewsId = $vidsnaps->id;
+            $videoNewsfeed = Video::find($lastinsertedid);
+            $insert_newsfeed = new Newsfeed();
+            $insert_newsfeed->user_id = Sentry::getUser()->id;
+            $videoNewsfeed->newsfeedable()->save($insert_newsfeed);
+
+            //last inserted feed id
+            $lastInsertedFeedId = $insert_feed->id;
+            $feedread = new Readfeed();
+            $feedread->feed_id = $lastInsertedFeedId;
+            $feedread->save();
             // redirect To astral...
             //return Redirect::to('videogallery')
             //->withFlashMessage('video successfully uploaded!');

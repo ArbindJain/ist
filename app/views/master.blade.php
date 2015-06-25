@@ -37,6 +37,8 @@
  
  
 <!-- 3. flowplayer -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
 <script src="//releases.flowplayer.org/5.5.2/flowplayer.min.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -46,7 +48,17 @@
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 	  <style type="text/css">
-
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+text-decoration: none;
+color: #f18c1c;
+background-color: #ffffff;
+}
+.btn-link {
+	color: #515151;
+}
+.btn-link:hover {
+	color: #f18c1c;
+}
     </style>  
 
 	</head>
@@ -113,8 +125,208 @@
                 
 							{{Form::close()}}
 						</li>
-						<li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						<style>
+.mi.drdwn.open a#notif {
+  background-color: #eee;
+  color: #444;
+}
+.mi.drdwn.open a#notif:hover {
+  background-color: #ddd;
+  color: #444;
+}
+.mi.drdwn .dplink-r {
+  background-color: #eee;
+  margin-top: -5px;
+  padding: 4px 0;
+  border-bottom: #ddd solid 1px;
+}
+.mi.drdwn .dplink-b {
+  border-top: #ddd solid 1px;
+  margin-bottom: -5px;
+  padding: 4px 0;
+}
+.mi.drdwn .dplink-r .sizer-lg-md,
+.mi.drdwn .dplink-r .sizer-sm,
+.mi.drdwn .dplink-r .sizer-xs {
+  float: none;
+  background-color: transparent;
+  height: 1px;
+}
+.mi.drdwn .dplink-r .sizer-lg-md {
+  width: 360px;
+}
+.mi.drdwn .dplink-r .sizer-sm {
+  width: 300px;
+}
+.mi.drdwn .dplink-r a,
+.mi.drdwn .dplink-b a {
+  clear: none;
+  float: right;
+  display: block;
+  padding: 2px 2px;
+  margin-right: 8px;
+  cursor: pointer;
+  color: #666;
+  font-size: 12px;
+}
+.mi.drdwn .dplink-r a:hover,
+.mi.drdwn .dplink-b a:hover {
+  background-color: transparent !important;
+  text-decoration: underline;
+  color: #222;
+}
+.mi.drdwn.open a {
+  white-space: normal;
+}
+.mi.drdwn.open a:hover {
+}
+.mi.drdwn.open a i.nf-ico,
+.notification-full-page-wrapper a .nf-ico {
+  display: block;
+  float: left;
+  margin: -6px 0 0 0;
+  padding: 0;
+  color: #aaa;
+  font-size: 22px;
+}
+.mi.drdwn.open a .nf-text,
+.notification-full-page-wrapper a .nf-text {
+  display: block;
+  float: none;
+  margin-left: 40px;
+  margin-right: 72px;
+}
+.mi.drdwn.open a .nf-time,
+.notification-full-page-wrapper a .nf-time {
+  float: right;
+  display: block;
+  margin-right: 12px;
+  color: #aaa;
+  width: 70px;
+  text-align: right;
+  font-size: 12px;
+}
+.mi.drdwn #notification-panel-wrapper {
+  display: block;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+.mi.drdwn #notification-panel-wrapper #notification-panel {
+  display: block;
+}
+.mi.drdwn a.nf-slug,
+.notification-full-page-wrapper a.nf-slug {
+  border-bottom: #ddd solid 1px;
+  background-color: #f6f6f6;
+  color: #444;
+}
+.mi.drdwn a.nf-slug:hover,
+.notification-full-page-wrapper a.nf-slug:hover {
+  background-color: #eee;
+  color: #444;
+}
+.mi.drdwn .unread a.nf-slug,
+.notification-full-page-wrapper .unread a.nf-slug {
+  border-bottom: #E9DC8A solid 1px;
+  background-color: #FFFCDF;
+  color: #222;
+}
+.mi.drdwn .unread a.nf-slug:hover,
+.notification-full-page-wrapper .unread a.nf-slug:hover {
+  background-color: #FFF6AC;
+  color: #222;
+}
+ul.notification-full-page-wrapper {
+  list-style: none;
+  padding: 0;
+}
+ul.notification-full-page-wrapper a {
+  display: block;
+  padding: 9px 12px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: normal;
+}
+ul.notification-full-page-wrapper li > a {
+  min-height: 60px;
+}
+/*
+.mi.drdwn #notification-panel li:last-child a.nf-slug {
+  border-bottom: none;
+} */
+.mi.drdwn .nf-placeholder {
+  color: #888;
+  padding: 20px 12px;
+  text-align: center;
+}
+.badge.nf-badge {
+  display: block;
+  float: right;
+  padding: 2px 3px;
+  margin: 1px 4px;
+  background-color: #e00;
+  border: #c00 solid 1px;
+  border-radius: 2px;
+  font-weight: bold;
+  line-height: 1;
+  font-size: 12px;
+}
+.badge.nf-badge.hidden {
+  display: none;
+}
+.mi.drdwn a#notif:hover .nf-badge {
+  background-color: #fff;
+  color: #c00;
+}
+.mi.drdwn.open a#notif:hover .nf-badge {
+  background-color: #e00;
+  color: #fff;
+}
+.mi.drdwn #notification-panel-wrapper .load-more {
+  	text-align: center;
+}
+.mi.drdwn #notification-panel-wrapper .load-more > a {
+	display: block;
+	padding: 4px 15px;
+	cursor: pointer;
+  background-color: #f6f6f6;
+  color: #444;
+}
+.mi.drdwn #notification-panel-wrapper .load-more > a:hover {
+  background-color: #eee;
+  color: #444;
+}
+@media only screen and (max-width : 768px) {
+  .mi.drdwn .dropdown-menu {
+    width: 260px;
+    margin-right: -70px;
+  }
+  .mi.drdwn #notification-panel-wrapper {
+    max-height: none;
+  }
+}
+
+.cl-b {
+	position: relative;
+	float: none;
+	clear: both;
+}
+						</style>
+						<li class="dropdown mi drdwn">
+							<a id="notif" class="dropdown-toggle nf-badge-container" data-toggle="dropdown"><i class="icon-globe-inv"></i><span class="hidden-xs">&nbsp;Notifications&nbsp;</span><span class="badge nf-badge<?php //echo (sta_::$notif_unread_count? '':' hidden'); ?>"><?php //echo (sta_::$notif_unread_count? sta_::$notif_unread_count:0); ?></span></a>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="notif" style="margin-top: 0;">
+								<li class="dplink-r"><a href="<?php //echo base_url('portal/notifications'); ?>">see all</a><a id="mark-all-as-read">mark all as read</a><div class="cl-b"><div class="sizer-lg-md visible-lg visible-md"></div><div class="sizer-sm visible-sm"></div></div></li>
+								<span id="notification-panel-wrapper" class="scrollable-notif">
+									<span id="notification-panel" class="notification-panel-43675753">
+										<li class="nf-placeholder">Loading...</li>
+									</span>
+									<div id="notification-load-more-button" class="load-more hidden-xs" style="display: none;"><a>loading more</a></div>
+								</span>
+								<li class="dplink-b"><a href="<?php //echo base_url('portal/notifications'); ?>" style="float:none; text-align: center;">see all</a><div class="cl-b"></div></li>
+							</ul>
+						</li>
+						<!--<li class="dropdown">
+				          <a href="#" class="dropdown-toggle" id="open-notif" data-toggle="dropdown" role="button" aria-expanded="false">
 				          	
 							  <i class="fa fa-globe" style="font-size: 12pt;"></i>
 							
@@ -130,13 +342,13 @@
 				            	<a href="{{url()}}/newsfeeds">See All</a>
 				            </div>
 				          </ul>
-				        </li>
+				        </li>-->
 				        <li class="dropdown">
 				          <a href="#" id ="menubar-avatar" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	 						{{ HTML::image(Sentry::getUser()->profileimage , 'profile picture', array('class' => 'img-circle avatar')) }}	</a>
 				          <ul class="dropdown-menu" role="menu">
 				            <li><a href="{{url()}}/userProtected">Your Profile</a></li>
-				            <li><a href="#">Invite a Friend</a></li>
+				            <li><a href="{{url()}}/invite_friend">Invite a Friend</a></li>
 				            <li><a href="{{url()}}/profiles/{{Sentry::getUser()->id}}/edit">Account Settings</a></li>
 				            @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
                     <li><a href="{{url()}}/connect">Connect</a></li>
@@ -152,7 +364,7 @@
 			      	 	<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
-				            <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.dance')) }}">Dance</a></li>
+				            <li><a  href="{{ URL::to('categories_mirror_type', array('cate' => 'users.dance')) }}">Dance</a></li>
                     <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.art')) }}">Art</a></li>
                     <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.music')) }}">Music</a></li>
                     <li><a href="{{ URL::to('categories_mirror_type', array('cate' => 'users.sports')) }}">Sports</a></li>
@@ -191,8 +403,43 @@
 		  	</div><!-- /.container-fluid -->
 			</nav>
 		</header>
+	
 		<div class="container">
-		  
+		  <!-- Modal -->
+<div class="lightbox-8675896-overlay-mirror " style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: rgb(0, 0, 0); opacity: 0.6; z-index: 9990; display: none;"></div>
+<div class="lightbox-8675896-mirror " style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background-image: none; z-index: 99999; pointer-events: none; display: none; background-position: initial initial; background-repeat: initial initial;">
+	<div class="vert-align-mirror" style="position: absolute;top: 0;left: 0;right: 0;height: 50%;">
+		<div class="real-lightbox-mirror" style="	position: relative;	float: none;	top: 100%;	margin-top: -290px;	margin-right: auto;	margin-left: auto;	width: 980px;	height: 580px;	background-color: #fff;	font-family: sans-serif;	pointer-events: auto;	">
+			<div class="image-area-mirror" style="position: absolute;top: 0;left: 0;bottom: 0;width: 680px;background-color: #000;overflow: hidden;">
+				
+				<div class="image-area-image-mirror" id="imagetragetnotif" style="">
+					<div class="flowplayer" id="videoplayer" style="display:none;">
+                  <video>
+                    <source type="video/webm" class="webmvideo" src="">
+                    <source type="video/mp4"  class="mp4video" src="">
+                    <source type="video/flash" class="flvvideo" src="">
+
+                  </video>
+                </div>
+                <div id="player" style="display:none; background-color:#000; " class="flowplayer fixed-controls play-button is-splash is-audio" data-engine="audio" data-embed="false">
+              <video preload="none">
+                <source type="video/ogg" src="{{url()}}/galleryaudio/ogg/.ogg">
+              </video>
+              </div>
+				</div>
+			</div>	
+			<div class="content-area-mirror" style="position: absolute;top: 0;right: 0;bottom: 0;width: 300px;">
+				<div class="close-button-mirror" style="position: absolute;top: 0;right: 0;width: 26px;height: 26px;line-height: 26px;cursor: pointer;text-align: center;margin-left: auto;">
+					x
+				</div>
+				<div class="inserted-mirror" style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin-top: 30px; border-top-color: rgb(246, 246, 246); border-top-style: solid; border-top-width: 1px; overflow-y: auto; overflow-x: hidden; margin-bottom: 123px;">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+
 		@yield('content')
  
 		</div>
@@ -257,7 +504,7 @@
 
             <!-- Categories -->
             <div class="col-sm-4">
-              <div class="heading-footer"><h4 style="width: 80%;">Categories</h4></div>
+              <div class="heading-footer"><h4 style="width: 20%;">Categories</h4></div>
               <ul class="list-unstyled col-md-6">
                 <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Dance</a></li>
                     <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Art</a></li>
@@ -356,7 +603,91 @@ $(document).ready(function(){
 
 </style>
 
-	   
+	<script type="text/javascript">
+   	$(document).ready( function(){
+   		$('.close-button-mirror').click( function(){
+
+   			$('.lightbox-8675896-overlay-mirror').hide();
+   			$('.lightbox-8675896-mirror').hide();
+
+   		});
+
+   	});
+    $(document).on('click', '.notiftarget', function(){
+  		var id = $(this).data("id");
+       	var model = $(this).data("model");
+       	var token = '{{csrf_token()}}';
+
+       	console.log(model);
+       	
+
+       	$.ajax({
+          url: '{{url()}}/feedview',
+          type: 'get',
+          cache: false,
+          data: {id: id, model: model, _token: token},
+          dataType: 'json',
+          beforeSend: function() { 
+          },
+          success: function(data) {  
+          	//alert(data);
+          	console.log(data);
+          //	$('.notif-modal-wrapper').html(data);
+          $('.lightbox-8675896-overlay-mirror').show();
+   			$('.lightbox-8675896-mirror').show();
+          var url = '{{url()}}';
+          console.log(data);
+          if(model == 'Picture')
+          {
+
+          	
+          	$('#imagetragetnotif').removeClass('blockboxholder-video');
+          	$('#imagetragetnotif').removeClass('blockboxholder-audio');
+          	$('#imagetragetnotif').addClass('blockboxholder-picture');
+          	$('.flowplayer').hide();
+          	$('#imagetragetnotif').css('background-image', 'url("' + url +'/'+ data+'-original.")');
+
+          }
+          else if(model == 'Video')
+          	{
+
+          	$('#imagetragetnotif').css('background-image', 'none');
+          	$('#imagetragetnotif').removeClass('blockboxholder-picture');
+          	$('#imagetragetnotif').removeClass('blockboxholder-audio');
+          	$('#imagetragetnotif').addClass('blockboxholder-video');
+          	$('#imagetragetnotif').css('background-image', 'none');
+          	$('.flowplayer').show();
+          	$('#player').hide();
+          	$('.flowplayer').flowplayer();
+          	$('.webmvideo').attr('src',''+url+'/galleryvideo/webm/'+data+'.webm');
+          	$('.mp4video').attr('src',''+url+'/galleryvideo/mp4/'+data+'.mp4');
+          	$('.flvvideo').attr('src',''+url+'/galleryvideo/flv/'+data+'.flv');
+
+          	//$('#imagetragetnotif').html('');
+          	//$('#imagetragetnotif').html('<div class="flowplayer"><video><source type="video/webm" src ="'+url+'/galleryvideo/webm/'+data+'.webm"><source type="video/mp4" src ="'+url+'/galleryvideo/mp4/'+data+'.mp4"><source type="video/flv" src ="'+url+'/galleryvideo/flv/'+data+'.flv"></video></div>');
+
+          }
+          else if(model == 'Audio') {
+
+          }
+          else {
+
+          }
+         	
+
+           
+
+          
+
+            
+          },
+          error: function(xhr, textStatus, thrownError) {
+              alert('ops Errore');
+          }
+       });
+	});
+ 
+</script>   
        
        <script type="text/javascript">
    
@@ -619,15 +950,39 @@ $(document).ready(function(){
         },
       });
     });
-
+	
+	$('#open-notif').on('click', function (e) {
+		window.NotificationUpdater.fn.mark_all_as_read();
+	});
   
 
-   
+   $('body').on('click', '.dropdown-menu .dplink-r, \
+			.dropdown-menu .dplink-b, .dropdown-menu .slimScrollBar, \
+			.dropdown-menu .slimScrollRail, .dropdown-menu .nf-placeholder, \
+			.dropdown-menu .load-more', function(e) {
+			e.stopPropagation();
+		});
 
+
+   setup_scrollbar(".scrollable-notif","#AAA","#CCC");
 
   });
   
 
+	function setup_scrollbar(elemSelector, barColor, barRailColor)
+	{
+		$(elemSelector).slimScroll({
+	    	width: "100%",
+	        height: "100%",
+	        alwaysVisible: true,
+	        railVisible: true,
+	        size: "12px",
+	        opacity: .8,
+	        railOpacity: .4,
+	        color: barColor,
+	        railColor: barRailColor
+	    });
+	}
  
 </script>
 		
@@ -638,6 +993,8 @@ $(document).ready(function(){
 	    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/src/js/bootstrap-datetimepicker.js"></script>
+	    {{HTML::script('/js/jquery.slimscroll.mod.min.js')}}
+	    {{HTML::script('/js/notification-updater-2.js')}}
   {{ HTML::script('/js/audio.js') }}
   {{HTML::script('/js/typeahead.jquery.js')}}
   @include('usersearch.temp')
@@ -659,8 +1016,11 @@ $(document).ready(function(){
         <script type="text/javascript">
        
         NotificationUpdater.settings.target_class_name = "notification";
-        NotificationUpdater.settings.url = "{{url('userfeeds')}}";
-        NotificationUpdater.settings.csrf_token = '{{ csrf_token() }}';
+        //NotificationUpdater.settings.url = "{{url('userfeeds')}}";
+        //NotificationUpdater.settings.csrf_token = '{{ csrf_token() }}';
+
+        NotificationUpdater2.settings.url = "{{url('userfeeds2')}}";
+        NotificationUpdater2.settings.csrf_token = '{{ csrf_token() }}';
         
         /* 
         $.ajax({url: '/userfeeds', dataType: 'json', method: 'POST', data: {_token: '{{ csrf_token() }}', test: 'hello', },

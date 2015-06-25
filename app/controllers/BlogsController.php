@@ -47,9 +47,11 @@ class BlogsController extends \BaseController {
 		$blogposter = Input::file('blogposter');
 		$sha1 = sha1($blogposter->getClientOriginalName());
 		$filenameblog = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
+
+		$path = public_path('scoutagreement/'. $filenameblog);
 		Image::make($blogposter->getRealPath())
 				->resize(400,400)
-				->save('public/blogpostergallery/'. $filenameblog);
+				->save($path);
 		$sample = e(Input::get('bodydesc'));
 		$sample_text = strip_tags($sample);
 		$blogs = new Blog();
@@ -73,7 +75,7 @@ class BlogsController extends \BaseController {
         $lastInsertedId = $blogs->id;
        	$addtag = Blog::find($lastInsertedId);
        	$addtag->tag($tagdata);
-       	$pix = Picture::find($lastInsertedId);
+       	$pix = Blog::find($lastInsertedId);
             $tags = $pix->tags;
             foreach ($tags as $tag) {
             		DB::table('tagged')

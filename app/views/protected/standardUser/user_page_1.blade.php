@@ -35,7 +35,6 @@
               });
             });
             </script>
-
 <div class="row">
   <div class="col-md-9 profile-main-block col-md-offset-3">
     {{ HTML::image($active_user->profileimage , 'profile picture', array('class' => 'img-circle pull-left','id' => 'size')) }}
@@ -57,7 +56,7 @@
     <div class="sub-nav-block">
     <ul class="nav nav-pills centertab">
     @if(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Stars')))
-      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">My Account</a></li>
       <li role="navigation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Photos</a></li>
       <li role="navigation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a></li>
       <li role="navigation"><a href="#audio" aria-controls="audio" role="tab" data-toggle="tab">Audio</a></li>
@@ -66,13 +65,13 @@
       <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
     @elseif(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Audiences')))
 
-      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">My Account</a></li>
       <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
       <li role="navigation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
       <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
     @else(Sentry::findUserByID(Sentry::getUser()->id)->inGroup(Sentry::findGroupByName('Promoters')))
 
-      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">MyEvent(wall)</a></li>
+      <li role="navigation" class="active"><a href="#yourfeedwall" aria-controls="wall" role="tab" data-toggle="tab">My Account</a></li>
       <li role="navigation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recent Activity</a></li>
       <li role="navigation"><a href="#blog" aria-controls="blog" role="tab" data-toggle="tab">Blog</a></li>
       <li role="navigation"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
@@ -110,7 +109,7 @@
             <div role="tabpanel" class="tab-pane fade in active" id="performance">
                 <div class="col-md-8 perf">
                 <div class="row">
-                    <a href="#" style="text-decoration:none;" class="button btn bnt-md btn-link text-capitalize" data-target = "performance-form">Performing</a>
+                    <a href="#" style="text-decoration:none;" class="button btn btn-md btn-link text-capitalize" data-target = "performance-form">Update Performance</a>
                     <div class="clearfix"></div>
                     <div class="performance-form">
                     
@@ -151,7 +150,7 @@
 
                                 <!-- Submit field -->
                                 <div class="form-group">
-                                {{ Form::submit('performing soon!!', ['class' => 'btn btn-md btn-default videobutton']) }}
+                                {{ Form::submit('Update Performance', ['class' => 'btn btn-md btn-default videobutton']) }}
                                 </div>
 
                             </fieldset>
@@ -182,6 +181,8 @@
 
             <div role="tabpanel" class="tab-pane fade " id="tutorial">
             No tutorial uploaded yet
+
+            
             <!-- temp demo -->
 
             </div>
@@ -449,9 +450,10 @@
 
       <div class="clearfix"></div>
        <!-- retrive's album and first photo of album -->
+
       @foreach($all_albums as $allalbum)
-            <div class="col-md-4">
               @if(isset($allalbum->picture))
+            <div class="col-md-4" style="padding-bottom: 10px;">
 
              <a href="{{url()}}/userProtecte/{{$allalbum->id}}#photos">
               <figure>
@@ -459,12 +461,25 @@
                 <figcaption>{{$allalbum->picture->picturetitle}}</figcaption>
               </figure>
 
-               </a>  
-              @endif     
+               </a>     
             </div>
+
+              @endif 
              
 
           @endforeach
+          <div class="col-md-4" style="padding-bottom: 10px;">
+              @if(isset($default_album_picture))
+
+             <a href="{{url()}}/userProtecte/0#photos">
+              <figure>
+                <img src="{{url()}}/{{$default_album_picture->picturename}}-." class="" style="height: 200px;">
+                <figcaption>Default Album</figcaption>
+              </figure>
+
+               </a>  
+              @endif     
+            </div>
       <!-- end of retrival's  -->
       </div>
 
@@ -974,6 +989,7 @@
               <div class="feeduser_avatar">
                 <a href="#">
                   {{ HTML::image($new->userpicture , 'profile picture', array('class' => 'img-circle pull-left','id' => 'feediconsize')) }}
+                
                 </a>
               </div>
             <div class="feeduser_name">
@@ -989,7 +1005,7 @@
           </div><!-- feed box -->
           <div class="gallery-image-overlay"></div>
           @if($new->model == 'Picture')
-          <img src="{{url()}}/{{$new->postedimage}}-resiged.jpg" class="showcase-image img pull-left" id="postedimage">
+          <img src="{{url()}}/{{$new->postedimage}}-." class="showcase-image img pull-left" id="postedimage">
           <div class="post-title">
             <span class="pull-left text-capitalize" style="padding-bottom: 0px;"><b>{{$new->postedtitle}}</b><p style="margin-bottom: 0px; font-size: 10px;">comments</p></span>
           </div>
@@ -1532,7 +1548,7 @@ $(document).ready(function() {
 </script>
 
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
   Dropzone.autoDiscover = true;
 Dropzone.options.mydropzone = {
   previewsContainer: ".dropzone-previews",
@@ -1565,6 +1581,39 @@ Dropzone.options.mydropzone = {
     },
     
 
+};
+</script>-->
+<script type="text/javascript">
+  Dropzone.autoDiscover = true;
+Dropzone.options.mydropzone = {
+  previewsContainer: ".dropzone-previews",
+    addRemoveLinks: true,
+    paramName: "file",
+    maxFilesize: 5,
+    maxFiles: 5,
+    autoProcessQueue: false,
+      init: function () {
+     /* this.on("addedfile", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    });*/
+        var myDropzone = this;
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+    this.on("success", function(file, responseText) {
+            console.log(responseText);
+            window.location.hash = 'photo';
+            window.location.reload();
+        });
+     
+    },
+    
 };
 </script>
 <script type="text/javascript">

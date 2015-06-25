@@ -57,7 +57,7 @@
 							</div>-->
 							<div class="form-group col-md-12">
                               {{ Form::label('blogtag', 'Tags',['class' => 'text-capitalize text-muted']) }}
-								<input type="text" name="blogtag" value="tag,sametag" data-role="tagsinput"> 
+								<input type="text" name="blogtag" value="" data-role="tagsinput"> 
   								{{ errors_for('blogtag', $errors) }}
 							</div>
 							 
@@ -101,7 +101,7 @@
 
 							<!-- Submit field -->
 							<div class="form-group col-md-12">
-								{{ Form::submit('PUBLISH', ['class' => 'btn btn-md btn-default btn-block']) }}
+								{{ Form::submit('PUBLISH', ['class' => 'btn btn-md btn-default centered']) }}
 							</div>
 
 

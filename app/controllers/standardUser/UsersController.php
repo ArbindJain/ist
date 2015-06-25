@@ -82,9 +82,10 @@ class UsersController extends \BaseController {
 			if($image = Input::file('profileimage'))
 				{
 					$filename = date('Y-m-d-H:i:s')."-".rand(1,100);
+					$path = public_path('profileimages/'. $filename);
 					Image::make($image->getRealPath())
 								->resize(300,300)
-								->save('public/profileimages/'. $filename);
+								->save($path);
 					$product = 'profileimages/'. $filename;
 				}
 				else
