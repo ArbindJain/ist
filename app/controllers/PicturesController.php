@@ -61,7 +61,7 @@ $nameWithOutExt = str_replace('.' . $ext, '', $encriptedtext);
 
 $original = $nameWithOutExt . array_shift($types);
 $file->move($targetPath, $original); // Move the original one first
-
+	
 foreach ($types as $key => $type) {
     // Copy and move (thumb, resized)
     $newName = $nameWithOutExt . $type;

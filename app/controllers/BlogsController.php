@@ -48,7 +48,7 @@ class BlogsController extends \BaseController {
 		$sha1 = sha1($blogposter->getClientOriginalName());
 		$filenameblog = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
 
-		$path = public_path('scoutagreement/'. $filenameblog);
+		$path = public_path('blogpostergallery/'. $filenameblog);
 		Image::make($blogposter->getRealPath())
 				->resize(400,400)
 				->save($path);

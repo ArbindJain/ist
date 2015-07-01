@@ -642,7 +642,7 @@
 							<div class="col-md-12 form-group">
 								<div class="has-feedback">
 									<input id="checkbox-30" class="checkbox-custom" name="terms" type="checkbox" value="1" >
-            						<label for="checkbox-30" class="checkbox-custom-label"><strong>I agree to the Itsshowtime.co.in <a target="_blank" id="TosLink" href="#">Terms of Service</a> and <a target="_blank" id="PrivacyLink" href="#">Privacy Policy</a></strong></label>
+            						<label for="checkbox-30" class="checkbox-custom-label"><strong>I agree to the Itsshowtime.co.in <a target="_blank" id="TosLink" href="{{url()}}/termsandcondition">Terms of Service</a> and <a target="_blank" id="PrivacyLink" href="{{url()}}/istpp">Privacy Policy</a></strong></label>
 								</div>
 							</div>
 							<!-- Submit field -->

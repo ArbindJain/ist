@@ -47,6 +47,9 @@
   padding-top:10.25%;
   width:5%;
 }
+.card-description p {
+  font-size: 14px;
+}
 </style>
 <div class="row" style="margin-top:30px;">
 	
@@ -59,7 +62,7 @@
 				<img src="{{url()}}/hompageimage/first.png" width="250px" height="250px">
 			</div>	
 			<div class="card-description">
-				<p class = "text-center">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+				<p class = "text-center">You’re more than just a designation; let your passion define you.</p>
 			</div>		
 		</div>
 	</div>
@@ -72,7 +75,7 @@
 				<img src="{{url()}}/hompageimage/second.png" width="250px" height="250px">
 			</div>	
 			<div class="card-description">
-				<p class = "text-center">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+				<p class = "text-center">Celebrate your true self, your identity; your talent!</p>
 			</div>
 		</div>
 	</div>
@@ -85,7 +88,7 @@
 				<img src="{{url()}}/hompageimage/third.png" width="250px" height="250px">
 			</div>	
 			<div class="card-description">
-				<p class = "text-center">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+				<p class = "text-center">Get a break, showcase your skills and build a fan base.</p>
 			</div>
 		</div>
 	</div>
@@ -98,7 +101,7 @@
 				<img src="{{url()}}/hompageimage/fourth.png" width="250px" height="250px">
 			</div>	
 			<div class="card-description">
-				<p class = "text-center">simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text </p>
+				<p class = "text-center">Perform at established venues and get noticed in the market. </p>
 			</div>
 		</div>
 	</div>

@@ -321,6 +321,35 @@ class PagesController extends \BaseController {
 
 	 return View::make('invite');
 	}
+
+	public function copyrightpolicy(){
+		return View::make('copyright');
+	}
+
+	public function termsandcondition(){
+		return View::make('termsandcondition');
+	}
+
+	public function onlineharrasment(){
+		return View::make('onlineharrasment');
+	}
+	public function pos(){
+		return View::make('pos');
+	}
+	public function istpp(){
+		return View::make('istpp');
+	}
+	public function aboutus(){
+		return View::make('aboutus');
+	}
+	public function promoterlist(){
+
+		
+		$users = User::all();
+
+		return View::make('promoterlist')
+						->with('users',$users);
+	}
 	
 
 }

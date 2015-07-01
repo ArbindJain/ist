@@ -88,7 +88,7 @@
                         <aside>
                              <a href="{{url()}}/blog/{{$blog->id}}"> <img src="{{url()}}/blogpostergallery/{{$blog->blogposter}}" class="img-responsive"></a>
                               <span class="posted-date"><i class="fa fa-calendar"></i> {{$blog->created_at->toFormattedDateString()}}</span>
-                              <div class="content-title">
+                              <div class="content-title" style="min-height:200px!important;">
                                     <div class="text-left">
                                     <h3><a href="{{url()}}/blog/{{$blog->id}}">{{ $blog->title}}</a></h3>
                                     <h5>{{ substr(preg_replace('/(<.*?>)|(&.*?;)/', '', $blog->body), 0, 100) }}...</h5>

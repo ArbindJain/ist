@@ -87,6 +87,7 @@ class UsersController extends \BaseController {
 								->resize(300,300)
 								->save($path);
 					$product = 'profileimages/'. $filename;
+					
 				}
 				else
 				{

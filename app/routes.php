@@ -19,6 +19,13 @@ Route::group(['before' => 'redirectAdmin'], function()
 	Route::Post('diminish',['as'=>'diminish','uses'=> 'LikeController@gotohell']);
 	Route::resource('connec','ProconnectorController');
 	Route::resource('comments', 'CommentsController');
+	Route::get('copyrightpolicy', ['as' => 'copyrightpolicy', 'uses' => 'PagesController@copyrightpolicy']);
+	Route::get('termsandcondition', ['as' => 'termsandcondition', 'uses' => 'PagesController@termsandcondition']);
+	Route::get('onlineharrasment', ['as' => 'onlineharrasment', 'uses' => 'PagesController@onlineharrasment']);
+	Route::get('pos', ['as' => 'pos', 'uses' => 'PagesController@pos']);
+	Route::get('istpp', ['as' => 'istpp', 'uses' => 'PagesController@istpp']);
+	Route::get('aboutus', ['as' => 'aboutus', 'uses' => 'PagesController@aboutus']);
+	Route::get('promoterlist', ['as' => 'promoterlist', 'uses' => 'PagesController@promoterlist']);
 
 });
 

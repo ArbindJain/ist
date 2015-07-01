@@ -1934,3 +1934,10 @@ background-repeat: no-repeat;
 background-position: center;
 background-size: contain;
 }
+
+/** Fixes **/
+#content aside .content-title {
+background-color: #fff;
+padding: 20px 20px;
+min-height: 120px;
+}

@@ -452,40 +452,39 @@ ul.notification-full-page-wrapper li > a {
             <div class="col-sm-2">
               <div class="heading-footer"><h4>Talent Hub</h4></div>
               <ul class="list-unstyled">
-                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Contest</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Performances</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Events</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Tutorial</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Blog</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Trending</a></li>
+                <li><a href="{{  URL::to('') }}">Contest</a></li>
+                    <li><a href="{{ URL::to('userperformances')   }}">Performances</a></li>
+                    <li><a href="{{ URL::to('') }}">Events</a></li>
+                    <li><a href="{{ URL::to('')  }}">Tutorial</a></li>
+                    <li><a href="{{ URL::to('blog')  }}">Blog</a></li>
+                    <li><a href="{{ URL::to('')  }}">Trending</a></li>
               </ul>
             </div>
             <!-- Legal -->
             <div class="col-sm-2">
               <div class="heading-footer"><h4>Legal</h4></div>
               <ul class="list-unstyled">
-                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">Terms & Condition</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Promoter Agreement</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.music')) }}">Online harrasment</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.sports')) }}">Copyright policy</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.fashion')) }}">Blog</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.wanderer')) }}">Trending</a></li>
+                <li><a href="{{ URL::to('termsandcondition')}}">Terms & Condition</a></li>
+                    <li><a href="{{ URL::to('pos')}}">Promoter Agreement</a></li>
+                    <li><a href="{{ URL::to('onlineharrasment')}}">Online harrasment</a></li>
+                    <li><a href="{{ URL::to('copyrightpolicy') }}">Copyright policy</a></li>
+                    <li><a href="{{ URL::to('istpp')}}">Privacy Policy</a></li>
               </ul>
             </div>
             <!-- Help Centre-->
             <div class="col-sm-2">
               <div class="heading-footer"><h4>Help Centre</h4></div>
               <ul class="list-unstyled">
-                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">FAQ'S</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Contact us</a></li>
+                <li><a href="{{URL::to('') }}">FAQ'S</a></li>
+                    <li><a href="{{ URL::to('') }}">Contact us</a></li>
               </ul>
             </div>
             <!-- About us-->
             <div class="col-sm-2">
               <div class="heading-footer"><h4>About us</h4></div>
               <ul class="list-unstyled">
-                <li><a href="{{ URL::to('categories_type', array('cate' => 'users.dance')) }}">About Itsshowtime</a></li>
-                    <li><a href="{{ URL::to('categories_type', array('cate' => 'users.art')) }}">Promoters</a></li>
+                <li><a href="{{ URL::to('aboutus') }}">About Itsshowtime</a></li>
+                    <li><a href="{{URL::to('promoterlist') }}">Promoters</a></li>
               </ul>
               <!-- Social -->
               <br>

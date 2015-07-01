@@ -49,7 +49,7 @@ class ScoutController extends \BaseController {
 		$path = public_path('scoutagreement/'. $filename);
 		Image::make($agreementfile->getRealPath())
 				->resize(400,400)
-				->save('public/scoutagreement/'. $filename);
+				->save($path);
 		$scoutposter = Input::file('scoutposter');
 		$sha1 = sha1($scoutposter->getClientOriginalName());
 		$filenamescout = date('Y-m-d-H:i:s')."-".rand(1,100).".".$sha1.".";
